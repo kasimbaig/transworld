@@ -224,7 +224,15 @@ implements OnInit {
 
   confirmDelete(): void {
     if (this.itemToDelete) {
-      this.apiService.delete(`srar/mark-srar-equipment/${this.itemToDelete.id}/`).subscribe((res: any) => {
+      // Prepare delete payload with action_flag
+      const deletePayload = {
+        action_flag: "DELETE",
+        sfd_id: this.itemToDelete.id
+      };
+      
+      console.log('DELETE payload:', deletePayload);
+      
+      this.apiService.post(`srar/mark-srar-equipment/`, deletePayload).subscribe((res: any) => {
         this.toast.add({severity:'success', summary: 'Success', detail: 'Equipment Deleted Successfully'});
         console.log(res);
         // Refresh data for the currently selected ship
@@ -269,11 +277,19 @@ implements OnInit {
          equipment_type: this.sararMasterForm.value.equipment_type || null
        };
 
-    console.log('Sending payload:', payload);
+    // Add extra fields only for UPDATE operations
+    if (this.isEdit) {
+      payload.action_flag = "UPDATE";
+      payload.sfd_id = this.sararMasterForm.value.id; // Current record's ID being edited
+      console.log("sfd - id:", payload.sfd_id);
+      console.log('UPDATE payload with extra fields:', payload);
+    } else {
+      console.log('ADD payload:', payload);
+    }
 
     if(this.isEdit){
       // Update existing record
-      this.apiService.put(`srar/mark-srar-equipment/${this.sararMasterForm.value.id}/`, payload).subscribe((res: any) => {
+      this.apiService.post(`srar/mark-srar-equipment/`, payload).subscribe((res: any) => {
         this.toast.add({severity:'success', summary: 'Success', detail: 'Equipment Updated Successfully'});
         console.log(res);
         this.isEdit = false;
@@ -381,7 +397,7 @@ clearShipSelection(): void {
   console.log('Ship selection cleared');
 }
 
-                       onEquipmentChange(event: any): void {
+  onEquipmentChange(event: any): void {
   console.log('Equipment changed to:', event);
   if (event) {
     // Find the selected equipment object from the options array by equipment_name
