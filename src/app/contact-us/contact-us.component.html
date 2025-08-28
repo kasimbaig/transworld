@@ -1,0 +1,69 @@
+<app-shared-layout>
+  <div class="contact-content">
+    <div class="contacts-container">
+      <h2 class="contacts-title">CONTACTS</h2>
+      
+      <!-- Director Information -->
+      <div class="director-info">
+        <p>{{ directorInfo.director }}</p>
+        <p>{{ directorInfo.pax }}</p>
+        <p>{{ directorInfo.nud }}</p>
+      </div>
+
+      <!-- Contacts Table -->
+      <div class="contacts-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Ser</th>
+              <th>Section</th>
+              <th>System Controller</th>
+              <th>Master Chief-in-Charge</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let contact of contacts">
+              <td>{{ contact.ser }}</td>
+              <td>{{ contact.section }}</td>
+              <td>
+                <div class="contact-details">
+                  <div class="name">{{ contact.systemController.name }}</div>
+                  <div class="pax">{{ contact.systemController.pax }}</div>
+                  <div class="nuc">{{ contact.systemController.nuc }}</div>
+                </div>
+              </td>
+              <td>
+                <div class="contact-details">
+                  <div class="name">{{ contact.masterChief.name }}</div>
+                  <div class="pax">{{ contact.masterChief.pax }}</div>
+                  <div class="nud">{{ contact.masterChief.nud }}</div>
+                </div>
+              </td>
+            </tr>
+            <!-- Additional Documentation contacts -->
+            <tr>
+              <td></td>
+              <td></td>
+              <td>
+                <div class="contact-details">
+                  <div class="name">{{ additionalContacts[0].systemController.name }}</div>
+                  <div class="pax">{{ additionalContacts[0].systemController.pax }}</div>
+                  <div class="nuc">{{ additionalContacts[0].systemController.nuc }}</div>
+                </div>
+              </td>
+              <td>
+                <div class="contact-details">
+                  <div class="name">{{ additionalContacts[0].masterChief.name }}</div>
+                  <div class="pax">{{ additionalContacts[0].masterChief.pax }}</div>
+                  <div class="nud">{{ additionalContacts[0].masterChief.nud }}</div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+
+    </div>
+  </div>
+</app-shared-layout>

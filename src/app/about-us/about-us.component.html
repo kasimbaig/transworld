@@ -1,0 +1,136 @@
+<app-shared-layout>
+  <div class="about-content">
+    <div class="organization-chart">
+      <div class="chart-header">
+        <h2>{{ organizationData.title }}</h2>
+        <div class="chart-info">
+          <p>{{ organizationData.established }}</p>
+          <p>{{ organizationData.charter }}</p>
+        </div>
+      </div>
+
+      <div class="chart-container">
+        <!-- Top Level -->
+        <div class="chart-level top-level">
+          <div class="chart-box grey-box">
+            <mat-icon>account_balance</mat-icon>
+            {{ organizationData.topLevel }}
+          </div>
+        </div>
+
+        <!-- Curved Arrow Down -->
+        <div class="curved-arrow-down">
+          <svg width="40" height="60" viewBox="0 0 40 60">
+            <path d="M20 0 Q30 15 20 30 Q10 45 20 60" 
+                  stroke="#82a7d3" 
+                  stroke-width="2" 
+                  fill="none" 
+                  marker-end="url(#arrowhead)"/>
+            <defs>
+              <marker id="arrowhead" markerWidth="8" markerHeight="6" 
+                      refX="7" refY="3" orient="auto">
+                <polygon points="0 0, 8 3, 0 6" fill="#82a7d3"/>
+              </marker>
+            </defs>
+          </svg>
+        </div>
+
+        <!-- Director Level -->
+        <div class="chart-level director-level">
+          <div class="chart-box blue-box">
+            <mat-icon>person</mat-icon>
+            {{ organizationData.director }}
+          </div>
+        </div>
+
+        <!-- Curved T-Junction with Arrows -->
+        <div class="curved-connection-lines">
+          <!-- Left Branch -->
+          <div class="curved-branch left">
+            <svg width="80" height="30" viewBox="0 0 80 30">
+              <path d="M40 15 Q25 15 0 15" 
+                    stroke="#82a7d3" 
+                    stroke-width="2" 
+                    fill="none" 
+                    marker-end="url(#arrowhead-left)"/>
+              <defs>
+                <marker id="arrowhead-left" markerWidth="8" markerHeight="6" 
+                        refX="7" refY="3" orient="auto">
+                  <polygon points="0 0, 8 3, 0 6" fill="#82a7d3"/>
+                </marker>
+              </defs>
+            </svg>
+          </div>
+          
+          <!-- Right Branch -->
+          <div class="curved-branch right">
+            <svg width="80" height="30" viewBox="0 0 80 30">
+              <path d="M40 15 Q55 15 80 15" 
+                    stroke="#82a7d3" 
+                    stroke-width="2" 
+                    fill="none" 
+                    marker-end="url(#arrowhead-right)"/>
+              <defs>
+                <marker id="arrowhead-right" markerWidth="8" markerHeight="6" 
+                        refX="7" refY="3" orient="auto">
+                  <polygon points="0 0, 8 3, 0 6" fill="#82a7d3"/>
+                </marker>
+              </defs>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Admin Support and OIC Level -->
+        <div class="chart-level admin-level">
+          <div class="admin-support">
+            <div class="chart-box grey-box" *ngFor="let admin of organizationData.adminSupport; let i = index">
+              <mat-icon>support_agent</mat-icon>
+              {{ admin }}
+            </div>
+          </div>
+          <div class="oic-box">
+            <div class="chart-box grey-box">
+              <mat-icon>military_tech</mat-icon>
+              {{ organizationData.oic }}
+            </div>
+          </div>
+        </div>
+
+        <!-- Curved Arrow from OIC down -->
+        <div class="curved-arrow-center">
+          <svg width="40" height="60" viewBox="0 0 40 60">
+            <path d="M20 0 Q30 15 20 30 Q10 45 20 60" 
+                  stroke="#82a7d3" 
+                  stroke-width="2" 
+                  fill="none" 
+                  marker-end="url(#arrowhead-center)"/>
+            <defs>
+              <marker id="arrowhead-center" markerWidth="8" markerHeight="6" 
+                      refX="7" refY="3" orient="auto">
+                <polygon points="0 0, 8 3, 0 6" fill="#82a7d3"/>
+              </marker>
+            </defs>
+          </svg>
+        </div>
+
+        <!-- Functional Areas Level -->
+        <div class="chart-level functional-level">
+          <div class="functional-areas">
+            <div class="functional-area" *ngFor="let area of organizationData.functionalAreas; let i = index">
+              <div class="chart-box green-box">
+                <mat-icon>{{ getAreaIcon(area.name) }}</mat-icon>
+                {{ area.name }}
+              </div>
+              <div class="area-children">
+                <div class="child-item" *ngFor="let child of area.children">
+                  <mat-icon>fiber_manual_record</mat-icon>
+                  {{ child }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-shared-layout>

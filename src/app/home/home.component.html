@@ -1,0 +1,133 @@
+<app-shared-layout>
+  <div class="home-content">
+    <!-- <div class="top-section"> -->
+      <!-- Mission Statement -->
+       <div class = "rows">
+      <div class="mission-statement">
+        <h2>MISSION STATEMENT</h2>
+        <p>Provide Authoritative Decision Support towards Sustained Reliability & Combat Readiness of Indian Navy Platforms through Comprehensive Maintenance Management System.</p>
+      </div>
+
+      <!-- Search Bar -->
+      <div class="search-row">
+        <!-- <div class="anwesh-logo">A</div> -->
+        <div class="search-input">
+          <input type="text" placeholder="Anwesh Search" [(ngModel)]="searchQuery" name="searchQuery">
+        </div>
+        <button mat-mini-fab class="search-button" (click)="onSearch()">
+          <mat-icon>search</mat-icon>
+        </button>
+      </div>
+
+      <!-- CMMS-UM2 Login -->
+      <div class="login-card">
+        <h2>CMMS-UM2 LOGIN</h2>
+        <div class="input-field">
+          <mat-icon class="input-icon">person</mat-icon> 
+          <input type="text" placeholder="User Login" [(ngModel)]="userLogin" name="userLogin">
+        </div>
+        
+        <div class="input-field">
+          <mat-icon class="input-icon">lock</mat-icon>
+          <input [type]="showPassword ? 'text' : 'password'" placeholder="Password" [(ngModel)]="password" name="password">
+          <mat-icon class="input-icon password-toggle" (click)="togglePasswordVisibility()">
+            {{ showPassword ? 'visibility' : 'visibility_off' }}
+          </mat-icon>
+        </div>
+        
+        <div class="login-buttons">
+          <button class="login-btn" (click)="onLogin()" [disabled]="isLoading">
+            <span *ngIf="!isLoading">Login</span>
+            <span *ngIf="isLoading">Logging in...</span>
+          </button>
+          <button class="new-user-btn" (click)="onNewUser()" [disabled]="isLoading">New User</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Video Links -->
+    <div class="video-rows">
+      <button class="video-link-button" (click)="openVideoGallery('installation')">
+        INSTALLATION VIDEOS
+      </button>
+      <button class="video-link-button" (click)="openVideoGallery('patch')">
+        STEPS FOR UPDATING PATCH
+      </button>
+      <button class="video-link-button" (click)="openVideoGallery('sfd')">
+        SFD, EMAPS & SRAR VIDEOS
+      </button>
+      <button class="video-link-button" (click)="openVideoGallery('dart')">
+        DART, DL, OPDEF & FUSS VIDEOS
+      </button>
+    </div>
+  </div>
+
+  <!-- Add Form Component for Registration -->
+  <app-add-form
+    [open]="showRegistrationForm"
+    [formConfig]="formConfig"
+    [formData]="formData"
+    [fromTitle]="'New User Registration'"
+    [submitLabel]="'Register User'"
+    [isSingleColumn]="false"
+    (onOpenChange)="onFormOpenChange($event)"
+    (onSubmit)="onRegistrationSubmit($event)"
+  ></app-add-form>
+
+  <!-- Enhanced Video Gallery Modal -->
+  <div class="video-gallery-overlay" *ngIf="showVideoGallery" (click)="closeVideoGallery()">
+    <div class="video-gallery-dialog" (click)="$event.stopPropagation()">
+      <!-- Compact Header -->
+      <div class="video-gallery-header">
+        <div class="header-content">
+          <div class="header-text">
+            <h2>
+              <mat-icon>video_library</mat-icon>
+              {{ getSelectedCategoryTitle() }}
+            </h2>
+            <p class="video-count">{{ getSelectedCategoryVideos().length }} videos available</p>
+          </div>
+          <div class="header-actions">
+            <button class="close-btn" (click)="closeVideoGallery()">
+              <mat-icon>close</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Compact Video Grid -->
+      <div class="video-content">
+        <div class="video-grid" *ngIf="getSelectedCategoryVideos().length > 0">
+          <div 
+            *ngFor="let video of getSelectedCategoryVideos()" 
+            class="video-card"
+            (click)="downloadVideo(video.id, video.title)"
+          >
+            <div class="video-icon">
+              <mat-icon>play_circle</mat-icon>
+            </div>
+            <div class="video-info">
+              <h4>{{ video.title }}</h4>
+              <p>{{ video.description }}</p>
+            </div>
+            <div class="video-actions">
+              <button class="action-btn download-btn" (click)="downloadVideo(video.id, video.title); $event.stopPropagation()" title="Download">
+                <mat-icon>download</mat-icon>
+              </button>
+              <button class="action-btn preview-btn" (click)="previewVideo(video.id, video.title); $event.stopPropagation()" title="Preview">
+                <mat-icon>play_arrow</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Empty State -->
+        <div class="empty-state" *ngIf="getSelectedCategoryVideos().length === 0">
+          <mat-icon>video_off</mat-icon>
+          <h3>No Videos Available</h3>
+          <p>There are no videos in this category at the moment.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-shared-layout>

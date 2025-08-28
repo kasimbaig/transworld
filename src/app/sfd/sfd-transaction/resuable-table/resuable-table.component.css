@@ -1,0 +1,278 @@
+/* Custom styles for the reusable table component */
+
+/* Table container */
+.table-container {
+  overflow-x: auto;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* Status badges */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+/* Enhanced Actions Button - Matching masters components style */
+.enhanced-actions-btn {
+  background: linear-gradient(
+    135deg,
+    rgba(70, 90, 120, 0.95) 0%,
+    rgba(100, 130, 170, 0.95) 50%,
+    rgba(150, 190, 230, 0.95) 100%
+) !important;
+
+  border: none;
+  color: white;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 15px rgba(15, 118, 110, 0.3);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.enhanced-actions-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.enhanced-actions-btn:hover::before {
+  left: 100%;
+}
+
+.enhanced-actions-btn:hover {
+  background: linear-gradient(135deg, #0d9488 0%, #0f766e 100%);
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 8px 25px rgba(15, 118, 110, 0.4);
+}
+
+.enhanced-actions-btn:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.enhanced-actions-btn .actions-label {
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* Clear Filters Button - Teal/Dark Green variant matching image */
+.clear-filters-btn {
+  background: linear-gradient(135deg, #0f766e 0%, #0d9488 100%);
+  border: none;
+  color: white;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border-radius: 12px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 15px rgba(15, 118, 110, 0.3);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.clear-filters-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.clear-filters-btn:hover::before {
+  left: 100%;
+}
+
+.clear-filters-btn:hover {
+  background: linear-gradient(135deg, #0d9488 0%, #0f766e 100%);
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 8px 25px rgba(15, 118, 110, 0.4);
+}
+
+.clear-filters-btn:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.clear-filters-btn i {
+  color: white;
+  font-size: 1rem;
+}
+
+.clear-filters-btn span {
+  color: white;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* Add New Button - Enhanced Purple variant */
+.add-new-btn {
+  background: linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%);
+  border: none;
+  color: white;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border-radius: 12px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.add-new-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.add-new-btn:hover::before {
+  left: 100%;
+}
+
+.add-new-btn:hover {
+  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 8px 25px rgba(124, 58, 237, 0.4);
+}
+
+.add-new-btn:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.add-new-btn i {
+  color: white;
+  font-size: 1rem;
+}
+
+.add-new-btn span {
+  color: white;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+
+
+/* Legacy action button styles for backward compatibility */
+.action-button {
+  transition: all 0.2s ease-in-out;
+}
+
+.action-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+/* Menu items */
+.menu-item {
+  transition: background-color 0.15s ease-in-out;
+}
+
+.bg-custom-gradient {
+  background: linear-gradient(
+    135deg,
+    rgba(70, 90, 120, 0.95) 0%,
+    rgba(100, 130, 170, 0.95) 50%,
+    rgba(150, 190, 230, 0.95) 100%
+  );
+}
+
+/* Responsive table */
+@media (max-width: 768px) {
+  .table-responsive {
+    font-size: 0.875rem;
+  }
+  
+  .table-responsive th,
+  .table-responsive td {
+    padding: 0.5rem;
+  }
+}
+
+/* Custom scrollbar for table */
+.p-datatable-wrapper::-webkit-scrollbar {
+  height: 8px;
+}
+
+.p-datatable-wrapper::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 4px;
+}
+
+.p-datatable-wrapper::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+.p-datatable-wrapper::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Focus states for better accessibility */
+.search-input:focus {
+  outline: none;
+  ring: 2px;
+  ring-color: #3b82f6;
+  ring-offset: 2px;
+}
+
+/* Loading state */
+.loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+/* Empty state animation */
+.empty-state-icon {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+

@@ -1,0 +1,455 @@
+/* --- Base Container & Typography --- */
+.command-container {
+  background: var(--bg-secondary);
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  min-height: 100vh;
+}
+
+/* --- Header Styles --- */
+.command-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  background: linear-gradient(135deg, var(--primary-gradient-start) 0%, var(--primary-gradient-end) 100%);
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px var(--shadow-light);
+  border: 1px solid var(--border-light);
+}
+
+.command-title-block {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.command-title-block i {
+  font-size: 1.5rem;
+  color: var(--text-white);
+  text-shadow: 0 2px 4px var(--shadow-dark);
+}
+
+.command-title-block h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: var(--text-white);
+  font-weight: 600;
+  text-shadow: 0 2px 4px var(--shadow-dark);
+}
+
+.command-title-block p {
+  margin: 0;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.command-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* --- Filter Dropdown Styling --- */
+:host ::ng-deep .filter-dropdown .p-dropdown {
+  min-width: 200px;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px var(--shadow-light);
+  transition: all 0.3s ease;
+  font-family: 'Poppins', sans-serif;
+}
+
+:host ::ng-deep .filter-dropdown .p-dropdown:hover {
+  border-color: var(--accent-blue);
+  box-shadow: 0 4px 12px var(--shadow-medium);
+}
+
+:host ::ng-deep .filter-dropdown .p-dropdown-label {
+  color: var(--text-primary);
+  font-weight: 500;
+  font-size: 0.9rem;
+  padding: 0.75rem 1rem;
+}
+
+:host ::ng-deep .filter-dropdown .p-dropdown-label.p-placeholder {
+  color: var(--text-secondary);
+}
+
+:host ::ng-deep .filter-dropdown .p-dropdown-trigger {
+  color: var(--text-secondary);
+  padding: 0.75rem;
+}
+
+:host ::ng-deep .filter-dropdown .p-dropdown-panel {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  box-shadow: 0 4px 20px var(--shadow-medium);
+  z-index: 999999 !important;
+}
+
+:host ::ng-deep .filter-dropdown .p-dropdown-item {
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+  padding: 0.75rem 1rem;
+  font-size: 0.9rem;
+}
+
+:host ::ng-deep .filter-dropdown .p-dropdown-item:hover {
+  background: var(--accent-light);
+}
+
+:host ::ng-deep .filter-dropdown .p-dropdown-item.p-highlight {
+  background: linear-gradient(135deg, var(--primary-gradient-start) 0%, var(--primary-gradient-end) 100%);
+  color: var(--text-white);
+}
+
+/* --- KPI Cards Grid --- */
+.kpi-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+}
+
+/* --- Charts Section --- */
+.charts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  gap: 1.75rem;
+  margin-top: 0;
+}
+
+.chart-container {
+  background: var(--bg-primary);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px var(--shadow-light);
+  border: 1px solid var(--border-light);
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  min-height: 400px;
+  position: relative;
+}
+
+.chart-container:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px var(--shadow-medium);
+}
+
+/* Chart Header Layout - EXTREMELY AGGRESSIVE FIX for overlapping */
+.chart-container h3 {
+  font-size: 1.4rem;
+  color: var(--text-primary);
+  margin: 0 0 1rem 0;
+  font-weight: 600;
+  text-align: center;
+  width: 100%;
+  padding-right: 220px; /* EXTREMELY large space for reset button */
+  box-sizing: border-box;
+  line-height: 1.2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Chart Header with Button Layout - EXTREMELY FIXED */
+.chart-container .d-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  width: 100%;
+  gap: 2rem; /* Much larger gap */
+  min-height: 40px;
+}
+
+.chart-container .d-flex h3 {
+  margin: 0;
+  padding-right: 0;
+  text-align: left;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: calc(100% - 140px); /* Ensure text doesn't extend into button area */
+}
+
+/* Chart Canvas Styling */
+:host ::ng-deep .chart-container p-chart {
+  flex-grow: 1;
+  display: block;
+  width: 100%;
+  height: auto;
+  min-height: 300px;
+  margin: 0 auto;
+}
+
+:host ::ng-deep .chart-container p-chart canvas {
+  width: 100% !important;
+  height: auto !important;
+  max-height: 400px;
+}
+
+/* Special handling for Doughnut/Pie charts */
+.chart-container p-chart[type="doughnut"],
+.chart-container p-chart[type="pie"] {
+  max-width: 350px;
+  max-height: 350px;
+  margin: auto;
+}
+
+/* Large Chart specific styles */
+.large-chart {
+  grid-column: 1 / -1;
+  min-height: 550px;
+}
+
+:host ::ng-deep .large-chart p-chart canvas {
+  max-height: 500px;
+}
+
+/* Reset Zoom Button Positioning - EXTREMELY FIXED */
+.reset-zoom-button {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  z-index: 10;
+  font-size: 0.8rem;
+  padding: 0.3rem 0.6rem;
+  background: var(--bg-primary) !important;
+  border: 1px solid var(--border-light) !important;
+  color: var(--text-primary) !important;
+  border-radius: 6px !important;
+  transition: all 0.3s ease;
+  min-width: 130px; /* Larger button */
+  white-space: nowrap;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px var(--shadow-light);
+}
+
+.reset-zoom-button:hover {
+  background: var(--accent-light) !important;
+  border-color: var(--accent-blue) !important;
+  box-shadow: 0 2px 8px var(--shadow-medium) !important;
+}
+
+/* --- Drill-down Dialog --- */
+:host ::ng-deep .p-dialog {
+  border-radius: 12px;
+  box-shadow: 0 8px 32px var(--shadow-medium);
+}
+
+:host ::ng-deep .p-dialog .p-dialog-header {
+  background: linear-gradient(135deg, var(--primary-gradient-start) 0%, var(--primary-gradient-end) 100%);
+  color: var(--text-white);
+  padding: 1.25rem 2rem;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+:host ::ng-deep .p-dialog .p-dialog-header .p-dialog-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+}
+
+:host ::ng-deep .p-dialog .p-dialog-content {
+  padding: 1.5rem 2rem;
+}
+
+:host ::ng-deep .p-table {
+  font-size: 0.95rem;
+}
+
+:host ::ng-deep .p-table .p-sortable-column {
+  font-weight: 600;
+  color: var(--text-primary);
+  background: var(--bg-secondary);
+  padding: 1rem 1.25rem;
+  border-bottom: 2px solid var(--primary-gradient-start);
+}
+
+:host ::ng-deep .p-table .p-sortable-column:hover {
+  background: var(--accent-light);
+}
+
+:host ::ng-deep .p-table .p-datatable-tbody>tr>td {
+  padding: 0.9rem 1.25rem;
+  border-bottom: 1px solid var(--border-light);
+}
+
+:host ::ng-deep .p-table .p-datatable-tbody>tr:nth-child(even) {
+  background: var(--bg-tertiary);
+}
+
+:host ::ng-deep .p-table .p-paginator {
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border-light);
+  padding: 0.75rem 1.25rem;
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 1400px) {
+  .command-container {
+    padding: 1rem;
+    gap: 1.25rem;
+  }
+  
+  .command-header {
+    padding: 0.75rem 1rem;
+  }
+  
+  .charts-grid {
+    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+  }
+  
+  .chart-container h3 {
+    padding-right: 180px;
+  }
+  
+  .chart-container .d-flex h3 {
+    max-width: calc(100% - 160px);
+  }
+}
+
+@media (max-width: 1200px) {
+  .command-container {
+    padding: 0.75rem;
+    gap: 1rem;
+  }
+  
+  .command-header {
+    padding: 0.5rem 0.75rem;
+  }
+  
+  .charts-grid {
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  }
+  
+  .chart-container h3 {
+    padding-right: 160px;
+  }
+  
+  .chart-container .d-flex h3 {
+    max-width: calc(100% - 140px);
+  }
+}
+
+@media (max-width: 992px) {
+  .command-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .command-actions {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+
+  :host ::ng-deep .filter-dropdown .p-dropdown {
+    width: 100%;
+    min-width: unset;
+  }
+
+  .kpi-cards-grid,
+  .charts-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .large-chart {
+    grid-column: auto;
+  }
+
+  .command-container {
+    padding: 1rem;
+  }
+
+  :host ::ng-deep .chart-container p-chart canvas {
+    max-height: 350px;
+  }
+  
+  .chart-container h3 {
+    padding-right: 140px;
+  }
+  
+  .chart-container .d-flex h3 {
+    max-width: calc(100% - 120px);
+  }
+}
+
+@media (max-width: 576px) {
+  .command-title-block h2 {
+    font-size: 1.5rem;
+  }
+
+  .command-title-block i {
+    font-size: 1.5rem;
+  }
+
+  .kpi-cards-grid {
+    gap: 1rem;
+  }
+
+  .charts-grid {
+    gap: 1rem;
+  }
+
+  .chart-container {
+    padding: 1rem;
+    min-height: 350px;
+  }
+
+  .chart-container h3 {
+    font-size: 1.2rem;
+    padding-right: 120px;
+  }
+  
+  .chart-container .d-flex h3 {
+    max-width: calc(100% - 100px);
+  }
+
+  .reset-zoom-button {
+    top: 1rem;
+    right: 1rem;
+    font-size: 0.7rem;
+    padding: 0.25rem 0.5rem;
+    min-width: 110px;
+    height: 28px;
+  }
+
+  :host ::ng-deep .chart-container p-chart canvas {
+    max-height: 300px;
+  }
+
+  .large-chart {
+    min-height: 450px;
+  }
+
+  :host ::ng-deep .p-dialog {
+    width: 95vw !important;
+  }
+
+  :host ::ng-deep .p-dialog .p-dialog-header {
+    padding: 1rem 1.25rem;
+  }
+
+  :host ::ng-deep .p-dialog .p-dialog-content {
+    padding: 1rem 1.25rem;
+  }
+}
