@@ -12,7 +12,6 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { DialogModule } from 'primeng/dialog';
 import { AddFormComponent } from '../../shared/components/add-form/add-form.component';
 import { ResuableTableComponent } from '../../sfd/sfd-transaction/resuable-table/resuable-table.component';
-import { DeleteConfirmationModalComponent } from '../../shared/components/delete-confirmation-modal/delete-confirmation-modal.component';
 import { ApiService } from '../../services/api.service';
 import { forkJoin, Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
@@ -33,13 +32,12 @@ import { HttpClient } from '@angular/common/http';
     DialogModule,
     AddFormComponent,
     ResuableTableComponent,
-    DeleteConfirmationModalComponent
   ],
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss']
 })
 export class UsersComponent implements OnInit {
-  
+
 
   // Loading state
   isLoadingUsers = false;
@@ -88,9 +86,9 @@ export class UsersComponent implements OnInit {
   showViewForm = false;
   showDeleteModal = false;
   showSwitchModeDialog = false;
-  
+
   selectedUser: any | null = null;
- 
+
 
   // Setup tiles for Switch Mode dialog
   setupTiles = [
@@ -132,7 +130,7 @@ export class UsersComponent implements OnInit {
   ];
 
 
-  
+
 
   constructor(
     private messageService: MessageService,
@@ -141,7 +139,7 @@ export class UsersComponent implements OnInit {
     private apiService: ApiService,
     private http: HttpClient,
     private cdr: ChangeDetectorRef
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     // this.filteredUsers = this.users;
@@ -150,78 +148,78 @@ export class UsersComponent implements OnInit {
 
   }
   fetchUsers(page: number, pageSize: number): void {
-    this.apiService.get('api/auth/users/?page='+page).subscribe((data: any) => {
+    this.apiService.get('api/auth/users/?page=' + page).subscribe((data: any) => {
       this.users = data.results.data || data;
-     
+
       this.totalRecords = data.count;
-    }); 
-}
-getRequiredData(){
-  forkJoin({
-   
-    departments: this.apiService.get('master/department/?is_dropdown=true'),
-    establishment: this.apiService.get('master/establishments/?is_dropdown=true'),
-    employeeType: this.apiService.get('master/employee-type/?is_dropdown=true'),
-    ship: this.apiService.get('master/ship/?is_dropdown=true'),
-    userType: this.apiService.get('access/processes/?is_dropdown=true')
-  }).subscribe((data: any) => {
-    console.log('API Responses:', data);
-    
-    // Handle different response structures
-    // this.setResponse(data.userRoles?.data || data.userRoles || [],'role');
-    this.setResponse(data.departments?.data || data.departments || [],'department');
-    this.setResponse(data.establishment?.data || data.establishment || [],'establishment');
-    this.setResponse(data.employeeType?.data || data.employeeType || [],'employee_type');
-    this.setResponse(data.ship?.data || data.ship || [],'ship');
-    this.setResponse(data.userType?.data || data.userType || [],'process');
-    
-    console.log('Updated form config:', this.userFormConfig);
-  }, (error) => {
-    console.error('Error fetching dropdown data:', error);
-  })
+    });
+  }
+  getRequiredData() {
+    forkJoin({
 
-}
+      departments: this.apiService.get('master/department/?is_dropdown=true'),
+      establishment: this.apiService.get('master/establishments/?is_dropdown=true'),
+      employeeType: this.apiService.get('master/employee-type/?is_dropdown=true'),
+      ship: this.apiService.get('master/ship/?is_dropdown=true'),
+      userType: this.apiService.get('access/processes/?is_dropdown=true')
+    }).subscribe((data: any) => {
+      console.log('API Responses:', data);
 
-userFormConfig = [
-  { label: 'Personal No.', key: 'loginname', type: 'text', required: true, placeholder: 'Enter Personal Number' },
-  // { label: 'User Login', key: 'user_login', type: 'text', required: true, placeholder: 'Enter User Login' },
-  { label: 'User Type', key: 'process', type: 'select', required: true, placeholder: 'Select User Type', options: [] },
-  { label: 'Role', key: 'role', type: 'select', required: true, placeholder: 'Select Role', options: [] },
-  { label: 'Rank', key: 'rankName', type: 'text', required: false, placeholder: 'Enter Rank' },
-  { label: 'Name', key: 'first_name', type: 'text', required: true, placeholder: 'Enter Name' },
-  { label: 'Designation', key: 'hrcdf_designation', type: 'text', required: true, placeholder: 'Enter Designation' },
-  { label: 'Ship', key: 'ship', type: 'select', required: false, placeholder: 'Select Ship', options: [] },
-  { label: 'Password', key: 'password', type: 'password', required: true, placeholder: 'Enter Password' },
-  { label: 'Confirm Password', key: 'confirm_password', type: 'password', required: true, placeholder: 'Confirm Password' },
-  { label: 'Employee Type', key: 'employee_type', type: 'select', required: true, placeholder: 'Select Employee Type', options: [] },
-  { label: 'Establishment', key: 'establishment', type: 'select', required: false, placeholder: 'Select Establishment', options: [] },
-  { label: 'NUD Email', key: 'email', type: 'email', required: true, placeholder: 'Enter NUD Email' },
-  { label: 'Phone No.', key: 'phone_no', type: 'text', required: true, placeholder: 'Enter Phone Number' },
-  { label: 'SSO User', key: 'ad_user', type: 'checkbox', required: false },
-  { label: 'Department', key: 'department', type: 'select-multiple', required: false, placeholder: 'Select Department', options: [] }
-];
+      // Handle different response structures
+      // this.setResponse(data.userRoles?.data || data.userRoles || [],'role');
+      this.setResponse(data.departments?.data || data.departments || [], 'department');
+      this.setResponse(data.establishment?.data || data.establishment || [], 'establishment');
+      this.setResponse(data.employeeType?.data || data.employeeType || [], 'employee_type');
+      this.setResponse(data.ship?.data || data.ship || [], 'ship');
+      this.setResponse(data.userType?.data || data.userType || [], 'process');
+
+      console.log('Updated form config:', this.userFormConfig);
+    }, (error) => {
+      console.error('Error fetching dropdown data:', error);
+    })
+
+  }
+
+  userFormConfig = [
+    { label: 'Personal No.', key: 'loginname', type: 'text', required: true, placeholder: 'Enter Personal Number' },
+    // { label: 'User Login', key: 'user_login', type: 'text', required: true, placeholder: 'Enter User Login' },
+    { label: 'User Type', key: 'process', type: 'select', required: true, placeholder: 'Select User Type', options: [] },
+    { label: 'Role', key: 'role', type: 'select', required: true, placeholder: 'Select Role', options: [] },
+    { label: 'Rank', key: 'rankName', type: 'text', required: false, placeholder: 'Enter Rank' },
+    { label: 'Name', key: 'first_name', type: 'text', required: true, placeholder: 'Enter Name' },
+    { label: 'Designation', key: 'hrcdf_designation', type: 'text', required: true, placeholder: 'Enter Designation' },
+    { label: 'Ship', key: 'ship', type: 'select', required: false, placeholder: 'Select Ship', options: [] },
+    { label: 'Password', key: 'password', type: 'password', required: true, placeholder: 'Enter Password' },
+    { label: 'Confirm Password', key: 'confirm_password', type: 'password', required: true, placeholder: 'Confirm Password' },
+    { label: 'Employee Type', key: 'employee_type', type: 'select', required: true, placeholder: 'Select Employee Type', options: [] },
+    { label: 'Establishment', key: 'establishment', type: 'select', required: false, placeholder: 'Select Establishment', options: [] },
+    { label: 'NUD Email', key: 'email', type: 'email', required: true, placeholder: 'Enter NUD Email' },
+    { label: 'Phone No.', key: 'phone_no', type: 'text', required: true, placeholder: 'Enter Phone Number' },
+    { label: 'SSO User', key: 'ad_user', type: 'checkbox', required: false },
+    { label: 'Department', key: 'department', type: 'select-multiple', required: false, placeholder: 'Select Department', options: [] }
+  ];
   goBack(): void {
     // Navigate back to setup page
     window.history.back();
   }
 
   setResponse(data: any, key: string): void {
-  
-    
+
+
     const res = data.map((item: any) => ({
       label: item.name || item.title || item.label || `${key} ${item.id}`,
       value: item.id || item.value
     }));
 
-  
+
     this.userFormConfig.forEach((item: any) => {
       if (item.key === key) {
         item.options = res;
         console.log(`Updated ${key} options:`, item.options);
       }
     });
-    this.userFormConfig=[...this.userFormConfig]
-    this.initialUserData={...this.initialUserData}
+    this.userFormConfig = [...this.userFormConfig]
+    this.initialUserData = { ...this.initialUserData }
 
   }
 
@@ -246,18 +244,18 @@ userFormConfig = [
     this.showAddForm = true;
     console.log(this.userFormConfig)
   }
-editCinfig:any[]=[];
+  editCinfig: any[] = [];
   editUser(user: any): void {
-    this.apiService.get('access/role-process-mappings/?process_id='+user.process).subscribe((data: any) => {
-      const newdata= data.map((item: any) => {
+    this.apiService.get('access/role-process-mappings/?process_id=' + user.process).subscribe((data: any) => {
+      const newdata = data.map((item: any) => {
         return {
-          label:item.role_name,
-          value:item.user_role,
+          label: item.role_name,
+          value: item.user_role,
         }
       });
-      this.setResponse(newdata,'role');
+      this.setResponse(newdata, 'role');
     });
-    this.editCinfig=this.userFormConfig.filter((item: any) => item.key !== 'confirm_password' && item.key !== 'password'  );
+    this.editCinfig = this.userFormConfig.filter((item: any) => item.key !== 'confirm_password' && item.key !== 'password');
     this.selectedUser = { ...user };
     this.showEditForm = true;
   }
@@ -275,7 +273,7 @@ editCinfig:any[]=[];
   handleAddSubmit(data: any): void {
     console.log('Submitting user data:', data);
 
-    this.apiService.post('api/auth/users/', data).subscribe(res=>{
+    this.apiService.post('api/auth/users/', data).subscribe(res => {
       this.showAddForm = false;
       this.isLoadingUsers = false;
       this.fetchUsers(1, this.rowsPerPage); // Refresh the users list
@@ -285,7 +283,7 @@ editCinfig:any[]=[];
   handleEditSubmit(data: any): void {
     console.log('Submitting user data:', data);
 
-    this.apiService.put('api/auth/users/'+this.selectedUser.id+'/', data).subscribe(res=>{
+    this.apiService.put('api/auth/users/' + this.selectedUser.id + '/', data).subscribe(res => {
       this.showEditForm = false;
       this.isLoadingUsers = false;
       this.fetchUsers(1, this.rowsPerPage); // Refresh the users list
@@ -305,16 +303,16 @@ editCinfig:any[]=[];
   //     this.apiService.delete(`${this.USERS_API}${this.selectedUser.id}/`).subscribe({
   //       next: (response: any) => {
   //         console.log('User deleted successfully:', response);
-          
+
   //         this.messageService.add({
   //           severity: 'success',
   //           summary: 'Success',
   //           detail: 'User deleted successfully'
   //         });
-          
+
   //         this.showDeleteModal = false;
   //         this.selectedUser = null;
-          
+
   //         // Refresh the table data from API
   //         this.fetchUsers();
   //       },
@@ -367,43 +365,43 @@ editCinfig:any[]=[];
 
   onSelectChange(event: any): void {
     console.log(event)
-    if(event.key==='role'){
-    this.apiService.get('access/role-process-mappings/?process_id='+event.value).subscribe((data: any) => {
-      const newdata= data.map((item: any) => {
-        return {
-          label:item.role_name,
-          value:item.user_role,
-        }
+    if (event.key === 'role') {
+      this.apiService.get('access/role-process-mappings/?process_id=' + event.value).subscribe((data: any) => {
+        const newdata = data.map((item: any) => {
+          return {
+            label: item.role_name,
+            value: item.user_role,
+          }
+        });
+        this.setResponse(newdata, 'role');
+        this.initialUserData[event.key] = event.value;
+        this.initialUserData = { ...event.formData }
       });
-      this.setResponse(newdata,'role');
-      this.initialUserData[event.key]=event.value;
-      this.initialUserData={...event.formData}
-    });
-  }else if(event.key==='process'){
-    this.apiService.get('access/role-process-mappings/?process_id='+event.value).subscribe((data: any) => {
-      const newdata= data.map((item: any) => {
-        return {
-          label:item.role_name,
-          value:item.user_role,
-        }
+    } else if (event.key === 'process') {
+      this.apiService.get('access/role-process-mappings/?process_id=' + event.value).subscribe((data: any) => {
+        const newdata = data.map((item: any) => {
+          return {
+            label: item.role_name,
+            value: item.user_role,
+          }
+        });
+        this.setResponse(newdata, 'role');
+        this.initialUserData[event.key] = event.value;
+        this.initialUserData = { ...event.formData }
       });
-      this.setResponse(newdata,'role');
-      this.initialUserData[event.key]=event.value;
-      this.initialUserData={...event.formData}
-    });
-  }
-    
-  
-    
+    }
+
+
+
   }
   onPageChange(event: any): void {
     console.log('Page change event:', event);
     const newPage = event.page + 1; // PrimeNG uses 0-based indexing
     const newPageSize = event.rows;
-    
+
     this.currentPage = newPage;
     this.rowsPerPage = newPageSize;
-    
+
     // Fetch data for the new page
     this.fetchUsers(newPage, newPageSize);
   }
@@ -412,7 +410,7 @@ editCinfig:any[]=[];
     console.log('Rows per page change event:', event);
     this.rowsPerPage = event.value;
     this.currentPage = 1; // Reset to first page when changing page size
-    
+
     // Fetch data with new page size
     this.fetchUsers(1, this.rowsPerPage);
   }
