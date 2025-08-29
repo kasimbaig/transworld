@@ -26,7 +26,8 @@ const routes: Routes = [
         (m) => m.ContactUsComponent
       ),
   },
-  { path: 'login', component: LogComponent },
+  { path: 'login',    loadComponent: () =>
+      import('./home/home.component').then((m) => m.HomeComponent), },
 
   // Default route redirects to home
   {
