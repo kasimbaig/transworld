@@ -36,7 +36,7 @@
       [columns]="cols" 
       [apiUrl]="apiUrl"
       [totalCount]="totalCount"
-       
+      [data]="departments"
       [showEndActions]="true" 
       (viewEvent)="view($event)"
       (editEvent)="edit($event)" 
@@ -214,30 +214,35 @@
                   placeholder="--Select country--"
                   style="color: gray-400;">
                   <option value="" selected>--Select country--</option>
-                  <option *ngFor="let country of filteredCountries" [value]="country.id">{{ country.name }}</option>
+                  <option *ngFor="let country of filteredCountries" [value]="country.value">{{ country.label }}</option>
                 </select>
               </div>
               <div class="grid grid-cols-6 gap-4 items-center">
                 <label class="text-sm font-medium text-gray-700 font-semibold col-span-2">Manufacturer: </label>
                 <select 
                   formControlName="manufacturer"
-                  class="col-span-4 border-2 border-gray-500 rounded-sm bg-white py-2"
+                  class="col-span-3 border-2 border-gray-500 rounded-sm bg-white py-2"
                   placeholder="--Select manufacturer--"
                   style="color: gray-400;">
                   <option value="" selected>--Select manufacturer--</option>
                   <option *ngFor="let manufacturer of filteredManufacturers" [value]="manufacturer.id">{{ manufacturer.name }}</option>
                 </select>
+                <span (click)="addManufacturer()" class="col-span-1 bg-green-100 border-2 py-1 ps-1 border-green-500 rounded-sm text-green-600 cursor-pointer text-xs hover:bg-green-500 hover:text-white" ><i class="fa fa-plus fa-xs"> </i> Manufacturer</span>
+
               </div>
               <div class="grid grid-cols-6 gap-4 items-center dropdown-cell">
                 <label class="text-sm font-medium text-gray-700 font-semibold col-span-2">Supplier: </label>
+
                 <select 
                   formControlName="supplier"
-                  class="col-span-4 border-2 border-gray-500 rounded-sm bg-white py-2 dropdown-container"
+                  class="col-span-3 border-2 border-gray-500 rounded-sm bg-white py-2 dropdown-container"
                   placeholder="--Select supplier--"
                   style="color: gray-400;">
                   <option value="" selected>--Select supplier--</option>
                   <option *ngFor="let supplier of filteredSuppliers" [value]="supplier.id">{{ supplier.name }}</option>
                 </select>
+                <span (click)="addSupplier()" class="col-span-1 bg-green-100 border-2 py-2 ps-1 border-green-500 rounded-sm text-green-600 cursor-pointer text-sm hover:bg-green-500 hover:text-white" ><i class="fa fa-plus fa-sm"> </i> Supplier</span>
+
               </div>
              
               <!-- Obsolete -->
@@ -252,41 +257,7 @@
                     <label for="obsolete-checkbox" class="ml-2 text-sm text-gray-700">Obsolete</label>
                 </div>
             </div>
-          <!-- Image Upload -->
-          <!-- <div class="grid grid-cols-6 gap-4 items-center">
-              <label class="text-sm font-medium text-gray-700 font-semibold col-span-2">Total fits(PAN Navy) :</label>
-              <div class="col-span-4">
-                  <input 
-                      pInputText
-                      type="text" 
-                      formControlName="total_fits"
-                      class="w-full p-2 border-2 border-gray-500 rounded-sm bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 col-span-4 bg-white"
-                      placeholder="Enter total fits">
-              </div>
-          </div> -->
-          <!-- <div class="grid grid-cols-6 gap-4 items-center">
-            <label class="text-sm font-medium text-gray-700 font-semibold col-span-2">Active</label>
-            <div class="col-span-4 flex items-center">
-                <input 
-                    type="checkbox" 
-                    formControlName="active"
-                    class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-                    id="active-checkbox">
-                <label for="active-checkbox" class="ml-2 text-sm text-gray-700">Active</label>
-            </div>
-        </div> -->
-          <!-- Image Preview
-          <div class="grid grid-cols-6 col-span-2 gap-4 items-center">
-              <label class="text-sm font-medium text-gray-700 font-semibold col-span-1">Ship Applicable</label>
-              <div class="col-span-5">
-                  <textarea 
-                      formControlName="ship_applicable"
-                      rows="4"
-                      class="w-full p-2 border-2 border-gray-500 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-vertical bg-white"
-                      placeholder="Enter ship applicable">
-                  </textarea>
-              </div>
-          </div> -->
+         
           </div>
       </form>
       
@@ -306,3 +277,13 @@
   </div>
 
 </p-dialog>
+
+<app-add-form [open]="isManufacturerFormOpen" [formConfig]="manufacturerFormConfig" [formData]="newManufacturer" [fromTitle]="'Add New Manufacturer'" (onOpenChange)="isManufacturerFormOpen = $event" (onSubmit)="handleSubmit($event)"></app-add-form>
+<app-add-form *ngIf="isSupplierFormOpen" [open]="isSupplierFormOpen" [formConfig]="formConfigForNewDetails" [formData]="newSupplier" [fromTitle]="'Add New Supplier'" (onOpenChange)="isSupplierFormOpen = $event" (onSubmit)="handleSupplierSubmit($event)"></app-add-form>
+
+
+
+
+
+
+

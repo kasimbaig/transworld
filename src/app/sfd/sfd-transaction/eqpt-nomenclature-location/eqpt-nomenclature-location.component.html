@@ -75,15 +75,34 @@
                     <div class="w-1 h-8 bg-blue-600 rounded-full"></div>
                     <h5 class="text-xl font-semibold text-slate-800 m-0">Equipment Nomenclature List</h5>
                 </div>
-                <div class="relative">
-                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <i class="pi pi-search text-slate-400"></i>
+                <div class="flex items-center gap-4">
+                    <button 
+                        (click)="updateAllNomenclatures()"
+                        [disabled]="!hasChanges()"
+                        class="px-6 py-2.5 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors duration-200 flex items-center gap-2">
+                        <i class="pi pi-save"></i>
+                        Update All
+                        <span *ngIf="getChangedItemsCount() > 0" class="ml-2 px-2 py-1 bg-white text-green-600 text-xs font-bold rounded-full">
+                            {{ getChangedItemsCount() }}
+                        </span>
+                    </button>
+                    <button 
+                        (click)="resetChanges()"
+                        [disabled]="!hasChanges()"
+                        class="px-4 py-2.5 bg-gray-500 text-white font-medium rounded-lg hover:bg-gray-600 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors duration-200 flex items-center gap-2">
+                        <i class="pi pi-refresh"></i>
+                        Reset
+                    </button>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="pi pi-search text-slate-400"></i>
+                        </div>
+                        <input type="text" 
+                            class="pl-10 pr-4 py-2.5 w-80 border border-slate-300 bg-white rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 placeholder-slate-400" 
+                            [(ngModel)]="searchValue"
+                            (ngModelChange)="dt.filterGlobal(onSearchInput($event), 'contains')" 
+                            placeholder="Search equipment, codes, names..." />
                     </div>
-                    <input type="text" 
-                        class="pl-10 pr-4 py-2.5 w-80 border border-slate-300 bg-white rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 placeholder-slate-400" 
-                        [(ngModel)]="searchValue"
-                        (ngModelChange)="dt.filterGlobal(onSearchInput($event), 'contains')" 
-                        placeholder="Search equipment, codes, names..." />
                 </div>
             </div>
         </ng-template>
@@ -152,22 +171,24 @@
             <tr [class.bg-gray-50]="rowIndex % 2 === 1"  
             class="py-2"    >
             <!-- <td>{{rowIndex + 1}}</td> -->
-                <td>{{ item.ship_id || '-' }}</td>
-                <td>{{ item.equipment_ship_detail || '-' }}</td>
+                <td>{{ item.ship || '-' }}</td>
+                <td>{{ item.ship_name || '-' }}</td>
                 <td>{{ item.equipment_code || '-' }}</td>
                 <td>{{ item.equipment_name || '-' }}</td>
-                <td>{{ item.no_of_file || '-' }}</td>
+                <td>{{ item.no_of_fits || '-' }}</td>
                 <td>{{ item.location_code || '-' }}</td>
-                <td>
+                                <td>
                     <input type="text" 
                            [(ngModel)]="item.location_on_board" 
-                            class="w-full min-w-48 x-2 py-1 border-2 border-gray-500 rounded-sm bg-white focus:ring-2 focus:ring-blue-500"
+                           readonly
+                             class="w-full min-w-48 x-2 py-1 border-2 border-gray-300 rounded-sm bg-gray-100 cursor-not-allowed"
                            placeholder="Location Board">
                 </td>
-                <td>
+                                <td>
                     <input type="text" 
                            [(ngModel)]="item.equipment_nomenclature" 
-                            class="w-full px-2 min-w-48 py-1 border-2 border-gray-500 rounded-sm bg-white focus:ring-2 focus:ring-blue-500"
+                           (ngModelChange)="onNomenclatureChange(item, rowIndex)"
+                           [class]="'w-full px-2 min-w-48 py-1 border-2 rounded-sm bg-white focus:ring-2 focus:ring-blue-500 ' + (item.equipment_nomenclature !== originalData[rowIndex]?.equipment_nomenclature ? 'border-orange-500' : 'border-gray-500')"
                            placeholder="Equipment Nomenclature">
                 </td>
                 
@@ -183,6 +204,7 @@
                         </button> -->
                 
                         <button  mat-menu-item 
+                            (click)="updateNomenclature(item)"
                             class="flex items-center justify-start gap-3 px-4 py-3 w-full hover:bg-green-50 text-green-600 hover:text-green-800 transition-colors duration-200">
                             <i class="fa-solid fa-pen-to-square text-green-500 w-4 h-4 flex-shrink-0"></i>
                             <span class="text-sm font-medium">Update</span>
