@@ -311,7 +311,7 @@ export class SfdDashboardComponent implements OnInit, OnDestroy {
   kpiMetrics:any[] = [
     {
       title: 'Operational Ships',
-      value: 0, // Will be populated dynamically
+      value: 65, // Will be populated dynamically
       description: 'Total active vessels in the fleet.',
       iconClass: 'pi pi-sitemap', // Using a suitable PrimeIcons class
       type: 'OPERATIONAL_SHIPS',
@@ -319,7 +319,7 @@ export class SfdDashboardComponent implements OnInit, OnDestroy {
     },
     {
       title: 'Fleet Readiness',
-      value: '0%', // Will be populated dynamically
+      value: '75%', // Will be populated dynamically
       description: 'Overall operational readiness of the fleet.',
       iconClass: 'pi pi-gauge', // Gauge icon
       type: 'FLEET_READINESS',
@@ -327,7 +327,7 @@ export class SfdDashboardComponent implements OnInit, OnDestroy {
     },
     {
       title: 'Avg Eq. Health Score',
-      value: 0, // Will be populated dynamically
+      value: 80, // Will be populated dynamically
       description: 'Average health score of critical equipment.',
       iconClass: 'pi pi-heart-fill', // Heart icon
       type: 'EQUIPMENT_HEALTH',
@@ -343,7 +343,7 @@ export class SfdDashboardComponent implements OnInit, OnDestroy {
     // },
     {
       title: 'Equipment Availability',
-      value: '0%', // Will be populated dynamically
+      value: '85%', // Will be populated dynamically
       description: 'Percentage of equipment available for use.',
       iconClass: 'pi pi-check-circle', // Check circle icon
       type: 'EQUIPMENT_AVAILABILITY',
