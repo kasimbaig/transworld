@@ -5,6 +5,7 @@ import {
   OnInit,
   Output,
   ViewChild,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { Table, TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
@@ -94,15 +95,30 @@ export class DepartmentMasterComponent implements OnInit {
     },
   ];
   filteredDepartments: Department[] = [];
+  toggleTable: boolean = true;
+
+  // New properties for pagination
+  apiUrl: string = 'master/department/';
+  totalCount: number = 0;
 
   constructor(
     private departmentService: DepartmentService,
     private toastService: ToastService,
-    private location: Location
+    private location: Location,
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
-    this.getDepartments();
+    //console.log('🚢 Department Master Component Initializing...');
+    //console.log('API URL:', this.apiUrl);
+    //console.log('Total Count:', this.totalCount);
+    //console.log('Enable URL Fetching: true');
+    
+    // Load master data for dropdowns (but not departments data - paginated table will handle that)
+    this.departmentService.loadAllDepartmentsData();
+    
+    // Note: Table data will be loaded by the paginated table component
+    // No need to call getDepartments() here
   }
 
   goBack(): void {
@@ -177,7 +193,10 @@ export class DepartmentMasterComponent implements OnInit {
     this.departmentService.addDepartment(newDept).subscribe({
       next: () => {
         this.toastService.showSuccess('Department added successfully');
-        this.departmentService.loadAllDepartmentsData();
+        this.toggleTable = false;
+        setTimeout(() => {
+          this.toggleTable = true;
+        }, 100);
         this.closeDialog();
       },
       error: () => {
@@ -198,7 +217,10 @@ export class DepartmentMasterComponent implements OnInit {
     this.departmentService.updateDepartment(this.selectedDept.id, updatedDept).subscribe({
       next: () => {
         this.toastService.showSuccess('Updated successfully');
-        this.departmentService.loadAllDepartmentsData();
+        this.toggleTable = false;
+        setTimeout(() => {
+          this.toggleTable = true;
+        }, 100);
         this.closeDialog();
       },
       error: () => this.toastService.showError('Failed to update')
@@ -268,7 +290,10 @@ export class DepartmentMasterComponent implements OnInit {
     this.departmentService.deleteDepartment(this.selectedDept.id).subscribe({
       next: () => {
         this.toastService.showSuccess('Deleted successfully');
-        this.departmentService.loadAllDepartmentsData();
+        this.toggleTable = false;
+        setTimeout(() => {
+          this.toggleTable = true;
+        }, 100);
         this.showDeleteDialog = false;
       },
       error: () => this.toastService.showError('Failed to delete')
@@ -293,9 +318,9 @@ export class DepartmentMasterComponent implements OnInit {
     },
   ];
   cols = [
-    { field: 'name', header: 'Name' },
-    { field: 'code', header: 'Code' },
-    { field: 'description', header: 'Description' },
+    { field: 'name', header: 'Name', filterType: 'text' },
+    { field: 'code', header: 'Code', filterType: 'text' },
+    { field: 'description', header: 'Description', filterType: 'text' },
   ];
   @ViewChild('dt') dt!: Table;
   value: number = 0;
@@ -308,8 +333,25 @@ export class DepartmentMasterComponent implements OnInit {
   @Output() exportCSVEvent = new EventEmitter<void>();
   @Output() exportPDFEvent = new EventEmitter<void>();
 
+  // Handle data loaded from paginated table
+  onDataLoaded(data: any[]): void {
+    //console.log('🚢 Data loaded from paginated table:', data);
+    //console.log('🚢 Data length:', data?.length);
+    //console.log('🚢 Data type:', typeof data);
+    //console.log('🚢 First record:', data?.[0]);
+    
+    this.departments = data || [];
+    this.filteredDepartments = [...(data || [])];
+    
+    //console.log('🚢 Departments array updated:', this.departments);
+    //console.log('🚢 Filtered departments updated:', this.filteredDepartments);
+    
+    // Force change detection
+    this.cdr.detectChanges();
+  }
+
   exportPDF(): void {
-    console.log('Exporting as PDF...');
+    //console.log('Exporting as PDF...');
     this.exportPDFEvent.emit();
     const doc = new jsPDF();
     autoTable(doc, {
@@ -324,7 +366,7 @@ export class DepartmentMasterComponent implements OnInit {
   @Input() tableName: string = '';
 
   exportExcel(): void {
-    console.log('Exporting as Excel...');
+    //console.log('Exporting as Excel...');
     this.exportCSVEvent.emit();
     const headers = this.cols.map((col) => col.header);
     const rows = this.departments.map((row) =>

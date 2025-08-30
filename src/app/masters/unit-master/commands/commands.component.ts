@@ -110,7 +110,7 @@ export class CommandsComponent implements OnInit {
       .get<any>('master/command/') // Changed to handle paginated response
       .subscribe({
         next: (response) => {
-          console.log(response);
+          //console.log(response);
           // Handle paginated response structure
           if (response && response.results) {
             this.departments = response.results;
@@ -129,7 +129,7 @@ export class CommandsComponent implements OnInit {
   // getSFDHierarchyDetails(): void {
   //   this.apiService.get<any[]>('master/sfd-hierarchy/').subscribe({
   //     next: (data) => {
-  //       console.log(data);
+  //       //console.log(data);
   //       this.filteredSFDHierarchy = data.map((details: any) => ({
   //         label: details.name,
   //         value: details.id,
@@ -180,11 +180,11 @@ export class CommandsComponent implements OnInit {
   handleSubmit(data: any) {
     this.newDepartment = data;
     this.newDepartment.active = 1;
-    console.log('New Department:', this.newDepartment);
+    //console.log('New Department:', this.newDepartment);
 
     this.apiService.post(`master/command/`, this.newDepartment).subscribe({
       next: (response: any) => {
-        console.log(response);
+        //console.log(response);
         this.toastService.showSuccess('Added new Command');
         // Refresh the data after successful addition
         this.getCommands();
@@ -199,12 +199,12 @@ export class CommandsComponent implements OnInit {
 
   viewDeptDetails(dept: any) {
     this.viewdisplayModal = true;
-    console.log(dept);
+    //console.log(dept);
     this.selectedDept = dept;
   }
   editDetails(details: any) {
     this.selectedDept = { ...details };
-    console.log(this.selectedDept);
+    //console.log(this.selectedDept);
     this.isEditFormOpen = true;
   }
 
@@ -218,7 +218,7 @@ export class CommandsComponent implements OnInit {
       .delete(`master/command/${this.selectedDept.id}/`)
       .subscribe({
         next: (data: any) => {
-          console.log(data);
+          //console.log(data);
           this.toastService.showSuccess('Command deleted successfully');
           // Refresh the data after successful deletion
           this.getCommands();
@@ -241,7 +241,7 @@ export class CommandsComponent implements OnInit {
       .put(`master/command/${this.selectedDept.id}/`, this.selectedDept)
       .subscribe({
         next: (updatedData: any) => {
-          console.log(updatedData);
+          //console.log(updatedData);
           this.toastService.showSuccess('Successfully updated command');
           // Refresh the data after successful edit
           this.getCommands();
@@ -281,7 +281,7 @@ export class CommandsComponent implements OnInit {
   @Output() exportCSVEvent = new EventEmitter<void>();
   @Output() exportPDFEvent = new EventEmitter<void>();
   exportPDF() {
-    console.log('Exporting as PDF...');
+    //console.log('Exporting as PDF...');
     // Your PDF export logic here
     this.exportPDFEvent.emit(); // Emit event instead of direct call
     const doc = new jsPDF();
@@ -295,7 +295,7 @@ export class CommandsComponent implements OnInit {
   }
   @Input() tableName: string = '';
   exportExcel() {
-    console.log('Exporting as Excel...');
+    //console.log('Exporting as Excel...');
     // Your Excel export logic here
     this.exportCSVEvent.emit(); // Emit event instead of direct call
     const headers = this.cols.map((col) => col.header);

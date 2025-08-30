@@ -70,12 +70,12 @@ export class FinalPageComponent implements OnInit {
       max_speed_duration: ''
     });
     
-    console.log('addShipRunning - Added new row');
+    //console.log('addShipRunning - Added new row');
   }
 
   editShipRunning() {
     this.isEdit = false;
-    console.log('editShipRunning - Entered edit mode');
+    //console.log('editShipRunning - Entered edit mode');
   }
 
   saveShipRunning() {
@@ -92,7 +92,7 @@ export class FinalPageComponent implements OnInit {
     );
 
     if (dataToSave.length === 0) {
-      console.log('No ship running data to save');
+      //console.log('No ship running data to save');
       return;
     }
 
@@ -110,10 +110,10 @@ export class FinalPageComponent implements OnInit {
     dataToSave.forEach(item => {
       if (item.id) {
         // Update existing record with PUT
-        console.log('PUT API call for existing ship running record:', item);
+        //console.log('PUT API call for existing ship running record:', item);
         this.apiService.put(`srar/ship-running-details/${item.id}/`, item).subscribe({
           next: (response) => {
-            console.log('Updated ship running data:', response);
+            //console.log('Updated ship running data:', response);
             this.messageService.add({
               severity: 'success',
               summary: 'Success',
@@ -131,10 +131,10 @@ export class FinalPageComponent implements OnInit {
         });
       } else {
         // Create new record with POST
-        console.log('POST API call for new ship running record:', item);
+        //console.log('POST API call for new ship running record:', item);
         this.apiService.post('srar/ship-running-details/', item).subscribe({
           next: (response) => {
-            console.log('Saved ship running data:', response);
+            //console.log('Saved ship running data:', response);
             this.messageService.add({
               severity: 'success',
               summary: 'Success',
@@ -155,7 +155,7 @@ export class FinalPageComponent implements OnInit {
       }
     });
 
-    console.log('saveShipRunning', { dataToSave });
+    //console.log('saveShipRunning', { dataToSave });
   }
 
   addEquipmentExploitation() {
@@ -180,7 +180,7 @@ export class FinalPageComponent implements OnInit {
         });
       });
       
-      console.log('addEquipmentExploitation', { selectedEquipment: this.selectedEquipment });
+      //console.log('addEquipmentExploitation', { selectedEquipment: this.selectedEquipment });
       
       // Clear the selection after adding
       this.selectedEquipment = [];
@@ -189,7 +189,7 @@ export class FinalPageComponent implements OnInit {
 
   editEquipmentExploitation() {
     this.isEdit = false;
-    console.log('editEquipmentExploitation - Entered edit mode');
+    //console.log('editEquipmentExploitation - Entered edit mode');
   }
 
   saveEquipmentExploitation() {
@@ -201,7 +201,7 @@ export class FinalPageComponent implements OnInit {
     );
 
     if (dataToSave.length === 0) {
-      console.log('No equipment exploitation data to save');
+      //console.log('No equipment exploitation data to save');
       return;
     }
 
@@ -218,10 +218,10 @@ export class FinalPageComponent implements OnInit {
 
       if (item.id) {
         // Update existing record with PUT
-        console.log('PUT API call for existing equipment exploitation record:', payload);
+        //console.log('PUT API call for existing equipment exploitation record:', payload);
         this.apiService.put(`srar/equipment-exploitation-details/${item.id}/`, payload).subscribe({
           next: (response) => {
-            console.log('Updated equipment exploitation data:', response);
+            //console.log('Updated equipment exploitation data:', response);
             this.messageService.add({
               severity: 'success',
               summary: 'Success',
@@ -239,10 +239,10 @@ export class FinalPageComponent implements OnInit {
         });
       } else {
         // Create new record with POST
-        console.log('POST API call for new equipment exploitation record:', payload);
+        //console.log('POST API call for new equipment exploitation record:', payload);
         this.apiService.post('srar/equipment-exploitation-details/', payload).subscribe({
           next: (response) => {
-            console.log('Saved equipment exploitation data:', response);
+            //console.log('Saved equipment exploitation data:', response);
             this.messageService.add({
               severity: 'success',
               summary: 'Success',
@@ -263,7 +263,7 @@ export class FinalPageComponent implements OnInit {
       }
     });
 
-    console.log('saveEquipmentExploitation', { dataToSave });
+    //console.log('saveEquipmentExploitation', { dataToSave });
   }
 
   goBack() {
@@ -271,6 +271,6 @@ export class FinalPageComponent implements OnInit {
   }
 
   submitToRBI() {
-    console.log('Submitting to RBI...');
+    //console.log('Submitting to RBI...');
   }
 }

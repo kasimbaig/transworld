@@ -31,8 +31,18 @@
   </div>
 
 
-  <app-paginated-table [data]="departments" [columns]="cols" [showEndActions]="true" [showViewAction]="false"
-    (editEvent)="editDeptDetails($event)" (deleteEvent)="deleteDeptDetails($event)"></app-paginated-table>
+  <app-paginated-table *ngIf="toggleTable"
+    [columns]="cols" 
+    [apiUrl]="apiUrl"
+    [totalCount]="totalCount"
+     [data]="departments"
+    [showEndActions]="true" 
+    [showViewAction]="false"
+    (editEvent)="editDeptDetails($event)" 
+    (deleteEvent)="deleteDeptDetails($event)"
+    (dataLoaded)="onDataLoaded($event)"
+     >
+  </app-paginated-table>
 
  
 

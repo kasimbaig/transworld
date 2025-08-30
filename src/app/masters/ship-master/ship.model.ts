@@ -5,6 +5,7 @@ export interface Ship {
   sr_no: string;
   code: string;
   name: string;
+  unit_type:number | { id: number; name: string } | any;
   ship_category: number | { id: number; name: string } | any; // ID or nested object or null
   sfd_hierarchy: number | { id: number; name: string } | null;
   class_master: number | { id: number; name: string } | null;

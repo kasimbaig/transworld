@@ -84,6 +84,7 @@ export class PaginatedTableComponent implements OnInit,OnChanges {
   @Output() deleteEvent = new EventEmitter<any>();
   @Output() rowClick = new EventEmitter<any>();
   @Output() acquiredFromEvent = new EventEmitter<any>();
+  @Output() dataLoaded = new EventEmitter<any[]>();
   rowClicked(row: any) {
     this.rowClick.emit(row);
   }
@@ -99,6 +100,9 @@ constructor(private apiService: ApiService){}
     if(this.data.length === 0 ){
       // this.isLoading=true;
       this.onPageChange({first:0,rows:this.rowsPerPage})
+    } else {
+      // If data is already provided, emit it
+      this.dataLoaded.emit(this.data);
     }
   }
 
@@ -119,6 +123,8 @@ constructor(private apiService: ApiService){}
       this.isLoading=false;
       this.data = [ ...response.results];
       this.totalCount=response.count;
+      // Emit the loaded data to parent component
+      this.dataLoaded.emit(this.data);
     });
   }
 
@@ -190,7 +196,7 @@ constructor(private apiService: ApiService){}
 
 
   onStatusChange(row: any) {
-    console.log('Status changed:', row);
+    //console.log('Status changed:', row);
     // Additional logic can be added here
   }
 
@@ -230,7 +236,7 @@ constructor(private apiService: ApiService){}
   toggleMenu(e: Event, rowData: any) {
     this.activeRow = this.activeRow === rowData ? null : rowData;
     this.menuOpen = this.menuOpen === rowData ? null : rowData;
-    console.log(this.activeRow);
+    //console.log(this.activeRow);
   }
 
   view(row: any) {

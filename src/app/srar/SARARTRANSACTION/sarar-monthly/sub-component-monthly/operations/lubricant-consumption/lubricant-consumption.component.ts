@@ -53,7 +53,7 @@ export class LubricantConsumptionComponent implements OnInit {
   onLubricantSelect(event: any) {
     // When lubricant is selected, we'll use the lubricant name for the name field
     // and lubricant ID for the lubricant field
-    console.log('Lubricant selected:', event.value);
+    //console.log('Lubricant selected:', event.value);
   }
 
   addLubricant() {
@@ -65,7 +65,7 @@ export class LubricantConsumptionComponent implements OnInit {
 
   editLubricant() {
     this.isEdit = false;
-    console.log('editLubricant - Entered edit mode');
+    //console.log('editLubricant - Entered edit mode');
   }
 
   saveLubricant() {
@@ -77,7 +77,7 @@ export class LubricantConsumptionComponent implements OnInit {
     );
 
     if (dataToSave.length === 0) {
-      console.log('No lubricant data to save');
+      //console.log('No lubricant data to save');
       return;
     }
 
@@ -94,10 +94,10 @@ export class LubricantConsumptionComponent implements OnInit {
 
       if (item.id) {
         // Update existing record with PUT
-        console.log('PUT API call for existing lubricant record:', payload);
+        //console.log('PUT API call for existing lubricant record:', payload);
         this.apiService.put(`srar/srar-monthly-lubricants/${item.id}/`, payload).subscribe({
           next: (response) => {
-            console.log('Updated lubricant data:', response);
+            //console.log('Updated lubricant data:', response);
             this.messageService.add({
               severity: 'success',
               summary: 'Success',
@@ -115,10 +115,10 @@ export class LubricantConsumptionComponent implements OnInit {
         });
       } else {
         // Create new record with POST
-        console.log('POST API call for new lubricant record:', payload);
+        //console.log('POST API call for new lubricant record:', payload);
         this.apiService.post('srar/srar-monthly-lubricants/', payload).subscribe({
           next: (response) => {
-            console.log('Saved lubricant data:', response);
+            //console.log('Saved lubricant data:', response);
             this.messageService.add({
               severity: 'success',
               summary: 'Success',
@@ -139,7 +139,7 @@ export class LubricantConsumptionComponent implements OnInit {
       }
     });
 
-    console.log('saveLubricant', { dataToSave });
+    //console.log('saveLubricant', { dataToSave });
   }
 
   saveLubricantForm() {
@@ -159,12 +159,7 @@ export class LubricantConsumptionComponent implements OnInit {
           unit: formValue.unit
         });
         
-        console.log('Added new lubricant:', {
-          name: selectedLubricant.label,
-          lubricant: selectedLubricant.value,
-          quantity: formValue.quantity,
-          unit: formValue.unit
-        });
+ 
         
         this.messageService.add({
           severity: 'success',
@@ -195,7 +190,7 @@ export class LubricantConsumptionComponent implements OnInit {
       // Delete from API if it has an ID
       this.apiService.delete(`srar/srar-monthly-lubricants/${item.id}/`).subscribe({
         next: (response) => {
-          console.log('Deleted lubricant data:', response);
+          //console.log('Deleted lubricant data:', response);
           this.lubricantData.splice(index, 1);
           this.messageService.add({
             severity: 'success',

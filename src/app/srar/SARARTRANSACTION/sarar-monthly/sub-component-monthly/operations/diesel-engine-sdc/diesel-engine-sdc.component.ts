@@ -36,32 +36,15 @@ export class DieselEngineSdcComponent implements OnInit {
     if (this.selectedEquipment.length > 0) {
       // Create a row for each selected equipment
       this.selectedEquipment.forEach(selectedEquipmentData => {
-        // Add new row with selected equipment data
+        const { id, ...equipmentDataWithoutId } = selectedEquipmentData;
         this.injectorFipData.push({
-          srar_monthly_header:this.headerData.id,
-          sfd_details: selectedEquipmentData.id, // Send only the ID
-          serial_no: '', // Leave empty for manual filling
-          serial_number: '',
-          running_hours_months: '',
-          running_hours_since_installation: '',
-          hrs_run_below_33_percent: '',
-          hrs_run_33_to_50_percent: '',
-          hrs_run_50_to_70_percent: '',
-          hrs_run_70_to_100_percent: '',
-          lub_oil_consumption_months: '',
-          date_of_inj_fip_calibration: '',
-          occasion: '',
-          running_hours_at_replaced: '',
-          fuel_consumption_months: '',
-          remarks: '',
-          // Frontend display fields (not sent to API)
-          equipment: selectedEquipmentData.equipment_name,
-          nomenclature: selectedEquipmentData.nomenclature || '',
-          location: selectedEquipmentData.location_name || ''
-        });
+            srar_monthly_header:this.headerData.id,
+            sfd_details: selectedEquipmentData.id, // Send only the ID
+            ...equipmentDataWithoutId
+          });
       });
       
-      console.log('addInjectorFip', { selectedEquipment: this.selectedEquipment });
+      //console.log('addInjectorFip', { selectedEquipment: this.selectedEquipment });
       
       // Clear the selection after adding
       this.selectedEquipment = [];
@@ -70,7 +53,7 @@ export class DieselEngineSdcComponent implements OnInit {
 
   editInjectorFip() {
     this.isEdit = false;
-    console.log('editInjectorFip - Entered edit mode');
+    //console.log('editInjectorFip - Entered edit mode');
   }
 
   saveInjectorFip() {
@@ -82,7 +65,7 @@ export class DieselEngineSdcComponent implements OnInit {
     );
 
     if (dataToSave.length === 0) {
-      console.log('No injector/fip data to save');
+      //console.log('No injector/fip data to save');
       return;
     }
 
@@ -110,10 +93,10 @@ export class DieselEngineSdcComponent implements OnInit {
 
       if (item.id) {
         // Update existing record with PUT
-        console.log('PUT API call for existing injector/fip record:', payload);
+        //console.log('PUT API call for existing injector/fip record:', payload);
         this.apiService.put(`srar/injector-fip-calibration-replacements/${item.id}/`, payload).subscribe({
           next: (response) => {
-            console.log('Updated injector/fip data:', response);
+            //console.log('Updated injector/fip data:', response);
             this.messageService.add({
               severity: 'success',
               summary: 'Success',
@@ -131,10 +114,10 @@ export class DieselEngineSdcComponent implements OnInit {
         });
       } else {
         // Create new record with POST
-        console.log('POST API call for new injector/fip record:', payload);
+        //console.log('POST API call for new injector/fip record:', payload);
         this.apiService.post('srar/injector-fip-calibration-replacements/', payload).subscribe({
           next: (response) => {
-            console.log('Saved injector/fip data:', response);
+            //console.log('Saved injector/fip data:', response);
             this.messageService.add({
               severity: 'success',
               summary: 'Success',
@@ -155,7 +138,7 @@ export class DieselEngineSdcComponent implements OnInit {
       }
     });
 
-    console.log('saveInjectorFip', { dataToSave });
+    //console.log('saveInjectorFip', { dataToSave });
   }
 
   deleteInjectorFip(index: number) {
@@ -165,7 +148,7 @@ export class DieselEngineSdcComponent implements OnInit {
       // Delete from API if it has an ID
       this.apiService.delete(`srar/injector-fip-calibration-replacements/${item.id}/`).subscribe({
         next: (response) => {
-          console.log('Deleted injector/fip data:', response);
+          //console.log('Deleted injector/fip data:', response);
           this.messageService.add({
             severity: 'success',
             summary: 'Success',

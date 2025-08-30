@@ -5,6 +5,7 @@ import {
   OnInit,
   Output,
   ViewChild,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
@@ -79,11 +80,16 @@ export class SectionComponent implements OnInit {
 
   filteredDepartments: any[] = [];
 
+  // New properties for pagination
+  apiUrl: string = 'master/section/';
+  totalCount: number = 0;
+
   constructor(
     private toastService: ToastService, // Inject ToastService
     private location: Location,
     private departmentService: DepartmentService,
-    private sectionService: SectionService
+    private sectionService: SectionService,
+    private cdr: ChangeDetectorRef
   ) {
     this.formConfigForNewDetails = [
       {
@@ -118,8 +124,12 @@ export class SectionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getSections();
+
+    // Load master data for dropdowns (but not sections data - paginated table will handle that)
     this.loadDepartmentOptions();
+    
+    // Note: Table data will be loaded by the paginated table component
+    // No need to call getSections() here
   }
 
   resetNewDetails() {
@@ -144,9 +154,9 @@ export class SectionComponent implements OnInit {
   
     this.sectionService.getSections().subscribe({
       next: (data: any) => {  // ✅ make sure it's `any`, not `any[]`
-        this.sections = (data?.results || []) as any[]; // ✅ ensure it's treated as an array
+        const sections = (data?.results || []) as any[]; // ✅ ensure it's treated as an array
   
-    
+      
   
         this.isLoading = false;
       },
@@ -379,10 +389,10 @@ export class SectionComponent implements OnInit {
   ];
 
   cols = [
-    { field: 'code', header: 'Code' },
-    { field: 'name', header: 'Name' },
-    { field: 'department_name', header: 'Department' },
-    { field: 'active', header: 'Active' },
+    { field: 'code', header: 'Code', filterType: 'text' },
+    { field: 'name', header: 'Name', filterType: 'text' },
+    { field: 'department_name', header: 'Department', filterType: 'text' },
+    { field: 'active', header: 'Active', filterType: 'text' },
   ];
 
   @ViewChild('dt') dt!: Table;
@@ -398,6 +408,21 @@ export class SectionComponent implements OnInit {
 
   // tableName is an Input, so it should be available.
   @Input() tableName: string = 'sections';
+
+  // Handle data loaded from paginated table
+  onDataLoaded(data: any[]): void {
+    //console.log('🚢 Data loaded from paginated table:', data);
+    //console.log('🚢 Data length:', data?.length);
+    //console.log('🚢 Data type:', typeof data);
+    //console.log('🚢 First record:', data?.[0]);
+    
+    this.sections = data || [];
+    
+    //console.log('🚢 Sections array updated:', this.sections);
+    
+    // Force change detection
+    this.cdr.detectChanges();
+  }
 
   exportPDF() {
     const doc = new jsPDF();

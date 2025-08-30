@@ -34,12 +34,15 @@
   
   <app-paginated-table
     *ngIf="!isLoading"
-    [data]="departments"
     [columns]="cols"
+    [apiUrl]="apiUrl"
+    [totalCount]="totalCount"
+     
     [showEndActions]="true"
     (viewEvent)="viewDeptDetails($event)"
     (editEvent)="editDetails($event, true)"
     (deleteEvent)="deleteDeptDetails($event)"
+    (dataLoaded)="onDataLoaded($event)"
   ></app-paginated-table>
 
 

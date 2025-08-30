@@ -77,7 +77,7 @@ export class IccpH2sSensorMffsComponent implements OnInit {
         });
       });
       
-      console.log('addIccp', { selectedEquipment: this.selectedIccpEquipment });
+      //console.log('addIccp', { selectedEquipment: this.selectedIccpEquipment });
       
       // Clear the selection after adding
       this.selectedIccpEquipment = [];
@@ -106,7 +106,7 @@ export class IccpH2sSensorMffsComponent implements OnInit {
         });
       });
       
-      console.log('addH2s', { selectedEquipment: this.selectedH2sEquipment });
+      //console.log('addH2s', { selectedEquipment: this.selectedH2sEquipment });
       
       // Clear the selection after adding
       this.selectedH2sEquipment = [];
@@ -134,7 +134,7 @@ export class IccpH2sSensorMffsComponent implements OnInit {
         });
       });
       
-      console.log('addStp', { selectedEquipment: this.selectedStpEquipment });
+      //console.log('addStp', { selectedEquipment: this.selectedStpEquipment });
       
       // Clear the selection after adding
       this.selectedStpEquipment = [];
@@ -163,7 +163,7 @@ export class IccpH2sSensorMffsComponent implements OnInit {
         });
       });
       
-      console.log('addMffs', { selectedEquipment: this.selectedMffsEquipment });
+      //console.log('addMffs', { selectedEquipment: this.selectedMffsEquipment });
       
       // Clear the selection after adding
       this.selectedMffsEquipment = [];
@@ -172,22 +172,22 @@ export class IccpH2sSensorMffsComponent implements OnInit {
 
   editIccp() {
     this.isEdit = false;
-    console.log('editIccp - Entered edit mode');
+    //console.log('editIccp - Entered edit mode');
   }
 
   editH2s() {
     this.isEdit = false;
-    console.log('editH2s - Entered edit mode');
+    //console.log('editH2s - Entered edit mode');
   }
 
   editStp() {
     this.isEdit = false;
-    console.log('editStp - Entered edit mode');
+    //console.log('editStp - Entered edit mode');
   }
 
   editMffs() {
     this.isEdit = false;
-    console.log('editMffs - Entered edit mode');
+    //console.log('editMffs - Entered edit mode');
   }
 
   saveIccp() {
@@ -199,7 +199,7 @@ export class IccpH2sSensorMffsComponent implements OnInit {
     );
 
     if (dataToSave.length === 0) {
-      console.log('No ICCP data to save');
+      //console.log('No ICCP data to save');
       return;
     }
 
@@ -216,10 +216,10 @@ export class IccpH2sSensorMffsComponent implements OnInit {
 
       if (item.id) {
         // Update existing record with PUT
-        console.log('PUT API call for existing ICCP record:', payload);
+        //console.log('PUT API call for existing ICCP record:', payload);
         this.apiService.put(`srar/iccps/${item.id}/`, payload).subscribe({
           next: (response) => {
-            console.log('Updated ICCP data:', response);
+            //console.log('Updated ICCP data:', response);
             this.messageService.add({
               severity: 'success',
               summary: 'Success',
@@ -237,10 +237,10 @@ export class IccpH2sSensorMffsComponent implements OnInit {
         });
       } else {
         // Create new record with POST
-        console.log('POST API call for new ICCP record:', payload);
+        //console.log('POST API call for new ICCP record:', payload);
         this.apiService.post('srar/iccps/', payload).subscribe({
           next: (response) => {
-            console.log('Saved ICCP data:', response);
+            //console.log('Saved ICCP data:', response);
             this.messageService.add({
               severity: 'success',
               summary: 'Success',
@@ -261,7 +261,7 @@ export class IccpH2sSensorMffsComponent implements OnInit {
       }
     });
 
-    console.log('saveIccp', { dataToSave });
+    //console.log('saveIccp', { dataToSave });
   }
 
   saveH2s() {
@@ -273,7 +273,7 @@ export class IccpH2sSensorMffsComponent implements OnInit {
     );
 
     if (dataToSave.length === 0) {
-      console.log('No H2S data to save');
+      //console.log('No H2S data to save');
       return;
     }
 
@@ -292,10 +292,10 @@ export class IccpH2sSensorMffsComponent implements OnInit {
 
       if (item.id) {
         // Update existing record with PUT
-        console.log('PUT API call for existing H2S record:', payload);
+        //console.log('PUT API call for existing H2S record:', payload);
         this.apiService.put(`srar/h2s-sensors/${item.id}/`, payload).subscribe({
           next: (response) => {
-            console.log('Updated H2S data:', response);
+            //console.log('Updated H2S data:', response);
             this.messageService.add({
               severity: 'success',
               summary: 'Success',
@@ -313,10 +313,10 @@ export class IccpH2sSensorMffsComponent implements OnInit {
         });
       } else {
         // Create new record with POST
-        console.log('POST API call for new H2S record:', payload);
+        //console.log('POST API call for new H2S record:', payload);
         this.apiService.post('srar/h2s-sensors/', payload).subscribe({
           next: (response) => {
-            console.log('Saved H2S data:', response);
+            //console.log('Saved H2S data:', response);
             this.messageService.add({
               severity: 'success',
               summary: 'Success',
@@ -337,7 +337,7 @@ export class IccpH2sSensorMffsComponent implements OnInit {
       }
     });
 
-    console.log('saveH2s', { dataToSave });
+    //console.log('saveH2s', { dataToSave });
   }
 
   saveStp() {
@@ -349,7 +349,7 @@ export class IccpH2sSensorMffsComponent implements OnInit {
     );
 
     if (dataToSave.length === 0) {
-      console.log('No STP data to save');
+      //console.log('No STP data to save');
       return;
     }
 
@@ -368,10 +368,10 @@ export class IccpH2sSensorMffsComponent implements OnInit {
 
       if (item.id) {
         // Update existing record with PUT
-        console.log('PUT API call for existing STP record:', payload);
+        //console.log('PUT API call for existing STP record:', payload);
         this.apiService.put(`srar/stps/${item.id}/`, payload).subscribe({
           next: (response) => {
-            console.log('Updated STP data:', response);
+            //console.log('Updated STP data:', response);
             this.messageService.add({
               severity: 'success',
               summary: 'Success',
@@ -389,10 +389,10 @@ export class IccpH2sSensorMffsComponent implements OnInit {
         });
       } else {
         // Create new record with POST
-        console.log('POST API call for new STP record:', payload);
+        //console.log('POST API call for new STP record:', payload);
         this.apiService.post('srar/stps/', payload).subscribe({
           next: (response) => {
-            console.log('Saved STP data:', response);
+            //console.log('Saved STP data:', response);
             this.messageService.add({
               severity: 'success',
               summary: 'Success',
@@ -413,7 +413,7 @@ export class IccpH2sSensorMffsComponent implements OnInit {
       }
     });
 
-    console.log('saveStp', { dataToSave });
+    //console.log('saveStp', { dataToSave });
   }
 
   saveMffs() {
@@ -425,7 +425,7 @@ export class IccpH2sSensorMffsComponent implements OnInit {
     );
 
     if (dataToSave.length === 0) {
-      console.log('No MFFS data to save');
+      //console.log('No MFFS data to save');
       return;
     }
 
@@ -444,10 +444,10 @@ export class IccpH2sSensorMffsComponent implements OnInit {
 
       if (item.id) {
         // Update existing record with PUT
-        console.log('PUT API call for existing MFFS record:', payload);
+        //console.log('PUT API call for existing MFFS record:', payload);
         this.apiService.put(`srar/magazine-ff-system-flooding-systems/${item.id}/`, payload).subscribe({
           next: (response) => {
-            console.log('Updated MFFS data:', response);
+            //console.log('Updated MFFS data:', response);
             this.messageService.add({
               severity: 'success',
               summary: 'Success',
@@ -465,10 +465,10 @@ export class IccpH2sSensorMffsComponent implements OnInit {
         });
       } else {
         // Create new record with POST
-        console.log('POST API call for new MFFS record:', payload);
+        //console.log('POST API call for new MFFS record:', payload);
         this.apiService.post('srar/magazine-ff-system-flooding-systems/', payload).subscribe({
           next: (response) => {
-            console.log('Saved MFFS data:', response);
+            //console.log('Saved MFFS data:', response);
             this.messageService.add({
               severity: 'success',
               summary: 'Success',
@@ -489,6 +489,6 @@ export class IccpH2sSensorMffsComponent implements OnInit {
       }
     });
 
-    console.log('saveMffs', { dataToSave });
+    //console.log('saveMffs', { dataToSave });
   }
 }

@@ -53,11 +53,11 @@ export class BoilerSteamingDetailComponent implements OnInit {
           equipment_name: selectedEquipmentData.equipment_name,
           location: selectedEquipmentData.location_name,
           nomenclature: selectedEquipmentData.nomenclature || '',
-          ser_no: selectedEquipmentData.serial_number || '' // Manual filling
+          serial_no: selectedEquipmentData.serial_no || '' // Manual filling
         });
       });
       
-      console.log('addBoiler', { selectedEquipment: this.selectedEquipment });
+      //console.log('addBoiler', { selectedEquipment: this.selectedEquipment });
       
       // Clear the selection after adding
       this.selectedEquipment = [];
@@ -82,7 +82,7 @@ export class BoilerSteamingDetailComponent implements OnInit {
         });
       });
       
-      console.log('addBoilerDetail', { selectedEquipmentDetail: this.selectedEquipmentDetail });
+      //console.log('addBoilerDetail', { selectedEquipmentDetail: this.selectedEquipmentDetail });
       
       // Clear the selection after adding
       this.selectedEquipmentDetail = [];
@@ -91,12 +91,12 @@ export class BoilerSteamingDetailComponent implements OnInit {
 
   editBoiler() {
     this.isEdit = false;
-    console.log('editBoiler - Entered edit mode');
+    //console.log('editBoiler - Entered edit mode');
   }
 
   editBoilerDetail() {
     this.isEdit = false;
-    console.log('editBoilerDetail - Entered edit mode');
+    //console.log('editBoilerDetail - Entered edit mode');
   }
 
   saveBoiler() {
@@ -108,7 +108,7 @@ export class BoilerSteamingDetailComponent implements OnInit {
     );
 
     if (dataToSave.length === 0) {
-      console.log('No data to save');
+      //console.log('No data to save');
       return;
     }
 
@@ -139,10 +139,10 @@ export class BoilerSteamingDetailComponent implements OnInit {
 
       if (item.id) {
         // Update existing record with PUT
-        console.log('PUT API call for existing boiler record:', item);
+        //console.log('PUT API call for existing boiler record:', item);
         this.apiService.put(`srar/srar-monthly-boilers/${item.id}/`, item).subscribe({
           next: (response) => {
-            console.log('Updated boiler data:', response);
+            //console.log('Updated boiler data:', response);
             this.messageService.add({
               severity: 'success',
               summary: 'Success',
@@ -160,10 +160,10 @@ export class BoilerSteamingDetailComponent implements OnInit {
         });
       } else {
         // Create new record with POST
-        console.log('POST API call for new boiler record:', item);
+        //console.log('POST API call for new boiler record:', item);
         this.apiService.post('srar/srar-monthly-boilers/', item).subscribe({
           next: (response) => {
-            console.log('Saved boiler data:', response);
+            //console.log('Saved boiler data:', response);
             this.messageService.add({
               severity: 'success',
               summary: 'Success',
@@ -184,7 +184,7 @@ export class BoilerSteamingDetailComponent implements OnInit {
       }
     });
 
-    console.log('saveBoiler', { dataToSave });
+    //console.log('saveBoiler', { dataToSave });
   }
 
   saveBoilerDetail() {
@@ -196,7 +196,7 @@ export class BoilerSteamingDetailComponent implements OnInit {
     );
 
     if (dataToSave.length === 0) {
-      console.log('No boiler detail data to save');
+      //console.log('No boiler detail data to save');
       return;
     }
 
@@ -224,10 +224,10 @@ export class BoilerSteamingDetailComponent implements OnInit {
 
       if (item.id) {
         // Update existing record with PUT
-        console.log('PUT API call for existing boiler detail record:', payload);
+        //console.log('PUT API call for existing boiler detail record:', payload);
         this.apiService.put(`srar/boiler-detail-admiralty/${item.id}/`, payload).subscribe({
           next: (response) => {
-            console.log('Updated boiler detail data:', response);
+            //console.log('Updated boiler detail data:', response);
             this.messageService.add({
               severity: 'success',
               summary: 'Success',
@@ -245,10 +245,10 @@ export class BoilerSteamingDetailComponent implements OnInit {
         });
       } else {
         // Create new record with POST
-        console.log('POST API call for new boiler detail record:', payload);
+        //console.log('POST API call for new boiler detail record:', payload);
         this.apiService.post('srar/boiler-detail-admiralty/', payload).subscribe({
           next: (response) => {
-            console.log('Saved boiler detail data:', response);
+            //console.log('Saved boiler detail data:', response);
             this.messageService.add({
               severity: 'success',
               summary: 'Success',
@@ -269,7 +269,7 @@ export class BoilerSteamingDetailComponent implements OnInit {
       }
     });
 
-    console.log('saveBoilerDetail', { dataToSave });
+    //console.log('saveBoilerDetail', { dataToSave });
   }
 
   deleteBoiler(index: number) {

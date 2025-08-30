@@ -30,8 +30,19 @@
   </div>
 <div>
 
-  <app-paginated-table [data]="manufacturers" [columns]="cols" [showEndActions]="true" [showViewAction]="true"
-    (viewEvent)="viewManufacturerDetails($event)" (editEvent)="editManufacturerDetails($event)" (deleteEvent)="deleteManufacturerDetails($event)"></app-paginated-table>
+  <app-paginated-table 
+    [columns]="cols" 
+    [apiUrl]="apiUrl"
+    [totalCount]="totalCount"
+    [data]="manufacturers"
+    [showEndActions]="true" 
+    [showViewAction]="true"
+    (viewEvent)="viewManufacturerDetails($event)" 
+    (editEvent)="editManufacturerDetails($event)" 
+    (deleteEvent)="deleteManufacturerDetails($event)"
+    (dataLoaded)="onDataLoaded($event)"
+     >
+  </app-paginated-table>
 </div>
 
   

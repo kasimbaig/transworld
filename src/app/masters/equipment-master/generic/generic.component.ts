@@ -4,6 +4,8 @@ import {
   Input,
   Output,
   ViewChild,
+  OnInit,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
@@ -43,7 +45,7 @@ import { ViewDetailsComponent } from '../../../shared/components/view-details/vi
   templateUrl: './generic.component.html',
   styleUrl: './generic.component.css',
 })
-export class GenericComponent {
+export class GenericComponent implements OnInit {
   searchText: string = '';
   departments: any = [];
   title: string = 'Add new Generic';
@@ -79,18 +81,17 @@ export class GenericComponent {
     {
       label: 'Type',
       key: 'type',
-      type: 'select',
-      options: this.filtredTypes,
+      type: 'text',
       required: true,
     },
-    {
-      label: 'Sr Number',
-      key: 'sr_no',
-      type: 'number',
-      required: false,
-    },
+    
   ];
   filteredDepartments: any = [];
+
+  // New properties for pagination
+  apiUrl: string = 'master/generic/';
+  totalCount: number = 0;
+
   toggleForm(open: boolean) {
     this.isFormOpen = open;
   }
@@ -98,38 +99,23 @@ export class GenericComponent {
   constructor(
     private apiService: ApiService,
     private location: Location,
-    private toastService: ToastService // Inject ToastService
+    private toastService: ToastService, // Inject ToastService
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
-    this.getDepartments();
-    this.getTypes();
+    //console.log('🚢 Generic Component Initializing...');
+    //console.log('API URL:', this.apiUrl);
+    //console.log('Total Count:', this.totalCount);
+    //console.log('Enable URL Fetching: true');
+    
+    // Note: Table data will be loaded by the paginated table component
+    // No need to call getDepartments() here
   }
   goBack() {
     this.location.back();
   }
-  getTypes(): void {
-    this.apiService.get<any[]>('master/equipment-type/?is_dropdown=true').subscribe({
-      next: (data) => {
-        console.log(data);
-        this.filtredTypes = data.map((details: any) => ({
-          label: details.name,
-          value: details.id,
-        }));
-        const typeField = this.formConfigForNewDetails.find(
-          (field) => field.key === 'type'
-        );
 
-        if (typeField) {
-          typeField.options = this.filtredTypes;
-        }
-      },
-      error: (error) => {
-        console.error('Error fetching types:', error);
-        this.toastService.showError('Error fetching types');
-      },
-    });
-  }
 
   getDepartments(): void {
     this.isLoading = true;
@@ -286,16 +272,10 @@ export class GenericComponent {
       command: () => this.exportExcel(),
     },
   ];
-  // cols = [
-  //   { field: 'code', header: 'Code' },
-  //   { field: 'type', header: 'Type' }, // Updated to use type_name if available
-  //   { field: 'sr_no', header: 'Sr Number' },
-  //   { field: 'active', header: 'Active', transform: (value: number) => (value === 1 ? 'Y' : 'N') },
-  // ];
   cols = [
-    { field: 'code', header: 'Generic Code' },
-    { field: 'type', header: 'Generic Type' }, // Updated to use type_name if available
-    { field: 'active', header: 'Active'  },
+    { field: 'code', header: 'Generic Code', filterType: 'text' },
+    { field: 'type', header: 'Generic Type', filterType: 'text' }, // Updated to use type_name if available
+    { field: 'active', header: 'Active', filterType: 'text' },
   ];
   @ViewChild('dt') dt!: Table;
   value: number = 0;
@@ -308,45 +288,58 @@ export class GenericComponent {
   @Output() exportCSVEvent = new EventEmitter<void>();
   @Output() exportPDFEvent = new EventEmitter<void>();
   exportPDF() {
-    console.log('Exporting as PDF...');
+    //console.log('Exporting as PDF...');
     this.exportPDFEvent.emit();
     const doc = new jsPDF();
     autoTable(doc, {
       head: [this.cols.map((col) => col.header)],
-      // body: this.departments.map((row: { [x: string]: any }) =>
-        // this.cols.map((col) => {
-        //   if (col.transform) {
-        //     return col.transform(row[col.field]);
-        //   }
-        //   return row[col.field] || '';
-        // })
-      // ),
+      body: this.departments.map((row: { [x: string]: any }) =>
+        this.cols.map((col) => {
+          
+          return row[col.field] || '';
+        })
+      ),
     });
     doc.save(`${this.tableName || 'generic'}.pdf`);
   }
   @Input() tableName: string = '';
   exportExcel() {
-    console.log('Exporting as Excel...');
+    //console.log('Exporting as Excel...');
     this.exportCSVEvent.emit();
     const headers = this.cols.map((col) => col.header);
-    // const rows = this.departments.map((row: { [x: string]: any }) =>
-    //   this.cols.map((col) => {
-    //     if (col.transform) {
-    //       return col.transform(row[col.field]);
-    //     }
-    //     return row[col.field] || '';
-    //   })
-    // );
-    // const csv = [
-    //   headers.join(','),
-    //   ...rows.map((row: any[]) => row.join(',')),
-    // ].join('\n');
-    // const blob = new Blob([csv], { type: 'text/csv' });
-    // const url = window.URL.createObjectURL(blob);
-    // const link = document.createElement('a');
-    // link.href = url;
-    // link.download = `${this.tableName || 'generic'}.csv`;
-    // link.click();
-    // window.URL.revokeObjectURL(url);
+    const rows = this.departments.map((row: { [x: string]: any }) =>
+      this.cols.map((col) => {
+       
+        return row[col.field] || '';
+      })
+    );
+    const csv = [
+      headers.join(','),
+      ...rows.map((row: any[]) => row.join(',')),
+    ].join('\n');
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `${this.tableName || 'generic'}.csv`;
+    link.click();
+    window.URL.revokeObjectURL(url);
+  }
+
+  // Handle data loaded from paginated table
+  onDataLoaded(data: any[]): void {
+    //console.log('🚢 Data loaded from paginated table:', data);
+    //console.log('🚢 Data length:', data?.length);
+    //console.log('🚢 Data type:', typeof data);
+    //console.log('🚢 First record:', data?.[0]);
+    
+    this.departments = data || [];
+    this.filteredDepartments = [...(data || [])];
+    
+    //console.log('🚢 Departments array updated:', this.departments);
+    //console.log('🚢 Filtered departments updated:', this.filteredDepartments);
+    
+    // Force change detection
+    this.cdr.detectChanges();
   }
 }

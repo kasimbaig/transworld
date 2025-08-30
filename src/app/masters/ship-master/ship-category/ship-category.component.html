@@ -36,12 +36,13 @@
     [columns]="cols" 
     [apiUrl]="apiUrl"
     [totalCount]="totalCount"
-     
+    [data]="departments" 
     [showEndActions]="true"
     (viewEvent)="viewDeptDetails($event)" 
     (editEvent)="editDetails($event)"
     (deleteEvent)="deleteDeptDetails($event)" 
     [showViewAction]="false"
+    (dataLoaded)="onDataLoaded($event)"
      >
   </app-paginated-table>
 

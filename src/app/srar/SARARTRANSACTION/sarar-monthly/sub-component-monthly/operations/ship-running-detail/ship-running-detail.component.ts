@@ -35,7 +35,7 @@ export class ShipRunningDetailComponent implements OnInit {
   
   ngOnInit() {
     this.headerData = this.apiService.getData();
-    console.log(this.headerData);
+    //console.log(this.headerData);
     this.getEquipmentExploitationData();
   }
 
@@ -69,7 +69,7 @@ export class ShipRunningDetailComponent implements OnInit {
       }
     }
   )
-    console.log(this.item);
+    //console.log(this.item);
   }
 
 

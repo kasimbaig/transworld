@@ -50,7 +50,7 @@ export class TestKitsCentrifugeComponent implements OnInit {
       next_trials_due: ''
     });
     
-    console.log('addTestKits - Added new row');
+    //console.log('addTestKits - Added new row');
   }
 
   addCentrifuge() {
@@ -64,17 +64,18 @@ export class TestKitsCentrifugeComponent implements OnInit {
         this.centrifugeData.push({
           srar_monthly_header:this.headerData.id,
           sfd_details: selectedEquipmentData.id, // Send only the ID
-          equipment_sr_no: '', // Leave empty for manual filling
+          equipment_sr_no: selectedEquipmentData.serial_no, // Leave empty for manual filling
           ops_or_non_ops: '',
           non_ops_since: '',
           // Frontend display fields (not sent to API)
-          equipment: selectedEquipmentData.equipment_name,
+          equipment_name: selectedEquipmentData.equipment_name,
+          equipment_code: selectedEquipmentData.equipment_code,
           nomenclature: selectedEquipmentData.nomenclature || '',
-          location: selectedEquipmentData.location_name || ''
+          location_name: selectedEquipmentData.location_name || ''
         });
       });
       
-      console.log('addCentrifuge', { selectedEquipment: this.selectedEquipment });
+      //console.log('addCentrifuge', { selectedEquipment: this.selectedEquipment });
       
       // Clear the selection after adding
       this.selectedEquipment = [];
@@ -83,12 +84,12 @@ export class TestKitsCentrifugeComponent implements OnInit {
 
   editTestKits() {
     this.isEdit = false;
-    console.log('editTestKits - Entered edit mode');
+    //console.log('editTestKits - Entered edit mode');
   }
 
   editCentrifuge() {
     this.isEdit = false;
-    console.log('editCentrifuge - Entered edit mode');
+    //console.log('editCentrifuge - Entered edit mode');
   }
 
   saveTestKits() {
@@ -116,10 +117,10 @@ export class TestKitsCentrifugeComponent implements OnInit {
     dataToSave.forEach(item => {
       if (item.id) {
         // Update existing record with PUT
-        console.log('PUT API call for existing test kits record:', item);
+        //console.log('PUT API call for existing test kits record:', item);
         this.apiService.put(`srar/ops-status-of-lub-oil-and-coolant-test-kits/${item.id}/`, item).subscribe({
           next: (response) => {
-            console.log('Updated test kits data:', response);
+            //console.log('Updated test kits data:', response);
             this.messageService.add({
               severity: 'success',
               summary: 'Success',
@@ -137,10 +138,10 @@ export class TestKitsCentrifugeComponent implements OnInit {
         });
       } else {
         // Create new record with POST
-        console.log('POST API call for new test kits record:', item);
+        //console.log('POST API call for new test kits record:', item);
         this.apiService.post('srar/ops-status-of-lub-oil-and-coolant-test-kits/', item).subscribe({
           next: (response) => {
-            console.log('Saved test kits data:', response);
+            //console.log('Saved test kits data:', response);
             this.messageService.add({
               severity: 'success',
               summary: 'Success',
@@ -161,7 +162,7 @@ export class TestKitsCentrifugeComponent implements OnInit {
       }
     });
 
-    console.log('saveTestKits', { dataToSave });
+    //console.log('saveTestKits', { dataToSave });
   }
 
   saveCentrifuge() {
@@ -194,10 +195,10 @@ export class TestKitsCentrifugeComponent implements OnInit {
 
       if (item.id) {
         // Update existing record with PUT
-        console.log('PUT API call for existing centrifuge record:', payload);
+        //console.log('PUT API call for existing centrifuge record:', payload);
         this.apiService.put(`srar/ops-status-of-lub-oil-and-fuel-centrifuge/${item.id}/`, payload).subscribe({
           next: (response) => {
-            console.log('Updated centrifuge data:', response);
+            //console.log('Updated centrifuge data:', response);
             this.messageService.add({
               severity: 'success',
               summary: 'Success',
@@ -215,10 +216,10 @@ export class TestKitsCentrifugeComponent implements OnInit {
         });
       } else {
         // Create new record with POST
-        console.log('POST API call for new centrifuge record:', payload);
+        //console.log('POST API call for new centrifuge record:', payload);
         this.apiService.post('srar/ops-status-of-lub-oil-and-fuel-centrifuge/', payload).subscribe({
           next: (response) => {
-            console.log('Saved centrifuge data:', response);
+            //console.log('Saved centrifuge data:', response);
             this.messageService.add({
               severity: 'success',
               summary: 'Success',
@@ -239,7 +240,7 @@ export class TestKitsCentrifugeComponent implements OnInit {
       }
     });
 
-    console.log('saveCentrifuge', { dataToSave });
+    //console.log('saveCentrifuge', { dataToSave });
   }
 
   deleteTestKits(index: number) {
@@ -249,7 +250,7 @@ export class TestKitsCentrifugeComponent implements OnInit {
       // Delete from API if it has an ID
       this.apiService.delete(`srar/ops-status-of-lub-oil-and-coolant-test-kits/${item.id}/`).subscribe({
         next: (response) => {
-          console.log('Deleted test kits data:', response);
+          //console.log('Deleted test kits data:', response);
           this.testKitsData.splice(index, 1);
           this.messageService.add({
             severity: 'success',
@@ -284,7 +285,7 @@ export class TestKitsCentrifugeComponent implements OnInit {
       // Delete from API if it has an ID
       this.apiService.delete(`srar/ops-status-of-lub-oil-and-fuel-centrifuge/${item.id}/`).subscribe({
         next: (response) => {
-          console.log('Deleted centrifuge data:', response);
+          //console.log('Deleted centrifuge data:', response);
           this.centrifugeData.splice(index, 1);
           this.messageService.add({
             severity: 'success',

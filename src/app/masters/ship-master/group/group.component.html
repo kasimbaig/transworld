@@ -33,12 +33,16 @@
 
   <app-toast></app-toast>
   <app-paginated-table
-    [data]="groups"
     [columns]="cols"
+    [apiUrl]="apiUrl"
+    [totalCount]="totalCount"
+    [data]="groups"
+    [isLoading]="isLoading"
     [showEndActions]="true"
     (viewEvent)="viewGroupDetails($event)"
     (editEvent)="editGroupDetails($event)"
     (deleteEvent)="deleteGroupDetails($event)"
+    (dataLoaded)="onDataLoaded($event)"
   ></app-paginated-table>
 
 

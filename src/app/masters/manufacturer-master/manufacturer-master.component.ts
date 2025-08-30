@@ -5,6 +5,7 @@ import {
   OnInit,
   Output,
   ViewChild,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { Table, TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
@@ -127,22 +128,31 @@ export class ManufacturerMasterComponent implements OnInit { // Renamed componen
       type: 'email', // Changed type to email
       required: true,
     },
-    // { // 'Active' checkbox is common but not in JSON, adding as optional
-    //   label: 'Active',
-    //   key: 'active',
-    //   type: 'checkbox',
-    //   required: false,
-    // },
+    
   ];
+
+  // New properties for pagination
+  apiUrl: string = 'master/manufacturers/';
+  totalCount: number = 0;
 
   constructor(
     private apiService: ApiService,
     private toastService: ToastService,
-    private location: Location
+    private location: Location,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
+    //console.log('🚢 Manufacturer Component Initializing...');
+    //console.log('API URL:', this.apiUrl);
+    //console.log('Total Count:', this.totalCount);
+    //console.log('Enable URL Fetching: true');
+    
+    // Load master data for dropdowns (but not manufacturers data - paginated table will handle that)
     this.loadInitialData();
+    
+    // Note: Table data will be loaded by the paginated table component
+    // No need to call getManufacturers() here
   }
 
   goBack(): void {
@@ -253,7 +263,7 @@ export class ManufacturerMasterComponent implements OnInit { // Renamed componen
    * @param data - The data from the form.
    */
   handleSubmit(data: any): void {
-    console.log("data", data);
+    //console.log("data", data);
     this.apiService.post(`master/manufacturers/`, data).subscribe({ // Updated API endpoint
       next: (res: any) => {
         this.toastService.showSuccess(
@@ -374,6 +384,23 @@ export class ManufacturerMasterComponent implements OnInit { // Renamed componen
     this.newManufacturer = {};
   }
 
+  // Handle data loaded from paginated table
+  onDataLoaded(data: any[]): void {
+    //console.log('🚢 Data loaded from paginated table:', data);
+    //console.log('🚢 Data length:', data?.length);
+    //console.log('🚢 Data type:', typeof data);
+    //console.log('🚢 First record:', data?.[0]);
+    
+    this.manufacturers = data || [];
+    this.filteredManufacturers = [...(data || [])];
+    
+    //console.log('🚢 Manufacturers array updated:', this.manufacturers);
+    //console.log('🚢 Filtered manufacturers updated:', this.filteredManufacturers);
+    
+    // Force change detection
+    this.cdr.detectChanges();
+  }
+
   // Options for export menu
   exportOptions = [
     {
@@ -390,16 +417,16 @@ export class ManufacturerMasterComponent implements OnInit { // Renamed componen
 
   // Table columns configuration for PrimeNG table - Updated to match API response
   cols = [
-    { field: 'code', header: 'Manufacturer Code' },
-    { field: 'name', header: 'Manufacturer Name' },
-    { field: 'contact_person', header: 'Contact Person' },
-    { field: 'contact_number', header: 'Contact Number' },
-    { field: 'email', header: 'Email ID' },
-    { field: 'country_name', header: 'Country Name' }, // Updated to match API response
-    { field: 'city', header: 'City' },
-    { field: 'area', header: 'Area Street' },
-    { field: 'address', header: 'Address' },
-    { field: 'active_display', header: 'Status' }, // Added status column
+    { field: 'code', header: 'Manufacturer Code', filterType: 'text' },
+    { field: 'name', header: 'Manufacturer Name', filterType: 'text' },
+    { field: 'contact_person', header: 'Contact Person', filterType: 'text' },
+    { field: 'contact_number', header: 'Contact Number', filterType: 'text' },
+    { field: 'email', header: 'Email ID', filterType: 'text' },
+    { field: 'country_name', header: 'Country Name', filterType: 'text' }, // Updated to match API response
+    { field: 'city', header: 'City', filterType: 'text' },
+    { field: 'area', header: 'Area Street', filterType: 'text' },
+    { field: 'address', header: 'Address', filterType: 'text' },
+    { field: 'active', header: 'Active', filterType: 'text' }, // Added status column
   ];
 
   @ViewChild('dt') dt!: Table;

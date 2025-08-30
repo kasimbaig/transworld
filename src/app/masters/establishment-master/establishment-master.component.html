@@ -30,8 +30,18 @@
   </div>
 
 
-  <app-paginated-table [data]="establishments" [columns]="cols" [showEndActions]="true" [showViewAction]="false"
-    (editEvent)="editEstablishmentDetails($event)" (deleteEvent)="deleteEstablishmentDetails($event)"></app-paginated-table>
+  <app-paginated-table 
+    [columns]="cols" 
+    [apiUrl]="apiUrl"
+    [totalCount]="totalCount"
+    [data]="establishments"
+    [showEndActions]="true" 
+    [showViewAction]="false"
+    (editEvent)="editEstablishmentDetails($event)" 
+    (deleteEvent)="deleteEstablishmentDetails($event)"
+    (dataLoaded)="onDataLoaded($event)"
+     >
+  </app-paginated-table>
 
 
 </div>

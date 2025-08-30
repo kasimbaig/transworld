@@ -5,6 +5,7 @@ import {
   OnInit,
   Output,
   ViewChild,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { Table, TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
@@ -66,7 +67,7 @@ export class EstablishmentComponent implements OnInit {
 
   formConfig: FormFieldConfig[] = [
     {
-      label: 'Name',
+      label: 'Establishment Name',
       key: 'name',
       type: 'text',
       required: true,
@@ -98,14 +99,28 @@ export class EstablishmentComponent implements OnInit {
     },
   ];
 
+  // New properties for pagination
+  apiUrl: string = 'master/establishments/';
+  totalCount: number = 0;
+
   constructor(
     private apiService: ApiService,
     private toastService: ToastService,
-    private location: Location
+    private location: Location,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
+    //console.log('🚢 Establishment Component Initializing...');
+    //console.log('API URL:', this.apiUrl);
+    //console.log('Total Count:', this.totalCount);
+    //console.log('Enable URL Fetching: true');
+    
+    // Load master data for dropdowns (but not establishments data - paginated table will handle that)
     this.loadInitialData();
+    
+    // Note: Table data will be loaded by the paginated table component
+    // No need to call getEstablishments() here
   }
 
   goBack() {
@@ -234,7 +249,7 @@ rowdata:any
       command: establishment.command,
       ops_authority: establishment.ops_authority,
     };
-    console.log('Edit Data:', this.selectedEstablishment); // For debugging
+    //console.log('Edit Data:', this.selectedEstablishment); // For debugging
   }
 
   handleEditSubmit(data: any) {
@@ -301,20 +316,30 @@ rowdata:any
     },
   ];
 
+  // Handle data loaded from paginated table
+  onDataLoaded(data: any[]): void {
+    //console.log('🚢 Data loaded from paginated table:', data);
+    //console.log('🚢 Data length:', data?.length);
+    //console.log('🚢 Data type:', typeof data);
+    //console.log('🚢 First record:', data?.[0]);
+    
+    this.establishments = data || [];
+    this.filteredEstablishments = [...(data || [])];
+    
+    //console.log('🚢 Establishments array updated:', this.establishments);
+    //console.log('🚢 Filtered establishments updated:', this.filteredEstablishments);
+    
+    // Force change detection
+    this.cdr.detectChanges();
+  }
+
   // Updated columns to match the API response structure
-  // cols = [
-  //   { field: 'name', header: 'Name' },
-  //   { field: 'establishment_category', header: 'Establishment Category' },
-  //   { field: 'command_name', header: 'Command' },
-  //   { field: 'ops_authority_name', header: 'Ops Authority' },
-  //   { field: 'active_display', header: 'Status' },
-  // ];
   cols = [
-    { field: 'name', header: 'Establishment Name' },
+    { field: 'name', header: 'Establishment Name', filterType: 'text' },
     // { field: 'establishment_category', header: 'Establishment Category' },
-    { field: 'command_name', header: 'Command Name' },
-    { field: 'ops_authority.authority', header: 'Ops Authority ' },
-    { field: 'active', header: 'Active' },
+    { field: 'command_name', header: 'Command Name', filterType: 'text' },
+    { field: 'ops_authority.authority', header: 'Ops Authority ', filterType: 'text' },
+    { field: 'active', header: 'Active', filterType: 'text' },
   ];
 
   @ViewChild('dt') dt!: Table;

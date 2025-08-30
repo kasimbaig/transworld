@@ -45,6 +45,7 @@ import { ViewDetailsComponent } from '../../../shared/components/view-details/vi
   providers: [ToastService],
 })
 export class FrequencyMasterComponent implements OnInit {
+  toggleTable=true
   searchText: string = '';
   departments: any = [];
   title: string = 'Add new Frequency';
@@ -153,7 +154,7 @@ export class FrequencyMasterComponent implements OnInit {
       .get<any>('master/frequency/') // Changed to handle paginated response
       .subscribe({
         next: (response) => {
-          console.log(response);
+          //console.log(response);
           // Handle paginated response structure
           if (response && response.results) {
             this.departments = response.results;
@@ -183,7 +184,10 @@ export class FrequencyMasterComponent implements OnInit {
 
     this.apiService.post(`master/frequency/`, this.newDepartment).subscribe({
       next: (data: any) => {
-        console.log(data);
+        this.toggleTable=false
+        setTimeout(() => {
+          this.toggleTable=true
+        }, 100);
         this.toastService.showSuccess('New Frequency Added Successfully');
         // Refresh the data after successful addition
         this.getFrequencies();
@@ -199,20 +203,27 @@ export class FrequencyMasterComponent implements OnInit {
     this.viewdisplayModal = true;
     this.selectedDept = dept;
   }
+  selectedRow:any=null
   editDetails(details: any, open: boolean) {
+    this.selectedRow=details
     this.selectedDept = { ...details };
     this.isEditFormOpen = open;
   }
   deleteDeptDetails(dept: any) {
+    this.selectedRow=dept
     this.selectedDept = { ...dept };
     this.showDeleteDialog = true;
   }
 
   confirmDeletion() {
     this.apiService
-      .delete(`master/frequency/${this.selectedDept.id}/`)
+      .delete(`master/frequency/${this.selectedRow.id}/`)
       .subscribe({
         next: (data: any) => {
+          this.toggleTable=false
+          setTimeout(() => {
+            this.toggleTable=true
+          }, 100);
           this.toastService.showSuccess('Frequency Deleted Successfully');
           // Refresh the data after successful deletion
           this.getFrequencies();
@@ -231,14 +242,17 @@ export class FrequencyMasterComponent implements OnInit {
   handleEditSubmit(data: any) {
     this.selectedDept = { ...data };
 
-    console.log(data);
-    console.log(this.selectedDept);
+    //console.log(data);
+    //console.log(this.selectedDept);
     this.selectedDept.active = 1;
 
-    this.apiService
-      .put(`master/frequency/${this.selectedDept.id}`, this.selectedDept)
+    this.apiService.put(`master/frequency/${this.selectedRow.id}/`, this.selectedDept)
       .subscribe({
         next: (data: any) => {
+          this.toggleTable=false
+          setTimeout(() => {
+            this.toggleTable=true
+          }, 100);
           this.toastService.showSuccess('Frequency Edited Successfully');
           // Refresh the data after successful edit
           this.getFrequencies();
@@ -279,7 +293,7 @@ export class FrequencyMasterComponent implements OnInit {
   @Output() exportCSVEvent = new EventEmitter<void>();
   @Output() exportPDFEvent = new EventEmitter<void>();
   exportPDF() {
-    console.log('Exporting as PDF...');
+    //console.log('Exporting as PDF...');
     // Your PDF export logic here
     this.exportPDFEvent.emit(); // Emit event instead of direct call
     const doc = new jsPDF();
@@ -293,7 +307,7 @@ export class FrequencyMasterComponent implements OnInit {
   }
   @Input() tableName: string = '';
   exportExcel() {
-    console.log('Exporting as Excel...');
+    //console.log('Exporting as Excel...');
     // Your Excel export logic here
     this.exportCSVEvent.emit(); // Emit event instead of direct call
     const headers = this.cols.map((col) => col.header);

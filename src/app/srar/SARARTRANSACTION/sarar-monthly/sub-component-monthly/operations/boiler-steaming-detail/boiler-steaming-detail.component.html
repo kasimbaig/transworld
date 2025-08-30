@@ -77,10 +77,10 @@
             <input [disabled]="isEdit" pInputText type="text" class="w-full min-w-56 border border-gray-400 p-2 text-center" [(ngModel)]="item.nomenclature">
           </td>
           <td class="border border-gray-400 p-2 text-center">
-            <input [disabled]="isEdit" pInputText type="text" class="w-full min-w-56 border border-gray-400 p-2 text-center" [(ngModel)]="item.loc_on_board">
+            <input [disabled]="isEdit" pInputText type="text" class="w-full min-w-56 border border-gray-400 p-2 text-center" [(ngModel)]="item.location">
           </td>
           <td class="border border-gray-400 p-2 text-center">
-            <input [disabled]="isEdit" pInputText type="text" class="w-full min-w-56 border border-gray-400 p-2 text-center" [(ngModel)]="item.ser_no">
+            <input [disabled]="isEdit" pInputText type="text" class="w-full min-w-56 border border-gray-400 p-2 text-center" [(ngModel)]="item.serial_no">
           </td>
           <td class="border border-gray-400 p-2 text-center">
             <input [disabled]="isEdit" pInputText type="text" class="w-full min-w-56 border border-gray-400 p-2 text-center" [(ngModel)]="item.hrs_steamed_during_the_month">
@@ -230,12 +230,12 @@
             <td class="border border-gray-400 p-2 text-center">
               <input [disabled]="isEdit" pInputText type="text" 
                   class="w-full border border-gray-300 rounded px-2 py-1 min-w-48"
-                  [(ngModel)]="item.location" placeholder="Location">
+                  [(ngModel)]="item.location_name" placeholder="Location">
             </td>
             <td class="border border-gray-400 p-2 text-center">
               <input [disabled]="isEdit" pInputText type="text" 
                   class="w-full border border-gray-300 rounded px-2 py-1 min-w-48"
-                  [(ngModel)]="item.serial_number" placeholder="Serial Number">
+                  [(ngModel)]="item.equipment_code" placeholder="Serial Number">
             </td>
             <td class="border border-gray-400 p-2 text-center">
               <input [disabled]="isEdit" pInputText type="number" step="0.01"

@@ -25,7 +25,6 @@ import { DeleteConfirmationModalComponent } from '../../../shared/components/del
 import { ShipCategory } from '../../../shared/models/ship-category.model';
 import { ShipCategoryService } from '../ship-services/ship-category.service';
 import { Observable } from 'rxjs';
-import { set } from 'date-fns';
 
 @Component({
   selector: 'app-ship-category',
@@ -59,7 +58,6 @@ export class ShipCategoryComponent implements OnInit { // Implement OnInit
   showDeleteDialog: boolean = false;
   isEditFormOpen: boolean = false;
   editTitle: string = 'Edit Ship Category';
-  toggleTable: boolean = true;
 
   newDepartment: ShipCategory = {
     code: '',
@@ -93,6 +91,7 @@ export class ShipCategoryComponent implements OnInit { // Implement OnInit
   departments: ShipCategory[] = [];
   filteredDepartments: ShipCategory[] = [];
   private allCategories: ShipCategory[] = []; // To hold all data for filtering
+  toggleTable: boolean = true;
 
   // New properties for pagination
   apiUrl: string = 'master/ship-category/';
@@ -120,10 +119,10 @@ export class ShipCategoryComponent implements OnInit { // Implement OnInit
   ) {}
 
   ngOnInit(): void {
-    console.log('🚢 Ship Category Component Initializing...');
-    console.log('API URL:', this.apiUrl);
-    console.log('Total Count:', this.totalCount);
-    console.log('Enable URL Fetching: true');
+    //console.log('🚢 Ship Category Component Initializing...');
+    //console.log('API URL:', this.apiUrl);
+    //console.log('Total Count:', this.totalCount);
+    //console.log('Enable URL Fetching: true');
     
     // Load master data for dropdowns (but not categories data - paginated table will handle that)
     this.shipCategoryService.loadAllCategoriesData();
@@ -144,16 +143,16 @@ export class ShipCategoryComponent implements OnInit { // Implement OnInit
 
   // Handle data loaded from paginated table
   onDataLoaded(data: any[]): void {
-    console.log('🚢 Data loaded from paginated table:', data);
-    console.log('🚢 Data length:', data?.length);
-    console.log('🚢 Data type:', typeof data);
-    console.log('🚢 First record:', data?.[0]);
+    //console.log('🚢 Data loaded from paginated table:', data);
+    //console.log('🚢 Data length:', data?.length);
+    //console.log('🚢 Data type:', typeof data);
+    //console.log('🚢 First record:', data?.[0]);
     
     this.departments = data || [];
     this.filteredDepartments = [...(data || [])];
     
-    console.log('🚢 Departments array updated:', this.departments);
-    console.log('🚢 Filtered departments updated:', this.filteredDepartments);
+    //console.log('🚢 Departments array updated:', this.departments);
+    //console.log('🚢 Filtered departments updated:', this.filteredDepartments);
     
     // Force change detection
     this.cdr.detectChanges();
@@ -196,11 +195,11 @@ export class ShipCategoryComponent implements OnInit { // Implement OnInit
         this.toastService.showSuccess('Ship Category added successfully');
         // The service's BehaviorSubject will update the departments$ Observable,
         // which will then update the local 'departments' array via subscription.
-        this.closeDialog();
         this.toggleTable = false;
         setTimeout(() => {
           this.toggleTable = true;
-        }, 0);
+        }, 100);
+        this.closeDialog();
       },
       error: (error) => {
         console.error('Error adding ship category:', error);
@@ -239,7 +238,7 @@ export class ShipCategoryComponent implements OnInit { // Implement OnInit
           this.toggleTable = false;
           setTimeout(() => {
             this.toggleTable = true;
-          }, 0);
+          }, 100);
         },
         error: (error) => {
           console.error('Error deleting ship category:', error);
@@ -264,11 +263,11 @@ export class ShipCategoryComponent implements OnInit { // Implement OnInit
         next: (response) => {
           this.toastService.showSuccess('Ship Category updated successfully');
           // Service's BehaviorSubject will update and refresh the list
-          this.closeDialog();
           this.toggleTable = false;
           setTimeout(() => {
             this.toggleTable = true;
-          }, 0);
+          }, 100);
+          this.closeDialog();
         },
         error: (error) => {
           console.error('Error updating ship category:', error);
@@ -309,7 +308,7 @@ export class ShipCategoryComponent implements OnInit { // Implement OnInit
   @Output() exportPDFEvent = new EventEmitter<void>();
 
   exportPDF(): void {
-    console.log('Exporting as PDF...');
+    //console.log('Exporting as PDF...');
     this.exportPDFEvent.emit();
     const doc = new jsPDF();
     autoTable(doc, {
@@ -324,7 +323,7 @@ export class ShipCategoryComponent implements OnInit { // Implement OnInit
   @Input() tableName: string = '';
 
   exportExcel(): void {
-    console.log('Exporting as Excel...');
+    //console.log('Exporting as Excel...');
     this.exportCSVEvent.emit();
     const headers = this.cols.map((col) => col.header);
     const rows = this.departments.map((row: { [x: string]: any }) =>

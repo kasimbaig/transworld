@@ -23,7 +23,7 @@ export class DepartmentService {
   }
 
   loadAllDepartmentsData(): void {
-    console.log('DepartmentService: loadAllDepartmentsData called.');
+    //console.log('DepartmentService: loadAllDepartmentsData called.');
     this.loading$.next(true);
   
     this.apiService.get<any>(this.endpoint).subscribe({
@@ -71,7 +71,7 @@ export class DepartmentService {
   }
 
   getDepartmentOptions(): Observable<Option[]> {
-    console.log('DepartmentService: getDepartmentOptions called.');
+   
     return this.departments$.asObservable().pipe(
       // Removed take(1) here to ensure it receives the updated data
       map(departments => {
@@ -81,7 +81,7 @@ export class DepartmentService {
             label: department.name,
             value: department.id as number,
           }));
-        console.log('DepartmentService: getDepartmentOptions mapping complete, options count:', options.length);
+          
         return options;
       })
     );

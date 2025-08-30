@@ -20,6 +20,7 @@ import autoTable from 'jspdf-autotable';
 import { TieredMenuModule } from 'primeng/tieredmenu';
 
 import { CommonModule } from '@angular/common';
+import { ChangeDetectorRef } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { ToastService } from '../../../services/toast.service';
@@ -179,6 +180,7 @@ export class ShipMasterComponent implements OnInit, OnDestroy {
   detailsForViewComponent: any[] = [];
   private subscriptions: Subscription = new Subscription();
   unitOptions: any;
+  toggleTable=true
 
   constructor(
     private toastService: ToastService,
@@ -193,9 +195,15 @@ export class ShipMasterComponent implements OnInit, OnDestroy {
     private propulsionService: PropulsionService,
     private unitTypeService : ShipCategoryService,
     private apiService: ApiService,
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
+    //console.log('🚢 Ship Master Component Initializing...');
+    //console.log('API URL:', this.apiUrl);
+    //console.log('Total Count:', this.totalCount);
+    //console.log('Enable URL Fetching: true');
+    
     this.loadAllMasterDataAndOptions();
     // this.apiCall();
   }
@@ -209,12 +217,8 @@ export class ShipMasterComponent implements OnInit, OnDestroy {
   }
 
   loadAllMasterDataAndOptions(): void {
-    this.subscriptions.add(
-      this.shipService.getShips().subscribe(ships => {
-        this.ships = ships;
-        this.filteredShips = [...ships];
-      })
-    );
+    // Note: Ships data will be loaded by the paginated table component
+    // No need to subscribe to ships data here
 
     // Subscribe to lookup options and set them in formConfig
     this.subscriptions.add(
@@ -260,7 +264,7 @@ export class ShipMasterComponent implements OnInit, OnDestroy {
     );
 
     this.unitTypeService.loadAllUnitTypesData();
-    this.shipService.loadAllShipsData();
+    // this.shipService.loadAllShipsData();
     this.shipCategoryService.loadAllCategoriesData();
     this.sfdHierarchyService.loadAllSfdHierarchiesData();
     this.classMasterService.loadAllClassesData();
@@ -276,6 +280,25 @@ export class ShipMasterComponent implements OnInit, OnDestroy {
       field.options = options;
     }
   }
+
+  // Handle data loaded from paginated table
+  onDataLoaded(data: any[]): void {
+    //console.log('🚢 Data loaded from paginated table:', data);
+    //console.log('🚢 Data length:', data?.length);
+    //console.log('🚢 Data type:', typeof data);
+    //console.log('🚢 First record:', data?.[0]);
+    
+    this.ships = data || [];
+    this.filteredShips = [...(data || [])];
+    
+    //console.log('🚢 Ships array updated:', this.ships);
+    //console.log('🚢 Filtered ships updated:', this.filteredShips);
+    
+    // Force change detection
+    this.cdr.detectChanges();
+  }
+
+ 
 
   filterShips(): void {
     const search = this.searchText.toLowerCase().trim();
@@ -308,24 +331,18 @@ export class ShipMasterComponent implements OnInit, OnDestroy {
   }
 
   handleSubmit(data: typeof this.initialShipFormData): void {
-    console.log("data", data);
-      // const payload: Partial<Ship> = {
-      //   ...data as unknown as Partial<Ship>,
-      //   active: data.active ? 1 : 0,
-      //   ship_category: this.getForeignKeyId(data.ship_category) as any,
-      //   sfd_hierarchy: this.getForeignKeyId(data.sfd_hierarchy) as any,
-      //   class_master: this.getForeignKeyId(data.class_master) as any,
-      //   command: this.getForeignKeyId(data.command) as any,
-      //   authority: this.getForeignKeyId(data.authority) as any,
-      //   overseeing_team: this.getForeignKeyId(data.overseeing_team) as any,
-      //   propulsion: this.getForeignKeyId(data.propulsion) as any,
-      // };
+    //console.log("data", data);
+
       const updatedData = { ...data, active: data.active ? 1 : 2 };
     this.subscriptions.add(
       this.shipService.addShip(updatedData as Ship).subscribe({
         next: (res) => {
+          this.toggleTable=false
+          setTimeout(() => {
+            this.toggleTable=true
+          }, 100);
           this.toastService.showSuccess('Ship added successfully');
-          this.shipService.loadAllShipsData();
+          // this.shipService.loadAllShipsData();
           this.closeDialog();
         },
         error: (error) => {
@@ -358,7 +375,7 @@ export class ShipMasterComponent implements OnInit, OnDestroy {
 
   handleEditSubmit(data: typeof this.initialShipFormData): void {
     const updatedData = { ...data, active: data.active ? 1 : 2 };
-    console.log("data", updatedData);
+    //console.log("data", updatedData);
     if (!this.selectedShip.id) {
       this.toastService.showError('Ship ID is missing for update.');
       this.closeDialog();
@@ -381,8 +398,12 @@ export class ShipMasterComponent implements OnInit, OnDestroy {
     this.subscriptions.add(
       this.shipService.updateShip(this.selectedShip.id!,updatedData).subscribe({
         next: (updated) => {
+          this.toggleTable=false
+          setTimeout(() => {
+            this.toggleTable=true
+          }, 100);
           this.toastService.showSuccess('Ship updated successfully');
-          this.shipService.loadAllShipsData();
+          // this.shipService.loadAllShipsData();
           this.closeDialog();
         },
         error: (error) => {
@@ -429,8 +450,12 @@ export class ShipMasterComponent implements OnInit, OnDestroy {
     this.subscriptions.add(
       this.shipService.deleteShip(this.selectedShip.id).subscribe({
         next: () => {
+          this.toggleTable=false
+          setTimeout(() => {
+            this.toggleTable=true
+          }, 100);
           this.toastService.showSuccess('Ship deleted successfully');
-          this.shipService.loadAllShipsData();
+          // this.shipService.loadAllShipsData();
           this.showDeleteDialog = false;
         },
         error: (error) => {
@@ -484,7 +509,7 @@ export class ShipMasterComponent implements OnInit, OnDestroy {
       (this.detailsForViewComponent as any)[fieldKey] = (displayValue !== null && displayValue !== undefined && String(displayValue).trim() !== '') ? displayValue : 'N/A';
     });
 
-    console.log("Details object passed to ViewDetailsComponent (hacky array-object):", this.detailsForViewComponent);
+    //console.log("Details object passed to ViewDetailsComponent (hacky array-object):", this.detailsForViewComponent);
     this.isViewDetailsOpen = open;
     this.viewdisplayModal = open;
   }
@@ -502,31 +527,36 @@ export class ShipMasterComponent implements OnInit, OnDestroy {
     },
   ];
 
+  // URL-based fetching configuration
+  apiUrl: string = 'master/ship/';
+  totalCount: number = 0;
+
   cols = [
-    { field: 'code', header: 'Ship Code' },
-    { field: 'name', header: 'Ship Name' },
-    { field: 'command_name', header: 'Command' },
-    { field: 'commission_date', header: 'Commission Date' },
-    { field: 'authority_name', header: 'Ops Auth' },
-    { field: 'decommission_date', header: 'Decommission' },
-    { field: 'active', header: 'Active' },
+    { field: 'code', header: 'Ship Code', filterType: 'text' },
+    { field: 'name', header: 'Ship Name', filterType: 'text' },
+    { field: 'command_name', header: 'Command', filterType: 'text' },
+    { field: 'commission_date', header: 'Commission Date', filterType: 'date' },
+    { field: 'authority_name', header: 'Ops Auth', filterType: 'text' },
+    { field: 'decommission_date', header: 'Decommission', filterType: 'date' },
+    { field: 'active', header: 'Active', filterType: 'text' },
   ];
   // Here’s the table header text from your image:
 
 
   
   @ViewChild('dt') dt!: Table;
+  @ViewChild('paginatedTable') paginatedTable!: PaginatedTableComponent;
   @ViewChildren(AddFormComponent) addFormComponents!: QueryList<AddFormComponent>;
   @Input() tableName: string = '';
   @Output() exportCSVEvent = new EventEmitter<void>();
   @Output() exportPDFEvent = new EventEmitter<void>();
 
   logMessage(...messages: any[]): void {
-    console.log(...messages);
+    //console.log(...messages);
   }
 
   exportPDF(): void {
-    console.log('Exporting as PDF...');
+    //console.log('Exporting as PDF...');
     this.exportPDFEvent.emit();
     const doc = new jsPDF();
 
@@ -556,7 +586,7 @@ export class ShipMasterComponent implements OnInit, OnDestroy {
   }
 
   exportExcel(): void {
-    console.log('Exporting as Excel...');
+    //console.log('Exporting as Excel...');
     this.exportCSVEvent.emit();
     const headers = this.cols.map((col) => col.header);
     const rows = this.ships.map((row: Ship) =>
@@ -592,14 +622,14 @@ export class ShipMasterComponent implements OnInit, OnDestroy {
   }
 
   handleSelectChange(event: any): void {
-    console.log('Selected value:', event);
+    //console.log('Selected value:', event);
     // Add your logic here
   }
 
   //   apiCall(){
   //   this.apiService.get('master/unit-type/').subscribe((res: any) => {
   //     this.unitOptions = res.results;
-  //     console.log("unit options are", this.unitOptions)
+  //     //console.log("unit options are", this.unitOptions)
   //   });
   // }
 }

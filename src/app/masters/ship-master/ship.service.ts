@@ -21,14 +21,12 @@ export class ShipService {
   }
 
   loadAllShipsData(): void {
-    console.log('ShipService: loadAllShipsData called.');
     this.loading$.next(true);
   
     this.api.get<{ count: number; next: string | null; previous: string | null; results: Ship[] }>(this.endpoint)
       .subscribe({
         next: (response) => {
           const shipsArray = Array.isArray(response?.results) ? response.results : [];
-          console.log('ShipService: API call successful, received ships:', shipsArray.length);
           this.ships$.next(shipsArray);
           this.loading$.next(false);
         },
@@ -59,7 +57,7 @@ export class ShipService {
   }
 
   getShipOptions(): Observable<Option[]> {
-    console.log('ShipService: getShipOptions called.');
+    //console.log('ShipService: getShipOptions called.');
     return this.ships$.asObservable().pipe(
       // Removed take(1) here to ensure it receives the updated data
       map((ships) => {
@@ -69,7 +67,7 @@ export class ShipService {
             label: ship.name,
             value: ship.id as number,
           }));
-        console.log('ShipService: getShipOptions mapping complete, options count:', options.length);
+        //console.log('ShipService: getShipOptions mapping complete, options count:', options.length);
         return options;
       })
     );

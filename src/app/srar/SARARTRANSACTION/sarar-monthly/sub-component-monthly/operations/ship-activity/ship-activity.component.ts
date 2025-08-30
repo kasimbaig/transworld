@@ -149,7 +149,7 @@ export class ShipActivityComponent implements OnInit {
         
         this.tableData.push(newRow);
         this.clearForm();
-        console.log('Ship activity added successfully', response);
+        //console.log('Ship activity added successfully', response);
         this.messageService.add({ severity: 'success', summary: 'Success', detail: response.message || "Ship activity added successfully" });
         this.clearForm();
           },
@@ -180,14 +180,14 @@ export class ShipActivityComponent implements OnInit {
         console.error('Failed to get ship activity', err);
       }
     });
-    console.log(this.tableData);
+    //console.log(this.tableData);
   }
   /** Delete ship activity */
   onDeleteClick(rowId: number): void {
     this.apiService.delete(`srar/srar-monthly-ship-activities/${rowId}/`).subscribe({
       next: () => {
         this.tableData = this.tableData.filter(row => row.id !== rowId);
-        console.log('Ship activity deleted successfully');
+        //console.log('Ship activity deleted successfully');
         this.messageService.add({ severity: 'success', summary: 'Success', detail: "ship activity deleted successfully from the list" });
         this.clearForm();
       },

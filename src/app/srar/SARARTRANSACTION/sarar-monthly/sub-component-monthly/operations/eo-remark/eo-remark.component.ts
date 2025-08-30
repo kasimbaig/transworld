@@ -42,12 +42,12 @@ export class EoRemarkComponent implements OnInit {
       ship_remarks: this.shipRemarks // Include ship remarks in new record
     });
     
-    console.log('addEef - Added new row');
+    //console.log('addEef - Added new row');
   }
 
   editEef() {
     this.isEdit = false;
-    console.log('editEef - Entered edit mode');
+    //console.log('editEef - Entered edit mode');
   }
 
   saveEef() {
@@ -62,7 +62,7 @@ export class EoRemarkComponent implements OnInit {
     );
 
     if (dataToSave.length === 0) {
-      console.log('No EEF data to save');
+      //console.log('No EEF data to save');
       return;
     }
 
@@ -76,10 +76,10 @@ export class EoRemarkComponent implements OnInit {
     dataToSave.forEach(item => {
       if (item.id) {
         // Update existing record with PUT
-        console.log('PUT API call for existing EEF record:', item);
+        //console.log('PUT API call for existing EEF record:', item);
         this.apiService.put(`srar/eefs/${item.id}/`, item).subscribe({
           next: (response) => {
-            console.log('Updated EEF data:', response);
+            //console.log('Updated EEF data:', response);
             this.messageService.add({
               severity: 'success',
               summary: 'Success',
@@ -97,10 +97,10 @@ export class EoRemarkComponent implements OnInit {
         });
       } else {
         // Create new record with POST
-        console.log('POST API call for new EEF record:', item);
+        //console.log('POST API call for new EEF record:', item);
         this.apiService.post('srar/eefs/', item).subscribe({
           next: (response) => {
-            console.log('Saved EEF data:', response);
+            //console.log('Saved EEF data:', response);
             this.messageService.add({
               severity: 'success',
               summary: 'Success',
@@ -121,6 +121,6 @@ export class EoRemarkComponent implements OnInit {
       }
     });
 
-    console.log('saveEef', { dataToSave, shipRemarks: this.shipRemarks });
+    //console.log('saveEef', { dataToSave, shipRemarks: this.shipRemarks });
   }
 }

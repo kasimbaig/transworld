@@ -54,7 +54,7 @@ export class EquipmentNextRoutionDueComponent implements OnInit {
         });
       });
       
-      console.log('addEquipmentRoutine', { selectedEquipment: this.selectedEquipment });
+      //console.log('addEquipmentRoutine', { selectedEquipment: this.selectedEquipment });
       
       // Clear the selection after adding
       this.selectedEquipment = [];
@@ -69,7 +69,7 @@ export class EquipmentNextRoutionDueComponent implements OnInit {
 
   editEquipmentRoutine() {
     this.isEdit = false;
-    console.log('editEquipmentRoutine - Entered edit mode');
+    //console.log('editEquipmentRoutine - Entered edit mode');
     
     this.messageService.add({
       severity: 'info',
@@ -87,7 +87,7 @@ export class EquipmentNextRoutionDueComponent implements OnInit {
     );
 
     if (dataToSave.length === 0) {
-      console.log('No equipment routine data to save');
+      //console.log('No equipment routine data to save');
       this.messageService.add({
         severity: 'warn',
         summary: 'Warning',
@@ -111,10 +111,10 @@ export class EquipmentNextRoutionDueComponent implements OnInit {
 
       if (item.id) {
         // Update existing record with PUT
-        console.log('PUT API call for existing equipment routine record:', payload);
+        //console.log('PUT API call for existing equipment routine record:', payload);
         this.apiService.put(`srar/equipment-routine-due-ons/${item.id}/`, payload).subscribe({
           next: (response) => {
-            console.log('Updated equipment routine data:', response);
+            //console.log('Updated equipment routine data:', response);
             this.messageService.add({
               severity: 'success',
               summary: 'Success',
@@ -132,10 +132,10 @@ export class EquipmentNextRoutionDueComponent implements OnInit {
         });
       } else {
         // Create new record with POST
-        console.log('POST API call for new equipment routine record:', payload);
+        //console.log('POST API call for new equipment routine record:', payload);
         this.apiService.post('srar/equipment-routine-due-ons/', payload).subscribe({
           next: (response) => {
-            console.log('Saved equipment routine data:', response);
+            //console.log('Saved equipment routine data:', response);
             // Reload data after successful save
             this.loadEquipmentRoutineData();
             this.messageService.add({
@@ -156,6 +156,6 @@ export class EquipmentNextRoutionDueComponent implements OnInit {
       }
     });
 
-    console.log('saveEquipmentRoutine', { dataToSave });
+    //console.log('saveEquipmentRoutine', { dataToSave });
   }
 }

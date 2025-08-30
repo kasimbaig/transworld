@@ -4,6 +4,8 @@ import {
   Input,
   Output,
   ViewChild,
+  OnInit,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { ApiService } from '../../../services/api.service';
 import { FormsModule } from '@angular/forms';
@@ -42,7 +44,7 @@ import { ViewDetailsComponent } from '../../../shared/components/view-details/vi
   templateUrl: './class.component.html',
   styleUrl: './class.component.css',
 })
-export class ClassComponent {
+export class ClassComponent implements OnInit {
   searchText: string = '';
   departments: any = [];
   isFormOpen: boolean = false;
@@ -65,16 +67,15 @@ export class ClassComponent {
     active: null,
   };
   formConfigForNewDetails = [
-   
     {
-      label: 'Name',
-      key: 'description',
+      label: 'Code',
+      key: 'code',
       type: 'text',
       required: true,
     },
-     {
-      label: 'Code',
-      key: 'code',
+    {
+      label: 'Name',
+      key: 'description',
       type: 'text',
       required: true,
     },
@@ -83,16 +84,44 @@ export class ClassComponent {
     this.isFormOpen = open;
   }
   filteredDepartments: any = [];
+  toggleTable: boolean = true;
 
-  constructor(private apiService: ApiService, private location:Location) {}
+  // New properties for pagination
+  apiUrl: string = 'master/class/';
+  totalCount: number = 0;
+
+  constructor(private apiService: ApiService, private location:Location, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
-    this.getDepartments();
+    //console.log('🚢 Class Component Initializing...');
+    //console.log('API URL:', this.apiUrl);
+    //console.log('Total Count:', this.totalCount);
+    //console.log('Enable URL Fetching: true');
+    
+    // Note: Table data will be loaded by the paginated table component
+    // No need to call getDepartments() here
   }
-goBack(){
-  this.location.back(); 
 
-}
+  goBack(){
+    this.location.back(); 
+  }
+
+  // Handle data loaded from paginated table
+  onDataLoaded(data: any[]): void {
+    //console.log('🚢 Data loaded from paginated table:', data);
+    //console.log('🚢 Data length:', data?.length);
+    //console.log('🚢 Data type:', typeof data);
+    //console.log('🚢 First record:', data?.[0]);
+    
+    this.departments = data || [];
+    this.filteredDepartments = [...(data || [])];
+    
+    //console.log('🚢 Departments array updated:', this.departments);
+    //console.log('🚢 Filtered departments updated:', this.filteredDepartments);
+    
+    // Force change detection
+    this.cdr.detectChanges();
+  }
   getDepartments(): void {
     this.apiService
       .get<any[]>('master/class/') // Adjust endpoint
@@ -129,19 +158,20 @@ goBack(){
     this.editdisplayModal = false;
     this.selectedDept = {
       code: '',
-      name: '',
+      description: '',
       active: null,
     };
   }
   handleSubmit(data: any) {
     this.newDepartment = data;
-    console.log('New Department:', this.newDepartment);
+    //console.log('New Department:', this.newDepartment);
     this.apiService.post(`master/class/`, this.newDepartment).subscribe({
       next: (data: any) => {
-        console.log(data);
-        this.departments.push(data);
-        this.filteredDepartments = [...this.departments];
-        this.getDepartments();
+        //console.log(data);
+        this.toggleTable = false;
+        setTimeout(() => {
+          this.toggleTable = true;
+        }, 100);
       },
       error: (error) => {
         console.error('Login failed:', error);
@@ -152,7 +182,7 @@ goBack(){
   }
   viewDeptDetails(dept: any) {
     this.viewdisplayModal = true;
-    console.log(dept);
+    //console.log(dept);
     this.selectedDept = dept;
   }
   editDetails(details: any, open: boolean) {
@@ -166,8 +196,11 @@ goBack(){
   confirmDeletion() {
     this.apiService.delete(`master/class/${this.selectedDept.id}/`).subscribe({
       next: (data: any) => {
-        console.log(data);
-        this.getDepartments();
+        //console.log(data);
+        this.toggleTable = false;
+        setTimeout(() => {
+          this.toggleTable = true;
+        }, 100);
       },
       error: (error) => {
         console.error('Error:', error);
@@ -181,19 +214,22 @@ goBack(){
       .put(`master/class/${this.selectedDept.id}/`, this.selectedDept)
       .subscribe({
         next: (data: any) => {
-          console.log(data);
-          this.getDepartments();
+          //console.log(data);
+          this.toggleTable = false;
+          setTimeout(() => {
+            this.toggleTable = true;
+          }, 100);
         },
         error: (error) => {
           console.error('Error:', error);
         },
       });
-    console.log(this.selectedDept);
+    //console.log(this.selectedDept);
     this.closeDialog();
   }
   cols = [
-    { field: 'description', header: 'Name' },
-    { field: 'active', header: 'Active', transform: (value: number) => (value === 1 ? 'Y' : 'N') },
+    { field: 'description', header: 'Class Name', filterType: 'text' },
+    { field: 'active', header: 'Active', filterType: 'text'},
   ];
   exportOptions = [
     {
@@ -218,7 +254,7 @@ goBack(){
   @Output() exportCSVEvent = new EventEmitter<void>();
   @Output() exportPDFEvent = new EventEmitter<void>();
   exportPDF() {
-    console.log('Exporting as PDF...');
+    //console.log('Exporting as PDF...');
     // Your PDF export logic here
     this.exportPDFEvent.emit(); // Emit event instead of direct call
     const doc = new jsPDF();
@@ -232,7 +268,7 @@ goBack(){
   }
   @Input() tableName: string = '';
   exportExcel() {
-    console.log('Exporting as Excel...');
+    //console.log('Exporting as Excel...');
     // Your Excel export logic here
     this.exportCSVEvent.emit(); // Emit event instead of direct call
     const headers = this.cols.map((col) => col.header);

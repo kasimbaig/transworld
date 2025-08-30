@@ -44,7 +44,7 @@
       <table class="w-full border-collapse border border-gray-400">
         <thead>
           <tr class="bg-gray-100">
-            <th class="border border-gray-400 p-2 text-center">Description</th>
+            <th class="border border-gray-400 p-2 text-center">Test Kits Description</th>
             <th class="border border-gray-400 p-2 text-center">Ops/Non Ops</th>
             <th class="border border-gray-400 p-2 text-center">Non Ops Since</th>
             <th class="border border-gray-400 p-2 text-center">Last Trials Taken</th>
@@ -143,16 +143,16 @@
           <ng-container *ngFor="let item of centrifugeData; let i = index">
             <tr class="bg-white">
               <td class="border border-gray-400 p-2 text-center">
-                <input [disabled]="isEdit" pInputText type="text" class="w-full border border-gray-300 rounded px-2 py-1 text-xs" [(ngModel)]="item.equipment" placeholder="Equipment name">
+                <input [disabled]="isEdit" pInputText type="text" class="w-full border border-gray-300 rounded px-2 py-1 text-xs" [(ngModel)]="item.equipment_name" placeholder="Equipment name">
               </td>
               <td class="border border-gray-400 p-2 text-center">
                 <input [disabled]="isEdit" pInputText type="text" class="w-full border border-gray-300 rounded px-2 py-1 text-xs" [(ngModel)]="item.nomenclature" placeholder="Nomenclature">
               </td>
               <td class="border border-gray-400 p-2 text-center">
-                <input [disabled]="isEdit" pInputText type="text" class="w-full border border-gray-300 rounded px-2 py-1 text-xs" [(ngModel)]="item.equipment_sr_no" placeholder="Equipment code">
+                <input [disabled]="isEdit" pInputText type="text" class="w-full border border-gray-300 rounded px-2 py-1 text-xs" [(ngModel)]="item.equipment_code" placeholder="Equipment code">
               </td>
               <td class="border border-gray-400 p-2 text-center">
-                <input [disabled]="isEdit" pInputText type="text" class="w-full border border-gray-300 rounded px-2 py-1 text-xs" [(ngModel)]="item.location" placeholder="Location on board">
+                <input [disabled]="isEdit" pInputText type="text" class="w-full border border-gray-300 rounded px-2 py-1 text-xs" [(ngModel)]="item.location_name" placeholder="Location on board">
               </td>
               <td class="border border-gray-400 p-2 text-center">
                 <select [disabled]="isEdit" class="w-full border border-gray-300 rounded px-2 py-1 text-xs" [(ngModel)]="item.ops_or_non_ops">

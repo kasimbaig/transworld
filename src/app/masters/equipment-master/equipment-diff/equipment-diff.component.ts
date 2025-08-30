@@ -4,6 +4,8 @@ import {
   Input,
   Output,
   ViewChild,
+  OnInit,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
@@ -36,7 +38,7 @@ import { ViewDetailsComponent } from '../../../shared/components/view-details/vi
   templateUrl: './equipment-diff.component.html',
   styleUrl: './equipment-diff.component.css',
 })
-export class EquipmentDiffComponent {
+export class EquipmentDiffComponent implements OnInit {
   searchText: string = '';
   title: string = 'Add new Equipment Difference';
   isFormOpen: boolean = false;
@@ -57,6 +59,7 @@ export class EquipmentDiffComponent {
     common_diff: '',
     active: 1,
   };
+  
   selectedDept: any = {
     equipment_1: null,
     sfd_hierarchy: null,
@@ -100,12 +103,24 @@ export class EquipmentDiffComponent {
   }
   filteredDepartments: any = [];
 
-  constructor(private apiService: ApiService, private location:Location) {}
+  // New properties for pagination
+  apiUrl: string = 'sfd/equipment-common-diff/';
+  totalCount: number = 0;
+
+  constructor(private apiService: ApiService, private location:Location, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
-    this.getDepartments();
+    //console.log('🚢 Equipment Diff Component Initializing...');
+    //console.log('API URL:', this.apiUrl);
+    //console.log('Total Count:', this.totalCount);
+    //console.log('Enable URL Fetching: true');
+    
+    // Load master data for dropdowns (but not differences data - paginated table will handle that)
     this.getEquipmentDetails();
     this.getSFDHierarchyDetails();
+    
+    // Note: Table data will be loaded by the paginated table component
+    // No need to call getDepartments() here
   }
   goBack(){
     this.location.back();
@@ -113,7 +128,7 @@ export class EquipmentDiffComponent {
   getSFDHierarchyDetails(): void {
     this.apiService.get<any[]>('master/sfd-hierarchy/?is_dropdown=true').subscribe({
       next: (data) => {
-        console.log(data);
+        //console.log(data);
         this.filteredSFDHierarchy = data.map((details: any) => ({
           label: details.name,
           value: details.id,
@@ -131,7 +146,7 @@ export class EquipmentDiffComponent {
   getEquipmentDetails(): void {
     this.apiService.get<any[]>('master/equipment/?is_dropdown=true').subscribe({
       next: (data) => {
-        console.log(data);
+        //console.log(data);
         this.filteredEquipment = data.map((details: any) => ({
           label: details.name,
           value: details.id,
@@ -212,12 +227,12 @@ export class EquipmentDiffComponent {
   handleSubmit(data: any) {
     this.newDepartment = data;
     let payload = {...this.newDepartment, active: 1};
-    console.log('New Department:', this.newDepartment);
+    //console.log('New Department:', this.newDepartment);
     this.apiService
       .post(`sfd/equipment-common-diff/`, payload)
       .subscribe({
         next: (data: any) => {
-          console.log(data);
+          //console.log(data);
           // Refresh the data after successful addition
           this.getDepartments();
           this.closeDialog();
@@ -230,7 +245,7 @@ export class EquipmentDiffComponent {
   }
   viewDeptDetails(dept: any) {
     this.viewdisplayModal = true;
-    console.log(dept);
+    //console.log(dept);
     this.selectedDept = dept;
   }
   editDetails(dept: any, open: boolean) {
@@ -246,7 +261,7 @@ export class EquipmentDiffComponent {
       .delete(`sfd/equipment-common-diff/${this.selectedDept.id}/`)
       .subscribe({
         next: (data: any) => {
-          console.log(data);
+          //console.log(data);
           // Refresh the data after successful deletion
           this.getDepartments();
           this.showDeleteDialog = false;
@@ -270,7 +285,7 @@ export class EquipmentDiffComponent {
       )
       .subscribe({
         next: (data: any) => {
-          console.log(data);
+          //console.log(data);
           // Refresh the data after successful edit
           this.getDepartments();
           this.closeDialog();
@@ -279,7 +294,7 @@ export class EquipmentDiffComponent {
           console.error('Error:', error);
         },
       });
-    console.log(this.selectedDept);
+    //console.log(this.selectedDept);
   }
   exportOptions = [
     {
@@ -294,13 +309,13 @@ export class EquipmentDiffComponent {
     },
   ];
   cols = [
-    { field: 'equipment_1_name', header: 'Equipment 1 Name' },
-    { field: 'equipment_1_code', header: 'Equipment 1 Code' },
-    { field: 'equipment_2_name', header: 'Equipment 2 Name' },
-    { field: 'equipment_2_code', header: 'Equipment 2 Code' },
-    { field: 'sfd_hierarchy_name', header: 'SFD Hierarchy' },
-    { field: 'common_diff', header: 'Common Difference' },
-    { field: 'active', header: 'Active', transform: (value: number) => (value === 1 ? 'Y' : 'N') },
+    { field: 'equipment_1_name', header: 'Equipment 1 Name', filterType: 'text' },
+    { field: 'equipment_1_code', header: 'Equipment 1 Code', filterType: 'text' },
+    { field: 'equipment_2_name', header: 'Equipment 2 Name', filterType: 'text' },
+    { field: 'equipment_2_code', header: 'Equipment 2 Code', filterType: 'text' },
+    { field: 'sfd_hierarchy_name', header: 'SFD Hierarchy', filterType: 'text' },
+    { field: 'common_diff', header: 'Common Difference', filterType: 'text' },
+    { field: 'active', header: 'Active', filterType: 'text', transform: (value: number) => (value === 1 ? 'Y' : 'N') },
   ];
   @ViewChild('dt') dt!: Table;
   value: number = 0;
@@ -313,7 +328,7 @@ export class EquipmentDiffComponent {
   @Output() exportCSVEvent = new EventEmitter<void>();
   @Output() exportPDFEvent = new EventEmitter<void>();
   exportPDF() {
-    console.log('Exporting as PDF...');
+    //console.log('Exporting as PDF...');
     // Your PDF export logic here
     this.exportPDFEvent.emit(); // Emit event instead of direct call
     const doc = new jsPDF();
@@ -332,7 +347,7 @@ export class EquipmentDiffComponent {
   }
   @Input() tableName: string = '';
   exportExcel() {
-    console.log('Exporting as Excel...');
+    //console.log('Exporting as Excel...');
     // Your Excel export logic here
     this.exportCSVEvent.emit(); // Emit event instead of direct call
     const headers = this.cols.map((col) => col.header);
@@ -355,5 +370,22 @@ export class EquipmentDiffComponent {
     link.download = `${this.tableName || 'equipment_diff'}.csv`; // ✅ Use backticks
     link.click();
     window.URL.revokeObjectURL(url);
+  }
+
+  // Handle data loaded from paginated table
+  onDataLoaded(data: any[]): void {
+    //console.log('🚢 Data loaded from paginated table:', data);
+    //console.log('🚢 Data length:', data?.length);
+    //console.log('🚢 Data type:', typeof data);
+    //console.log('🚢 First record:', data?.[0]);
+    
+    this.departments = data || [];
+    this.filteredDepartments = [...(data || [])];
+    
+    //console.log('🚢 Departments array updated:', this.departments);
+    //console.log('🚢 Filtered departments updated:', this.filteredDepartments);
+    
+    // Force change detection
+    this.cdr.detectChanges();
   }
 }

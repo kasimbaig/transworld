@@ -21,6 +21,7 @@
         <i class="pi pi-upload"></i> Bulk Upload
       </button>
 
+    
       <div class="menu-group">
         <p-tieredMenu #exportMenu [model]="exportOptions" popup appendTo="body"></p-tieredMenu>
         <button class="btn outlined btn-sm" (click)="exportMenu.toggle($event);">
@@ -30,8 +31,19 @@
     </div>
   </div>
  
-  <app-paginated-table [data]="ships" [columns]="cols" [showEndActions]="true" (viewEvent)="viewDetails($event, true)"
-    (editEvent)="editDetails($event, true)" (deleteEvent)="deleteShipDetails($event)"></app-paginated-table>
+  <app-paginated-table *ngIf="toggleTable"
+    #paginatedTable
+    [columns]="cols" 
+    [apiUrl]="apiUrl"
+    [totalCount]="totalCount"
+    [data]="ships"
+    [showEndActions]="true" 
+    (viewEvent)="viewDetails($event, true)"
+    (editEvent)="editDetails($event, true)" 
+    (deleteEvent)="deleteShipDetails($event)"
+    (dataLoaded)="onDataLoaded($event)"
+     >
+  </app-paginated-table>
 
 
 

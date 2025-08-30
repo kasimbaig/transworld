@@ -140,10 +140,10 @@ export class ShipComponent implements OnInit {
   }
   handleSubmit(data: any) {
     this.newDepartment = data;
-    console.log('New Department:', this.newDepartment);
+    //console.log('New Department:', this.newDepartment);
     this.apiService.post(`master/ship/`, this.newDepartment).subscribe({
       next: (data: any) => {
-        console.log(data);
+        //console.log(data);
         this.departments.push(data);
         this.filteredDepartments.push(data);
       },
@@ -156,7 +156,7 @@ export class ShipComponent implements OnInit {
   }
   viewDeptDetails(dept: any) {
     this.viewdisplayModal = true;
-    console.log(dept);
+    //console.log(dept);
     this.selectedDept = dept;
   }
   editDeptDetails(dept: any) {
@@ -170,7 +170,7 @@ export class ShipComponent implements OnInit {
   confirmDeletion() {
     this.apiService.delete(`master/ship/${this.selectedDept.id}/`).subscribe({
       next: (data: any) => {
-        console.log(data);
+        //console.log(data);
       },
       error: (error) => {
         console.error('Error:', error);
@@ -183,13 +183,13 @@ export class ShipComponent implements OnInit {
       .put(`master/ship/${this.selectedDept.id}/`, this.selectedDept)
       .subscribe({
         next: (data: any) => {
-          console.log(data);
+          //console.log(data);
         },
         error: (error) => {
           console.error('Error:', error);
         },
       });
-    console.log(this.selectedDept);
+    //console.log(this.selectedDept);
     this.closeDialog();
   }
   exportOptions = [
@@ -220,7 +220,7 @@ export class ShipComponent implements OnInit {
   @Output() exportCSVEvent = new EventEmitter<void>();
   @Output() exportPDFEvent = new EventEmitter<void>();
   exportPDF() {
-    console.log('Exporting as PDF...');
+    //console.log('Exporting as PDF...');
     // Your PDF export logic here
     this.exportPDFEvent.emit(); // Emit event instead of direct call
     const doc = new jsPDF();
@@ -234,7 +234,7 @@ export class ShipComponent implements OnInit {
   }
   @Input() tableName: string = '';
   exportExcel() {
-    console.log('Exporting as Excel...');
+    //console.log('Exporting as Excel...');
     // Your Excel export logic here
     this.exportCSVEvent.emit(); // Emit event instead of direct call
     const headers = this.cols.map((col) => col.header);

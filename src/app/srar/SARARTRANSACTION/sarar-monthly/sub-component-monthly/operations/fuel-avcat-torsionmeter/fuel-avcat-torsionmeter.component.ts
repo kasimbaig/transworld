@@ -48,7 +48,7 @@ export class FuelAvcatTorsionmeterComponent implements OnInit {
       balance_left_on_board: ''
     });
     
-    console.log('addFuel - Added new row');
+    //console.log('addFuel - Added new row');
   }
 
   addAvcat() {
@@ -65,17 +65,17 @@ export class FuelAvcatTorsionmeterComponent implements OnInit {
       balance_left_on_board: ''
     });
     
-    console.log('addAvcat - Added new row');
+    //console.log('addAvcat - Added new row');
   }
 
   editFuel() {
     this.isEdit = false;
-    console.log('editFuel - Entered edit mode');
+    //console.log('editFuel - Entered edit mode');
   }
 
   editAvcat() {
     this.isEdit = false;
-    console.log('editAvcat - Entered edit mode');
+    //console.log('editAvcat - Entered edit mode');
   }
 
   saveFuel() {
@@ -94,7 +94,7 @@ export class FuelAvcatTorsionmeterComponent implements OnInit {
     );
 
     if (dataToSave.length === 0) {
-      console.log('No fuel data to save');
+      //console.log('No fuel data to save');
       return;
     }
 
@@ -103,10 +103,10 @@ export class FuelAvcatTorsionmeterComponent implements OnInit {
       item.srar_monthly_header=this.headerData.id;
       if (item.id) {
         // Update existing record with PUT
-        console.log('PUT API call for existing fuel record:', item);
+        //console.log('PUT API call for existing fuel record:', item);
         this.apiService.put(`srar/fuel-consumption-months/${item.id}/`, item).subscribe({
           next: (response) => {
-            console.log('Updated fuel consumption data:', response);
+            //console.log('Updated fuel consumption data:', response);
             this.messageService.add({
               severity: 'success',
               summary: 'Success',
@@ -124,10 +124,10 @@ export class FuelAvcatTorsionmeterComponent implements OnInit {
         });
       } else {
         // Create new record with POST
-        console.log('POST API call for new fuel record:', item);
+        //console.log('POST API call for new fuel record:', item);
         this.apiService.post('srar/fuel-consumption-months/', item).subscribe({
           next: (response) => {
-            console.log('Saved fuel consumption data:', response);
+            //console.log('Saved fuel consumption data:', response);
             this.messageService.add({
               severity: 'success',
               summary: 'Success',
@@ -148,7 +148,7 @@ export class FuelAvcatTorsionmeterComponent implements OnInit {
       }
     });
 
-    console.log('saveFuel', { dataToSave });
+    //console.log('saveFuel', { dataToSave });
   }
 
   saveAvcat() {
@@ -167,7 +167,7 @@ export class FuelAvcatTorsionmeterComponent implements OnInit {
     );
 
     if (dataToSave.length === 0) {
-      console.log('No AVCAT data to save');
+      //console.log('No AVCAT data to save');
       return;
     }
 
@@ -176,10 +176,10 @@ export class FuelAvcatTorsionmeterComponent implements OnInit {
       item.srar_monthly_header=this.headerData.id;
       if (item.id) {
         // Update existing record with PUT
-        console.log('PUT API call for existing AVCAT record:', item);
+        //console.log('PUT API call for existing AVCAT record:', item);
         this.apiService.put(`srar/avcat-statuses/${item.id}/`, item).subscribe({
           next: (response) => {
-            console.log('Updated AVCAT status data:', response);
+            //console.log('Updated AVCAT status data:', response);
             this.messageService.add({
               severity: 'success',
               summary: 'Success',
@@ -197,10 +197,10 @@ export class FuelAvcatTorsionmeterComponent implements OnInit {
         });
       } else {
         // Create new record with POST
-        console.log('POST API call for new AVCAT record:', item);
+        //console.log('POST API call for new AVCAT record:', item);
         this.apiService.post('srar/avcat-statuses/', item).subscribe({
           next: (response) => {
-            console.log('Saved AVCAT status data:', response);
+            //console.log('Saved AVCAT status data:', response);
             this.messageService.add({
               severity: 'success',
               summary: 'Success',
@@ -221,7 +221,7 @@ export class FuelAvcatTorsionmeterComponent implements OnInit {
       }
     });
 
-    console.log('saveAvcat', { dataToSave });
+    //console.log('saveAvcat', { dataToSave });
   }
 
   deleteFuel(index: number) {
@@ -231,7 +231,7 @@ export class FuelAvcatTorsionmeterComponent implements OnInit {
       // Delete from API if it has an ID
       this.apiService.delete(`srar/fuel-consumption-months/${item.id}/`).subscribe({
         next: (response) => {
-          console.log('Deleted fuel consumption data:', response);
+          //console.log('Deleted fuel consumption data:', response);
           this.messageService.add({
             severity: 'success',
             summary: 'Success',
@@ -261,7 +261,7 @@ export class FuelAvcatTorsionmeterComponent implements OnInit {
       // Delete from API if it has an ID
       this.apiService.delete(`srar/avcat-statuses/${item.id}/`).subscribe({
         next: (response) => {
-          console.log('Deleted AVCAT status data:', response);
+          //console.log('Deleted AVCAT status data:', response);
           this.messageService.add({
             severity: 'success',
             summary: 'Success',

@@ -109,10 +109,10 @@ export class EquipmentComponent implements OnInit {
   constructor(private apiService: ApiService, private location: Location, private toastService: ToastService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
-    console.log('🚢 Equipment Component Initializing...');
-    console.log('API URL:', this.apiUrl);
-    console.log('Total Count:', this.totalCount);
-    console.log('Enable URL Fetching: true');
+    //console.log('🚢 Equipment Component Initializing...');
+    //console.log('API URL:', this.apiUrl);
+    //console.log('Total Count:', this.totalCount);
+    //console.log('Enable URL Fetching: true');
     
     this.fetchInitialDropdownData();
     // Note: Table data will be loaded by the paginated table component
@@ -222,7 +222,7 @@ export class EquipmentComponent implements OnInit {
   @Output() exportCSVEvent = new EventEmitter<void>();
   @Output() exportPDFEvent = new EventEmitter<void>();
   exportPDF() {
-    console.log('Exporting as PDF...');
+    //console.log('Exporting as PDF...');
     this.exportPDFEvent.emit();
     const doc = new jsPDF();
     autoTable(doc, {
@@ -235,7 +235,7 @@ export class EquipmentComponent implements OnInit {
   }
   @Input() tableName: string = '';
   exportExcel() {
-    console.log('Exporting as Excel...');
+    //console.log('Exporting as Excel...');
     this.exportCSVEvent.emit();
     const headers = this.cols.map((col) => col.header);
     const rows = this.departments.map((row: { [x: string]: any }) =>
@@ -256,7 +256,7 @@ export class EquipmentComponent implements OnInit {
 
   view(event: any){
     this.isEdit = 'View';
-    console.log(event);
+    //console.log(event);
     this.selectedDetails = event;
     this.isFormOpen = true;
     this.equipmentForm.patchValue({
@@ -280,7 +280,7 @@ export class EquipmentComponent implements OnInit {
   
   edit(event: any){
     this.isEdit = 'Edit';
-    console.log(event);
+    //console.log(event);
     this.selectedDetails = { ...event };
     this.isFormOpen = true;
     this.apiService.get<any>('master/group/?is_dropdown=true&section='+event.group.section).subscribe((res:any)=>{
@@ -318,7 +318,7 @@ export class EquipmentComponent implements OnInit {
       .delete(`master/equipment/${this.selectedDetails.id}/`)
       .subscribe({
         next: (data: any) => {
-          console.log('Equipment deleted successfully:', data);
+          //console.log('Equipment deleted successfully:', data);
           this.toastService.showSuccess('Equipment deleted successfully');
           this.getEquipments(); // Refresh the data
           this.showDeleteDialog = false;
@@ -334,7 +334,7 @@ export class EquipmentComponent implements OnInit {
     this.showDeleteDialog = false;
   }
   submit(){
-    console.log(this.equipmentForm.value);
+    //console.log(this.equipmentForm.value);
     if (this.equipmentForm.valid) {
       this.isLoading = true;
       this.equipmentForm.get('active')?.setValue("1");
@@ -351,7 +351,7 @@ export class EquipmentComponent implements OnInit {
         .post('master/equipment/', apiPayload)
         .subscribe({
           next: (data: any) => {
-            console.log('Equipment added successfully:', data);
+            //console.log('Equipment added successfully:', data);
             this.toastService.showSuccess('Equipment added successfully');
             this.getEquipments(); // Refresh the data
             this.toggleForm(false); // Close the form
@@ -365,7 +365,7 @@ export class EquipmentComponent implements OnInit {
         .put(`master/equipment/${this.selectedDetails.id}/`, apiPayload)
         .subscribe({
           next: (data: any) => {
-            console.log('Equipment updated successfully:', data);
+            //console.log('Equipment updated successfully:', data);
             this.toastService.showSuccess('Equipment updated successfully');
             this.getEquipments(); // Refresh the data
             this.toggleForm(false); // Close the form
@@ -386,7 +386,7 @@ export class EquipmentComponent implements OnInit {
   }
 
   onSectionChange(event: any) {
-    console.log(event.value);
+    //console.log(event.value);
     // Clear group selection and equipment code when section changes
     this.equipmentForm.patchValue({
       group: '',
@@ -403,7 +403,7 @@ export class EquipmentComponent implements OnInit {
   }
 
   onGroupChange(event: any) {
-    console.log('Group selected:', event.value);
+    //console.log('Group selected:', event.value);
     // Clear equipment code when group changes
     this.equipmentForm.patchValue({
       code: '',
@@ -425,7 +425,7 @@ export class EquipmentComponent implements OnInit {
       next: (res: any) => {
         if (res.success && res.data) {
           const equipmentCode = res.data.equipment_code;
-          console.log('Generated equipment code:', equipmentCode);
+          //console.log('Generated equipment code:', equipmentCode);
           
           // Parse the equipment code and set it in the form fields
           this.setEquipmentCodeFields(equipmentCode);
@@ -457,16 +457,16 @@ export class EquipmentComponent implements OnInit {
 
   // Handle data loaded from paginated table
   onDataLoaded(data: any[]): void {
-    console.log('🚢 Data loaded from paginated table:', data);
-    console.log('🚢 Data length:', data?.length);
-    console.log('🚢 Data type:', typeof data);
-    console.log('🚢 First record:', data?.[0]);
+    //console.log('🚢 Data loaded from paginated table:', data);
+    //console.log('🚢 Data length:', data?.length);
+    //console.log('🚢 Data type:', typeof data);
+    //console.log('🚢 First record:', data?.[0]);
     
     this.departments = data || [];
     this.filteredDepartments = [...(data || [])];
     
-    console.log('🚢 Departments array updated:', this.departments);
-    console.log('🚢 Filtered departments updated:', this.filteredDepartments);
+    //console.log('🚢 Departments array updated:', this.departments);
+    //console.log('🚢 Filtered departments updated:', this.filteredDepartments);
     
     // Force change detection
     this.cdr.detectChanges();
@@ -506,7 +506,7 @@ export class EquipmentComponent implements OnInit {
     },500)
   }
   handleSubmit(data: any): void {
-    console.log("data", data);
+    //console.log("data", data);
     this.apiService.post(`master/manufacturers/`, data).subscribe(res=>{
       this.apiService.get('master/manufacturers/?is_dropdown=true').subscribe((res:any)=>{
         this.filteredManufacturers = res.data;

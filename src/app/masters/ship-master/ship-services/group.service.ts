@@ -51,13 +51,12 @@ export class GroupService {
    * Maps Group objects to Option objects.
    */
   getGroupOptions(): Observable<Option[]> {
-    console.log('GroupService: getGroupOptions called.');
+   
     return this.apiService.get<Group[]>(this.groupEndpoint).pipe(
       map(groups => groups.map(group => ({
         label: group.name, // Assuming Group has a 'name' property
         value: group.id as number // Assuming Group has an 'id' property
       }))),
-      tap(options => console.log('GroupService: getGroupOptions mapping complete, options count:', options.length))
     );
   }
 }

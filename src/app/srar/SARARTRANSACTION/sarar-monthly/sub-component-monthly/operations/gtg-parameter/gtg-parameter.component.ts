@@ -74,7 +74,7 @@ export class GtgParameterComponent {
     // POST to gtg-parameters/
     this.apiService.post('srar/gtg-parameters/', payload).subscribe({
       next: (response) => {
-        console.log('Saved GTG parameters:', response);
+        //console.log('Saved GTG parameters:', response);
         this.messageService.add({
           severity: 'success',
           summary: 'Success',

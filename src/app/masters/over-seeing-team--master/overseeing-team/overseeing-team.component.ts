@@ -4,6 +4,8 @@ import {
   Input,
   Output,
   ViewChild,
+  OnInit,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
@@ -41,7 +43,7 @@ import { ViewDetailsComponent } from '../../../shared/components/view-details/vi
   templateUrl: './overseeing-team.component.html',
   styleUrl: './overseeing-team.component.css',
 })
-export class OverseeingTeamComponent {
+export class OverseeingTeamComponent implements OnInit {
   searchText: string = '';
   departments: any = [];
   title: string = 'Add new Overseeing Team';
@@ -83,13 +85,23 @@ export class OverseeingTeamComponent {
     this.isFormOpen = open;
   }
 
+  // New properties for pagination
+  apiUrl: string = 'master/overseeing-team/';
+  totalCount: number = 0;
+
   constructor(private apiService: ApiService,
-    private toastService: ToastService, private location: Location
+    private toastService: ToastService, private location: Location, private cdr: ChangeDetectorRef
 
   ) {}
 
   ngOnInit(): void {
-    this.getDepartments();
+    //console.log('🚢 Overseeing Team Component Initializing...');
+    //console.log('API URL:', this.apiUrl);
+    //console.log('Total Count:', this.totalCount);
+    //console.log('Enable URL Fetching: true');
+    
+    // Note: Table data will be loaded by the paginated table component
+    // No need to call getDepartments() here
   }
   goBack(){
     this.location.back();
@@ -99,7 +111,7 @@ export class OverseeingTeamComponent {
       .get<any>('master/overseeing-team/') // Changed to handle paginated response
       .subscribe({
         next: (response) => {
-          console.log(response);
+          //console.log(response);
           // Handle paginated response structure
           if (response && response.results) {
             this.departments = response.results;
@@ -149,10 +161,10 @@ export class OverseeingTeamComponent {
   handleSubmit(data: any) {
     this.newDepartment = { ...this.newDepartment, ...data };
 
-    console.log('New Department:', this.newDepartment);
+    //console.log('New Department:', this.newDepartment);
     this.apiService.post(`master/overseeing-team/`, this.newDepartment).subscribe({
       next: (data: any) => {
-        console.log(data);
+        //console.log(data);
         this.toastService.showSuccess('Added New Overseeing TEAM successfully');
         // Refresh the data after successful addition
         this.getDepartments();
@@ -166,7 +178,7 @@ export class OverseeingTeamComponent {
   }
   viewDeptDetails(dept: any) {
     this.viewdisplayModal = true;
-    console.log(dept);
+    //console.log(dept);
     this.selectedDept = dept;
   }
   editDeptDetails(dept: any, open: boolean) {
@@ -183,7 +195,7 @@ export class OverseeingTeamComponent {
       .delete(`master/overseeing-team/${this.selectedDept.id}/`)
       .subscribe({
         next: (data: any) => {
-          console.log(data);
+          //console.log(data);
           this.toastService.showSuccess('Overseeing Team deleted successfully');
           // Refresh the data after successful deletion
           this.getDepartments();
@@ -206,7 +218,7 @@ export class OverseeingTeamComponent {
       .put(`master/overseeing-team/${this.selectedDept.id}/`, this.selectedDept)
       .subscribe({
         next: (data: any) => {
-          console.log(data);
+          //console.log(data);
           this.toastService.showSuccess('Updated Overseeing Team successfully');
           // Refresh the data after successful edit
           this.getDepartments();
@@ -231,8 +243,8 @@ export class OverseeingTeamComponent {
     },
   ];
   cols = [
-    { field: 'name', header: 'Name' },
-    { field: 'code', header: 'Code' },
+    { field: 'name', header: 'Name', filterType: 'text' },
+    { field: 'code', header: 'Code', filterType: 'text' },
     // { field: 'no_of_fits', header: 'No. of Fits' }
   ];
   @ViewChild('dt') dt!: Table;
@@ -246,7 +258,7 @@ export class OverseeingTeamComponent {
   @Output() exportCSVEvent = new EventEmitter<void>();
   @Output() exportPDFEvent = new EventEmitter<void>();
   exportPDF() {
-    console.log('Exporting as PDF...');
+    //console.log('Exporting as PDF...');
     // Your PDF export logic here
     this.exportPDFEvent.emit(); // Emit event instead of direct call
     const doc = new jsPDF();
@@ -260,7 +272,7 @@ export class OverseeingTeamComponent {
   }
   @Input() tableName: string = '';
   exportExcel() {
-    console.log('Exporting as Excel...');
+    //console.log('Exporting as Excel...');
     // Your Excel export logic here
     this.exportCSVEvent.emit(); // Emit event instead of direct call
     const headers = this.cols.map((col) => col.header);
@@ -278,5 +290,22 @@ export class OverseeingTeamComponent {
     link.download = `${this.tableName || 'overseeing-team'}.csv`; // ✅ Use backticks
     link.click();
     window.URL.revokeObjectURL(url);
+  }
+
+  // Handle data loaded from paginated table
+  onDataLoaded(data: any[]): void {
+    //console.log('🚢 Data loaded from paginated table:', data);
+    //console.log('🚢 Data length:', data?.length);
+    //console.log('🚢 Data type:', typeof data);
+    //console.log('🚢 First record:', data?.[0]);
+    
+    this.departments = data || [];
+    this.filteredDepartments = [...(data || [])];
+    
+    //console.log('🚢 Departments array updated:', this.departments);
+    //console.log('🚢 Filtered departments updated:', this.filteredDepartments);
+    
+    // Force change detection
+    this.cdr.detectChanges();
   }
 }

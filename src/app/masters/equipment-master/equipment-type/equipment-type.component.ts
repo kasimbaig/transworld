@@ -4,6 +4,8 @@ import {
   Input,
   Output,
   ViewChild,
+  OnInit,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
@@ -37,7 +39,8 @@ import { ViewDetailsComponent } from '../../../shared/components/view-details/vi
   templateUrl: './equipment-type.component.html',
   styleUrl: './equipment-type.component.css',
 })
-export class EquipmentTypeComponent {
+export class EquipmentTypeComponent implements OnInit {
+  toggleTable=true
   searchText: string = '';
   title: string = 'Add new Equipment type';
   isFormOpen: boolean = false;
@@ -79,10 +82,20 @@ export class EquipmentTypeComponent {
   }
   filteredDepartments: any = [];
 
-  constructor(private apiService: ApiService, private location: Location) {}
+  // New properties for pagination
+  apiUrl: string = 'master/equipment-type/';
+  totalCount: number = 0;
+
+  constructor(private apiService: ApiService, private location: Location, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
-    this.getDepartments();
+    //console.log('🚢 Equipment Type Component Initializing...');
+    //console.log('API URL:', this.apiUrl);
+    //console.log('Total Count:', this.totalCount);
+    //console.log('Enable URL Fetching: true');
+    
+    // Note: Table data will be loaded by the paginated table component
+    // No need to call getDepartments() here
   }
   goBack(){
     this.location.back();
@@ -139,12 +152,15 @@ export class EquipmentTypeComponent {
   }
   handleSubmit(data: any) {
     this.newDepartment = data;
-    console.log('New Department:', this.newDepartment);
+    //console.log('New Department:', this.newDepartment);
     this.apiService
       .post(`master/equipment-type/`, this.newDepartment)
       .subscribe({
         next: (data: any) => {
-          console.log(data);
+          this.toggleTable=false
+          setTimeout(() => {
+            this.toggleTable=true
+          }, 100);
           // Refresh the data after successful addition
           this.getDepartments();
           this.closeDialog();
@@ -157,7 +173,7 @@ export class EquipmentTypeComponent {
   }
   viewDeptDetails(dept: any) {
     this.viewdisplayModal = true;
-    console.log(dept);
+    //console.log(dept);
     this.selectedDept = dept;
   }
   editDetails(dept: any, open: boolean) {
@@ -173,7 +189,10 @@ export class EquipmentTypeComponent {
       .delete(`master/equipment-type/${this.selectedDept.id}/`)
       .subscribe({
         next: (data: any) => {
-          console.log(data);
+          this.toggleTable=false
+          setTimeout(() => {
+            this.toggleTable=true
+          }, 100);
           // Refresh the data after successful deletion
           this.getDepartments();
           this.showDeleteDialog = false;
@@ -194,7 +213,10 @@ export class EquipmentTypeComponent {
       .put(`master/equipment-type/${this.selectedDept.id}/`, this.selectedDept)
       .subscribe({
         next: (data: any) => {
-          console.log(data);
+          this.toggleTable=false
+          setTimeout(() => {
+            this.toggleTable=true
+          }, 100);
           // Refresh the data after successful edit
           this.getDepartments();
           this.closeDialog();
@@ -203,7 +225,7 @@ export class EquipmentTypeComponent {
           console.error('Error:', error);
         },
       });
-    console.log(this.selectedDept);
+    //console.log(this.selectedDept);
   }
   exportOptions = [
     {
@@ -218,8 +240,8 @@ export class EquipmentTypeComponent {
     },
   ];
   cols = [
-    { field: 'name', header: 'Name' },
-    { field: 'code', header: 'Code' },
+    { field: 'name', header: 'Name', filterType: 'text' },
+    { field: 'code', header: 'Code', filterType: 'text' },
     // { field: 'no_of_fits', header: 'No. of Fits' }
   ];
   @ViewChild('dt') dt!: Table;
@@ -233,7 +255,7 @@ export class EquipmentTypeComponent {
   @Output() exportCSVEvent = new EventEmitter<void>();
   @Output() exportPDFEvent = new EventEmitter<void>();
   exportPDF() {
-    console.log('Exporting as PDF...');
+    //console.log('Exporting as PDF...');
     // Your PDF export logic here
     this.exportPDFEvent.emit(); // Emit event instead of direct call
     const doc = new jsPDF();
@@ -247,7 +269,7 @@ export class EquipmentTypeComponent {
   }
   @Input() tableName: string = '';
   exportExcel() {
-    console.log('Exporting as Excel...');
+    //console.log('Exporting as Excel...');
     // Your Excel export logic here
     this.exportCSVEvent.emit(); // Emit event instead of direct call
     const headers = this.cols.map((col) => col.header);
@@ -265,5 +287,22 @@ export class EquipmentTypeComponent {
     link.download = `${this.tableName || 'table'}.csv`; // ✅ Use backticks
     link.click();
     window.URL.revokeObjectURL(url);
+  }
+
+  // Handle data loaded from paginated table
+  onDataLoaded(data: any[]): void {
+    //console.log('🚢 Data loaded from paginated table:', data);
+    //console.log('🚢 Data length:', data?.length);
+    //console.log('🚢 Data type:', typeof data);
+    //console.log('🚢 First record:', data?.[0]);
+    
+    this.departments = data || [];
+    this.filteredDepartments = [...(data || [])];
+    
+    //console.log('🚢 Departments array updated:', this.departments);
+    //console.log('🚢 Filtered departments updated:', this.filteredDepartments);
+    
+    // Force change detection
+    this.cdr.detectChanges();
   }
 }

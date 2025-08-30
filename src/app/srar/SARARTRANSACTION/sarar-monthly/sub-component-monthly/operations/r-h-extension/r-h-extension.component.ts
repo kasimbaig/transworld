@@ -71,12 +71,12 @@ export class RHExtensionComponent implements OnInit {
       this.selectedMainEngineEquipment = [];
     }
     
-    console.log('addMainEngine - Entered add mode');
+    //console.log('addMainEngine - Entered add mode');
   }
 
   editMainEngine() {
     this.isEditMainEngine = false;
-    console.log('editMainEngine - Entered edit mode');
+    //console.log('editMainEngine - Entered edit mode');
   }
 
   saveMainEngine() {
@@ -88,7 +88,7 @@ export class RHExtensionComponent implements OnInit {
     );
 
     if (dataToSave.length === 0) {
-      console.log('No main engine data to save');
+      //console.log('No main engine data to save');
       return;
     }
 
@@ -110,10 +110,10 @@ export class RHExtensionComponent implements OnInit {
 
       if (item.id) {
         // Update existing record with PUT
-        console.log('PUT API call for existing main engine record:', payload);
+        //console.log('PUT API call for existing main engine record:', payload);
         this.apiService.put(`srar/rh-extensions/${item.id}/`, payload).subscribe({
           next: (response) => {
-            console.log('Updated main engine data:', response);
+            //console.log('Updated main engine data:', response);
             this.messageService.add({
               severity: 'success',
               summary: 'Success',
@@ -131,10 +131,10 @@ export class RHExtensionComponent implements OnInit {
         });
       } else {
         // Create new record with POST
-        console.log('POST API call for new main engine record:', payload);
+        //console.log('POST API call for new main engine record:', payload);
         this.apiService.post('srar/rh-extensions/', payload).subscribe({
           next: (response) => {
-            console.log('Saved main engine data:', response);
+            //console.log('Saved main engine data:', response);
             this.messageService.add({
               severity: 'success',
               summary: 'Success',
@@ -155,7 +155,7 @@ export class RHExtensionComponent implements OnInit {
       }
     });
 
-    console.log('saveMainEngine', { dataToSave });
+    //console.log('saveMainEngine', { dataToSave });
   }
 
   deleteMainEngine(index: number) {
@@ -165,7 +165,7 @@ export class RHExtensionComponent implements OnInit {
       // Delete from API if it has an ID
       this.apiService.delete(`srar/rh-extensions/${item.id}/`).subscribe({
         next: (response) => {
-          console.log('Deleted main engine data:', response);
+          //console.log('Deleted main engine data:', response);
           this.messageService.add({
             severity: 'success',
             summary: 'Success',
@@ -224,12 +224,12 @@ export class RHExtensionComponent implements OnInit {
       this.selectedDieselAlternatorEquipment = [];
     }
     
-    console.log('addDieselAlternator - Entered add mode');
+    //console.log('addDieselAlternator - Entered add mode');
   }
 
   editDieselAlternator() {
     this.isEditDieselAlternator = false;
-    console.log('editDieselAlternator - Entered edit mode');
+    //console.log('editDieselAlternator - Entered edit mode');
   }
 
   saveDieselAlternator() {
@@ -241,7 +241,7 @@ export class RHExtensionComponent implements OnInit {
     );
 
     if (dataToSave.length === 0) {
-      console.log('No diesel alternator data to save');
+      //console.log('No diesel alternator data to save');
       return;
     }
 
@@ -263,10 +263,10 @@ export class RHExtensionComponent implements OnInit {
 
       if (item.id) {
         // Update existing record with PUT
-        console.log('PUT API call for existing diesel alternator record:', payload);
+        //console.log('PUT API call for existing diesel alternator record:', payload);
         this.apiService.put(`srar/rh-extensions/${item.id}/`, payload).subscribe({
           next: (response) => {
-            console.log('Updated diesel alternator data:', response);
+            //console.log('Updated diesel alternator data:', response);
             this.messageService.add({
               severity: 'success',
               summary: 'Success',
@@ -284,10 +284,10 @@ export class RHExtensionComponent implements OnInit {
         });
       } else {
         // Create new record with POST
-        console.log('POST API call for new diesel alternator record:', payload);
+        //console.log('POST API call for new diesel alternator record:', payload);
         this.apiService.post('srar/rh-extensions/', payload).subscribe({
           next: (response) => {
-            console.log('Saved diesel alternator data:', response);
+            //console.log('Saved diesel alternator data:', response);
             this.messageService.add({
               severity: 'success',
               summary: 'Success',
@@ -308,7 +308,7 @@ export class RHExtensionComponent implements OnInit {
       }
     });
 
-    console.log('saveDieselAlternator', { dataToSave });
+    //console.log('saveDieselAlternator', { dataToSave });
   }
 
   deleteDieselAlternator(index: number) {
@@ -318,7 +318,7 @@ export class RHExtensionComponent implements OnInit {
       // Delete from API if it has an ID
       this.apiService.delete(`srar/rh-extensions/${item.id}/`).subscribe({
         next: (response) => {
-          console.log('Deleted diesel alternator data:', response);
+          //console.log('Deleted diesel alternator data:', response);
           this.messageService.add({
             severity: 'success',
             summary: 'Success',

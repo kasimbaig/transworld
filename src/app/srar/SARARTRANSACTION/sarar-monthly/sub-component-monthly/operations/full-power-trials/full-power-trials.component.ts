@@ -62,7 +62,7 @@ export class FullPowerTrialsComponent implements OnInit {
       conducted_by: ''
     });
     
-    console.log('addFullPowerTrials - Added new row');
+    //console.log('addFullPowerTrials - Added new row');
   }
 
   addFptEquipment() {
@@ -73,26 +73,16 @@ export class FullPowerTrialsComponent implements OnInit {
       // Create a row for each selected equipment
       this.selectedEquipment.forEach(selectedEquipmentData => {
         // Add new row with selected equipment data
+        const { id, ...equipmentDataWithoutId } = selectedEquipmentData;
         this.fptEquipmentData.push({
           srar_monthly_header:this.headerData.id,
           sfd_details: selectedEquipmentData.id, // Send only the ID
-          serial_no: '', // Leave empty for manual filling
-          location: selectedEquipmentData.location_name || '',
-          serial_number: '',
-          fuel_rack_dbr_max: '',
-          marking_max: '',
-          undertaken_on: '',
-          pitch: '',
-          max_rpm: '',
-          rated_power: '',
-          max_achieved_power: '',
-          remarks: '',
-          // Frontend display fields (not sent to API)
-          equipment: selectedEquipmentData.equipment_name
+          ...equipmentDataWithoutId
         });
+        
       });
       
-      console.log('addFptEquipment', { selectedEquipment: this.selectedEquipment });
+      //console.log('addFptEquipment', { selectedEquipment: this.selectedEquipment });
       
       // Clear the selection after adding
       this.selectedEquipment = [];
@@ -106,26 +96,15 @@ export class FullPowerTrialsComponent implements OnInit {
     if (this.selectedDieselEquipment.length > 0) {
       // Create a row for each selected equipment
       this.selectedDieselEquipment.forEach(selectedEquipmentData => {
-        // Add new row with selected equipment data
+        const { id, ...equipmentDataWithoutId } = selectedEquipmentData;
         this.fptDieselAlternatorsData.push({
           srar_monthly_header:this.headerData.id,
           sfd_details: selectedEquipmentData.id, // Send only the ID
-          serial_no: '', // Leave empty for manual filling
-          location: selectedEquipmentData.location_name || '',
-          serial_number: '',
-          date: '',
-          occasion: '',
-          rated_load: '',
-          max_load_achieved: '',
-          conducted_by: '',
-          last_ehm_trials_undertaken_on: '',
-          remark: '',
-          // Frontend display fields (not sent to API)
-          equipment: selectedEquipmentData.equipment_name
+          ...equipmentDataWithoutId
         });
       });
       
-      console.log('addFptDieselAlternators', { selectedDieselEquipment: this.selectedDieselEquipment });
+      //console.log('addFptDieselAlternators', { selectedDieselEquipment: this.selectedDieselEquipment });
       
       // Clear the selection after adding
       this.selectedDieselEquipment = [];
@@ -134,17 +113,17 @@ export class FullPowerTrialsComponent implements OnInit {
 
   editFullPowerTrials() {
     this.isEdit = false;
-    console.log('editFullPowerTrials - Entered edit mode');
+    //console.log('editFullPowerTrials - Entered edit mode');
   }
 
   editFptEquipment() {
     this.isEditEquipment = false;
-    console.log('editFptEquipment - Entered edit mode');
+    //console.log('editFptEquipment - Entered edit mode');
   }
 
   editFptDieselAlternators() {
     this.isEditDieselAlternators = false;
-    console.log('editFptDieselAlternators - Entered edit mode');
+    //console.log('editFptDieselAlternators - Entered edit mode');
   }
 
   saveFullPowerTrials() {
@@ -162,7 +141,7 @@ export class FullPowerTrialsComponent implements OnInit {
     );
 
     if (dataToSave.length === 0) {
-      console.log('No full power trials data to save');
+      //console.log('No full power trials data to save');
       return;
     }
 
@@ -171,10 +150,10 @@ export class FullPowerTrialsComponent implements OnInit {
         item.srar_monthly_header= this.headerData.id 
         if (item.id) {
         // Update existing record with PUT
-        console.log('PUT API call for existing full power trials record:', item);
+        //console.log('PUT API call for existing full power trials record:', item);
         this.apiService.put(`srar/full-power-trials-main-engines/${item.id}/`, item).subscribe({
           next: (response) => {
-            console.log('Updated full power trials data:', response);
+            //console.log('Updated full power trials data:', response);
             this.messageService.add({
               severity: 'success',
               summary: 'Success',
@@ -192,10 +171,10 @@ export class FullPowerTrialsComponent implements OnInit {
         });
       } else {
         // Create new record with POST
-        console.log('POST API call for new full power trials record:', item);
+        //console.log('POST API call for new full power trials record:', item);
         this.apiService.post('srar/full-power-trials-main-engines/', item).subscribe({
           next: (response) => {
-            console.log('Saved full power trials data:', response);
+            //console.log('Saved full power trials data:', response);
             this.messageService.add({
               severity: 'success',
               summary: 'Success',
@@ -216,7 +195,7 @@ export class FullPowerTrialsComponent implements OnInit {
       }
     });
 
-    console.log('saveFullPowerTrials', { dataToSave });
+    //console.log('saveFullPowerTrials', { dataToSave });
   }
 
   saveFptEquipment() {
@@ -228,7 +207,7 @@ export class FullPowerTrialsComponent implements OnInit {
     );
 
     if (dataToSave.length === 0) {
-      console.log('No FPT equipment data to save');
+      //console.log('No FPT equipment data to save');
       return;
     }
 
@@ -253,10 +232,10 @@ export class FullPowerTrialsComponent implements OnInit {
 
       if (item.id) {
         // Update existing record with PUT
-        console.log('PUT API call for existing FPT equipment record:', payload);
+        //console.log('PUT API call for existing FPT equipment record:', payload);
         this.apiService.put(`srar/fpt-equipment-wise/${item.id}/`, payload).subscribe({
           next: (response) => {
-            console.log('Updated FPT equipment data:', response);
+            //console.log('Updated FPT equipment data:', response);
             this.messageService.add({
               severity: 'success',
               summary: 'Success',
@@ -274,10 +253,10 @@ export class FullPowerTrialsComponent implements OnInit {
         });
       } else {
         // Create new record with POST
-        console.log('POST API call for new FPT equipment record:', payload);
+        //console.log('POST API call for new FPT equipment record:', payload);
         this.apiService.post('srar/fpt-equipment-wise/', payload).subscribe({
           next: (response) => {
-            console.log('Saved FPT equipment data:', response);
+            //console.log('Saved FPT equipment data:', response);
             this.messageService.add({
               severity: 'success',
               summary: 'Success',
@@ -298,7 +277,7 @@ export class FullPowerTrialsComponent implements OnInit {
       }
     });
 
-    console.log('saveFptEquipment', { dataToSave });
+    //console.log('saveFptEquipment', { dataToSave });
   }
 
   saveFptDieselAlternators() {
@@ -310,7 +289,7 @@ export class FullPowerTrialsComponent implements OnInit {
     );
 
     if (dataToSave.length === 0) {
-      console.log('No FPT diesel alternators data to save');
+      //console.log('No FPT diesel alternators data to save');
       return;
     }
 
@@ -334,10 +313,10 @@ export class FullPowerTrialsComponent implements OnInit {
 
       if (item.id) {
         // Update existing record with PUT
-        console.log('PUT API call for existing FPT diesel alternators record:', payload);
+        //console.log('PUT API call for existing FPT diesel alternators record:', payload);
         this.apiService.put(`srar/fpt-diesel-alternators/${item.id}/`, payload).subscribe({
           next: (response) => {
-            console.log('Updated FPT diesel alternators data:', response);
+            //console.log('Updated FPT diesel alternators data:', response);
             this.messageService.add({
               severity: 'success',
               summary: 'Success',
@@ -355,10 +334,10 @@ export class FullPowerTrialsComponent implements OnInit {
         });
       } else {
         // Create new record with POST
-        console.log('POST API call for new FPT diesel alternators record:', payload);
+        //console.log('POST API call for new FPT diesel alternators record:', payload);
         this.apiService.post('srar/fpt-diesel-alternators/', payload).subscribe({
           next: (response) => {
-            console.log('Saved FPT diesel alternators data:', response);
+            //console.log('Saved FPT diesel alternators data:', response);
             this.messageService.add({
               severity: 'success',
               summary: 'Success',
@@ -379,7 +358,7 @@ export class FullPowerTrialsComponent implements OnInit {
       }
     });
 
-    console.log('saveFptDieselAlternators', { dataToSave });
+    //console.log('saveFptDieselAlternators', { dataToSave });
   }
 
   deleteFullPowerTrials(index: number) {
@@ -389,7 +368,7 @@ export class FullPowerTrialsComponent implements OnInit {
       // Delete from API if it has an ID
       this.apiService.delete(`srar/full-power-trials-main-engines/${item.id}/`).subscribe({
         next: (response) => {
-          console.log('Deleted full power trials data:', response);
+          //console.log('Deleted full power trials data:', response);
           this.messageService.add({
             severity: 'success',
             summary: 'Success',
@@ -419,7 +398,7 @@ export class FullPowerTrialsComponent implements OnInit {
       // Delete from API if it has an ID
       this.apiService.delete(`srar/fpt-equipment-wise/${item.id}/`).subscribe({
         next: (response) => {
-          console.log('Deleted FPT equipment data:', response);
+          //console.log('Deleted FPT equipment data:', response);
           this.messageService.add({
             severity: 'success',
             summary: 'Success',
@@ -449,7 +428,7 @@ export class FullPowerTrialsComponent implements OnInit {
       // Delete from API if it has an ID
       this.apiService.delete(`srar/fpt-diesel-alternators/${item.id}/`).subscribe({
         next: (response) => {
-          console.log('Deleted FPT diesel alternators data:', response);
+          //console.log('Deleted FPT diesel alternators data:', response);
           this.messageService.add({
             severity: 'success',
             summary: 'Success',

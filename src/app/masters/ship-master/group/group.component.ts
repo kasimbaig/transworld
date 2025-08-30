@@ -5,6 +5,7 @@ import {
   Output,
   ViewChild,
   OnInit,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
@@ -87,13 +88,17 @@ isLoading: boolean = false;
   detailsForViewComponent: any = {};
   viewDetailsTitle: string = 'Group Details';
 
+  // New properties for pagination
+  apiUrl: string = 'master/group/';
+  totalCount: number = 0;
+
   // "equipment_count" has been removed
   cols = [
-    { field: 'name', header: 'Name' },
-    { field: 'code', header: 'Code' },
-    { field: 'section_name', header: 'Section' },
-    { field: 'generic_type', header: 'Generic' },
-    { field: 'active', header: 'Active', transform: (value: number) => (value === 1 ? 'Y' : 'N') },
+    { field: 'name', header: 'Name', filterType: 'text' },
+    { field: 'code', header: 'Code', filterType: 'text' },
+    { field: 'section_name', header: 'Section', filterType: 'text' },
+    { field: 'generic_type', header: 'Generic', filterType: 'text' },
+    { field: 'active', header: 'Active', filterType: 'text', transform: (value: number) => (value === 1 ? 'Y' : 'N') },
   ];
 
   // "equipment_count" has been removed
@@ -137,13 +142,17 @@ isLoading: boolean = false;
     private sectionService: SectionService,
     private genericService: GenericService,
     private toastService: ToastService,
-    private location: Location
+    private location: Location,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
-    this.getGroups();
+    // Load master data for dropdowns
     this.getSectionLookupDetails();
     this.getGenericLookupDetails();
+    
+    // Load initial data for the table
+    this.loadGroupsData();
   }
 
   goBack(): void {
@@ -186,22 +195,45 @@ isLoading: boolean = false;
     });
   }
 
-  getGroups(): void {
+  loadGroupsData(): void {
+    this.isLoading = true; // Start loading
+    this.groups = []; // Clear existing data
+    
     this.groupService.getGroups().subscribe({
       next: (response: any) => {
+        //console.log('API Response received:', response);
+        
         // Handle the paginated response format
         if (response && response.results) {
           this.groups = response.results;
+          this.totalCount = response.count; 
         } else {
-          this.groups = response;
+          this.groups = response || [];
+          this.totalCount = this.groups.length;
         }
+        
         this.filteredGroups = [...this.groups];
+        this.isLoading = false; // Stop loading
+        
+        //console.log('Groups loaded:', this.groups);
+        //console.log('Loading state:', this.isLoading);
+        
+        // Force change detection
+        this.cdr.detectChanges();
       },
       error: (error) => {
         console.error('Error fetching groups:', error);
         this.toastService.showError('Failed to fetch groups.');
+        this.isLoading = false; // Stop loading on error
+        this.groups = []; // Ensure empty array on error
+        this.cdr.detectChanges();
       },
     });
+  }
+
+  getGroups(): void {
+    // This method is kept for backward compatibility
+    this.loadGroupsData();
   }
 
   filterGroups(): void {
@@ -234,8 +266,6 @@ isLoading: boolean = false;
   }
 
   handleSubmit(data: any): void {
-      this.isLoading = true;
-
     const payload: NewGroupFormData = {
       code: data.code,
       name: data.name,
@@ -247,18 +277,14 @@ isLoading: boolean = false;
     this.groupService.addGroup(payload).subscribe({
       next: (response: Group) => {
         this.toastService.showSuccess('Group added successfully');
-        this.groups.push(response);
-        this.filteredGroups.push(response);
         this.closeDialog();
-              this.isLoading = false;
-
+        // Reload data to show the new entry
+        this.loadGroupsData();
       },
       error: (error) => {
         console.error('Error adding group:', error);
         const errorMessage = error.error?.message || 'Failed to add group.';
         this.toastService.showError(errorMessage);
-              this.isLoading = false;
-
       },
     });
   }
@@ -291,12 +317,9 @@ isLoading: boolean = false;
     this.groupService.updateGroup(updatedGroup.id!, updatedGroup).subscribe({
       next: (response: Group) => {
         this.toastService.showSuccess('Group updated successfully');
-        const index = this.groups.findIndex((g) => g.id === response.id);
-        if (index !== -1) {
-          this.groups[index] = response;
-        }
-        this.filteredGroups = [...this.groups];
         this.closeDialog();
+        // Reload data to show the updated entry
+        this.loadGroupsData();
       },
       error: (error) => {
         console.error('Error updating group:', error);
@@ -321,11 +344,9 @@ isLoading: boolean = false;
     this.groupService.deleteGroup(this.selectedGroup.id).subscribe({
       next: () => {
         this.toastService.showSuccess('Group deleted successfully');
-        this.groups = this.groups.filter(
-          (grp) => grp.id !== this.selectedGroup.id
-        );
-        this.filteredGroups = [...this.groups];
         this.closeDialog();
+        // Reload data to reflect the deletion
+        this.loadGroupsData();
       },
       error: (error) => {
         console.error('Error deleting group:', error);
@@ -360,14 +381,13 @@ isLoading: boolean = false;
       generic: null,
       active: 1,
     };
-    this.getGroups();
   }
 
   handleBulkUpload(event: any): void {
-    console.log('Bulk Upload event:', event);
+    //console.log('Bulk Upload event:', event);
     this.toastService.showSuccess('Bulk upload initiated (placeholder).');
     this.isBulkUploadPopup = false;
-    this.getGroups();
+    this.loadGroupsData();
   }
 
   exportOptions = [
@@ -395,7 +415,7 @@ isLoading: boolean = false;
   @Output() exportPDFEvent = new EventEmitter<void>();
 
   exportPDF(): void {
-    console.log('Exporting as PDF...');
+    //console.log('Exporting as PDF...');
     this.exportPDFEvent.emit();
     const doc = new jsPDF();
     autoTable(doc, {
@@ -416,7 +436,7 @@ isLoading: boolean = false;
   @Input() tableName: string = '';
 
   exportExcel(): void {
-    console.log('Exporting as Excel...');
+    //console.log('Exporting as Excel...');
     this.exportCSVEvent.emit();
     const headers = this.cols.map((col) => col.header);
     const rows = this.groups.map((row: Group) =>
@@ -454,5 +474,22 @@ isLoading: boolean = false;
       value = value[f];
     }
     return value;
+  }
+
+  // Handle data loaded from paginated table
+  onDataLoaded(data: any[]): void {
+    //console.log('🚢 Data loaded from paginated table:', data);
+    //console.log('🚢 Data length:', data?.length);
+    //console.log('🚢 Data type:', typeof data);
+    //console.log('🚢 First record:', data?.[0]);
+    
+    this.groups = data || [];
+    this.filteredGroups = [...(data || [])];
+    
+    //console.log('🚢 Groups array updated:', this.groups);
+    //console.log('🚢 Filtered groups updated:', this.filteredGroups);
+    
+    // Force change detection
+    this.cdr.detectChanges();
   }
 }

@@ -31,7 +31,7 @@
   </div>
 
 
-  <app-paginated-table [data]="departments" [columns]="cols" [showEndActions]="true"
+  <app-paginated-table *ngIf="toggleTable" [data]="departments" [columns]="cols" [showEndActions]="true" [apiUrl]="'master/frequency/'"
     (viewEvent)="viewDeptDetails($event)" (editEvent)="editDetails($event, true)"
     (deleteEvent)="deleteDeptDetails($event)"></app-paginated-table>
 </div>

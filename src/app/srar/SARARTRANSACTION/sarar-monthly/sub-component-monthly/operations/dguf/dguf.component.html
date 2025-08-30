@@ -83,19 +83,19 @@
                 <input [disabled]="isEdit" pInputText type="text" class="w-auto border border-gray-300 rounded px-2 py-1" [(ngModel)]="item.equipment_name" placeholder="Equipment name">
               </td>
               <td class="border border-gray-400 p-2 text-center">
-                <input [disabled]="isEdit" pInputText type="text" class="w-full border border-gray-300 rounded px-2 py-1" [(ngModel)]="item.location" placeholder="Location on board">
+                <input [disabled]="isEdit" pInputText type="text" class="w-full border border-gray-300 rounded px-2 py-1" [(ngModel)]="item.location_name" placeholder="Location on board">
               </td>
               <td class="border border-gray-400 p-2 text-center">
                 <input [disabled]="isEdit" pInputText type="text" class="w-full border border-gray-300 rounded px-2 py-1" [(ngModel)]="item.da_number" placeholder="DA number">
               </td>
               <td class="border border-gray-400 p-2 text-center">
-                <input [disabled]="isEdit" pInputText type="text" class="w-full border border-gray-300 rounded px-2 py-1" [(ngModel)]="item.rh_at_sea_and_anchorage" placeholder="R/H at sea & anchorage">
+                <input [disabled]="isEdit" pInputText type="text" class="w-full border border-gray-300 rounded px-2 py-1" [(ngModel)]="item.rh_at_sea_and_anchorage" (ngModelChange)="calculateTotalRH(item)" placeholder="R/H at sea & anchorage">
               </td>
               <td class="border border-gray-400 p-2 text-center">
-                <input [disabled]="isEdit" pInputText type="text" class="w-full border border-gray-300 rounded px-2 py-1" [(ngModel)]="item.rh_at_port" placeholder="R/H in harbour">
+                <input [disabled]="isEdit" pInputText type="text" class="w-full border border-gray-300 rounded px-2 py-1" [(ngModel)]="item.rh_at_port" (ngModelChange)="calculateTotalRH(item)" placeholder="R/H in harbour">
               </td>
               <td class="border border-gray-400 p-2 text-center">
-                <input [disabled]="isEdit" pInputText type="text" class="w-full border border-gray-300 rounded px-2 py-1" [(ngModel)]="item.total_rh_in_month" placeholder="Total R/H in month">
+                <input [disabled]="true" pInputText type="text" class="w-full border border-gray-300 rounded px-2 py-1 bg-gray-100" [(ngModel)]="item.total_rh_in_month" placeholder="Total R/H in month">
               </td>
             </tr>
           </ng-container>
@@ -106,16 +106,16 @@
           </tr>
           
           <!-- Total Row -->
-          <tr class="bg-white text-center text-lg font-bold" aria-disabled="true">
+          <tr *ngIf="dgufData.length > 0" class="bg-blue-100 text-center text-lg font-bold" aria-disabled="true">
             <td class="border border-gray-400 p-2 text-center" colspan="5"><strong class="text-lg">Total</strong></td>
             <td class="border border-gray-400 p-2 text-center">
-             77:40
+             {{calculateTotalRHSeaHarbour('rh_at_sea_and_anchorage')}}
             </td>
             <td class="border border-gray-400 p-2 text-center">
-             6:20
+              {{calculateTotalRHSeaHarbour('rh_at_port')}}
             </td>
             <td class="border border-gray-400 p-2 text-center">
-             84:60
+               {{calculateTotalRHSeaHarbour('total_rh_in_month')}}
             </td>
           </tr>
         </tbody>
@@ -289,12 +289,5 @@
     
   </div>
 
-
-  <!-- Save Button -->
-  <div class="flex justify-end mb-3">
-    <button class="bg-blue-50 border-blue-500 border-2 hover:bg-blue-500 hover:text-white text-blue-500 px-4 py-2 rounded font-semibold">
-      <i class="pi pi-save"></i>  <span class="ml-2 text-lg">Save</span>
-    </button>
-  </div>
 </div>
 

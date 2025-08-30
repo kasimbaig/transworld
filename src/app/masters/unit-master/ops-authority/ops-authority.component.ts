@@ -168,7 +168,7 @@ export class OpsAuthorityComponent {
       .post(`master/ops-authority/`, this.newDepartment)
       .subscribe({
         next: (data: any) => {
-          console.log(data);
+          //console.log(data);
           this.toastService.showSuccess(data.message || 'OPS added successfully');
           // Refresh the data after successful addition
           this.getAuthorities();
@@ -261,7 +261,7 @@ export class OpsAuthorityComponent {
   @Output() exportCSVEvent = new EventEmitter<void>();
   @Output() exportPDFEvent = new EventEmitter<void>();
   exportPDF() {
-    console.log('Exporting as PDF...');
+    //console.log('Exporting as PDF...');
     // Your PDF export logic here
     this.exportPDFEvent.emit(); // Emit event instead of direct call
     const doc = new jsPDF();
@@ -275,7 +275,7 @@ export class OpsAuthorityComponent {
   }
   @Input() tableName: string = '';
   exportExcel() {
-    console.log('Exporting as Excel...');
+    //console.log('Exporting as Excel...');
     // Your Excel export logic here
     this.exportCSVEvent.emit(); // Emit event instead of direct call
     const headers = this.cols.map((col) => col.header);

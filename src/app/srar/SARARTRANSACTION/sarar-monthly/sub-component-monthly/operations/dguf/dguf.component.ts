@@ -53,22 +53,14 @@ export class DgufComponent implements OnInit {
       // Create a row for each selected equipment
       this.selectedEquipment.forEach(selectedEquipmentData => {
         // Add new row with selected equipment data
+        const { id, ...equipmentDataWithoutId } = selectedEquipmentData;
         this.dgufData.push({
           srar_monthly_header:this.headerData.id,
           sfd_details: selectedEquipmentData.id, // Send only the ID
-          serial_no: '', // Leave empty for manual filling
-          location: selectedEquipmentData.location_name || '',
-          serial_number: '',
-          da_number: '',
-          rh_at_sea_and_anchorage: '',
-          rh_at_port: '',
-          total_rh_in_month: '',
-          // Frontend display fields (not sent to API)
-          equipment: selectedEquipmentData.equipment_name
+          ...equipmentDataWithoutId
         });
       });
-      
-      console.log('addDguf', { selectedEquipment: this.selectedEquipment });
+      //console.log('addDguf', { selectedEquipment: this.selectedEquipment });
       
       // Clear the selection after adding
       this.selectedEquipment = [];
@@ -90,7 +82,7 @@ export class DgufComponent implements OnInit {
       cmts_wrt_to_non_avl_shore_supply: ''
     });
     
-    console.log('addSeaHarbour - Added new row');
+    //console.log('addSeaHarbour - Added new row');
   }
 
   addDgufLimits() {
@@ -106,22 +98,22 @@ export class DgufComponent implements OnInit {
       exceed_reason_harbour: ''
     });
     
-    console.log('addDgufLimits - Added new row');
+    //console.log('addDgufLimits - Added new row');
   }
 
   editDguf() {
     this.isEdit = false;
-    console.log('editDguf - Entered edit mode');
+    //console.log('editDguf - Entered edit mode');
   }
 
   editSeaHarbour() {
     this.isEdit = false;
-    console.log('editSeaHarbour - Entered edit mode');
+    //console.log('editSeaHarbour - Entered edit mode');
   }
 
   editDgufLimits() {
     this.isEdit = false;
-    console.log('editDgufLimits - Entered edit mode');
+    //console.log('editDgufLimits - Entered edit mode');
   }
 
   saveDguf() {
@@ -133,7 +125,7 @@ export class DgufComponent implements OnInit {
     );
 
     if (dataToSave.length === 0) {
-      console.log('No dguf data to save');
+      //console.log('No dguf data to save');
       return;
     }
 
@@ -154,10 +146,10 @@ export class DgufComponent implements OnInit {
 
       if (item.id) {
         // Update existing record with PUT
-        console.log('PUT API call for existing dguf record:', payload);
+        //console.log('PUT API call for existing dguf record:', payload);
         this.apiService.put(`srar/dgufs/${item.id}/`, payload).subscribe({
           next: (response) => {
-            console.log('Updated dguf data:', response);
+            //console.log('Updated dguf data:', response);
             this.messageService.add({
               severity: 'success',
               summary: 'Success',
@@ -175,10 +167,10 @@ export class DgufComponent implements OnInit {
         });
       } else {
         // Create new record with POST
-        console.log('POST API call for new dguf record:', payload);
+        //console.log('POST API call for new dguf record:', payload);
         this.apiService.post('srar/dgufs/', payload).subscribe({
           next: (response) => {
-            console.log('Saved dguf data:', response);
+            //console.log('Saved dguf data:', response);
             this.messageService.add({
               severity: 'success',
               summary: 'Success',
@@ -199,7 +191,7 @@ export class DgufComponent implements OnInit {
       }
     });
 
-    console.log('saveDguf', { dataToSave });
+    //console.log('saveDguf', { dataToSave });
   }
 
   saveSeaHarbour() {
@@ -219,7 +211,7 @@ export class DgufComponent implements OnInit {
     );
 
     if (dataToSave.length === 0) {
-      console.log('No sea harbour data to save');
+      //console.log('No sea harbour data to save');
       return;
     }
 
@@ -228,10 +220,10 @@ export class DgufComponent implements OnInit {
         item.srar_monthly_header= this.headerData.id
       if (item.id) {
         // Update existing record with PUT
-        console.log('PUT API call for existing sea harbour record:', item);
+        //console.log('PUT API call for existing sea harbour record:', item);
         this.apiService.put(`srar/dguf-sea-harbour-running-hour-data-inputs/${item.id}/`, item).subscribe({
           next: (response) => {
-            console.log('Updated sea harbour data:', response);
+            //console.log('Updated sea harbour data:', response);
             this.messageService.add({
               severity: 'success',
               summary: 'Success',
@@ -249,10 +241,10 @@ export class DgufComponent implements OnInit {
         });
       } else {
         // Create new record with POST
-        console.log('POST API call for new sea harbour record:', item);
+        //console.log('POST API call for new sea harbour record:', item);
         this.apiService.post('srar/dguf-sea-harbour-running-hour-data-inputs/', item).subscribe({
           next: (response) => {
-            console.log('Saved sea harbour data:', response);
+            //console.log('Saved sea harbour data:', response);
             this.messageService.add({
               severity: 'success',
               summary: 'Success',
@@ -273,7 +265,7 @@ export class DgufComponent implements OnInit {
       }
     });
 
-    console.log('saveSeaHarbour', { dataToSave });
+    //console.log('saveSeaHarbour', { dataToSave });
   }
 
   saveDgufLimits() {
@@ -291,7 +283,7 @@ export class DgufComponent implements OnInit {
     );
 
     if (dataToSave.length === 0) {
-      console.log('No dguf limits data to save');
+      //console.log('No dguf limits data to save');
       return;
     }
 
@@ -300,10 +292,10 @@ export class DgufComponent implements OnInit {
       item.srar_monthly_header= this.headerData.id 
       if (item.id) {
         // Update existing record with PUT
-        console.log('PUT API call for existing dguf limits record:', item);
+        //console.log('PUT API call for existing dguf limits record:', item);
         this.apiService.put(`srar/dguf-limits/${item.id}/`, item).subscribe({
           next: (response) => {
-            console.log('Updated dguf limits data:', response);
+            //console.log('Updated dguf limits data:', response);
             this.messageService.add({
               severity: 'success',
               summary: 'Success',
@@ -321,10 +313,10 @@ export class DgufComponent implements OnInit {
         });
       } else {
         // Create new record with POST
-        console.log('POST API call for new dguf limits record:', item);
+        //console.log('POST API call for new dguf limits record:', item);
         this.apiService.post('srar/dguf-limits/', item).subscribe({
           next: (response) => {
-            console.log('Saved dguf limits data:', response);
+            //console.log('Saved dguf limits data:', response);
             this.messageService.add({
               severity: 'success',
               summary: 'Success',
@@ -345,7 +337,7 @@ export class DgufComponent implements OnInit {
       }
     });
 
-    console.log('saveDgufLimits', { dataToSave });
+    //console.log('saveDgufLimits', { dataToSave });
   }
 
   deleteDguf(index: number) {
@@ -355,7 +347,7 @@ export class DgufComponent implements OnInit {
       // Delete from API if it has an ID
       this.apiService.delete(`srar/dgufs/${item.id}/`).subscribe({
         next: (response) => {
-          console.log('Deleted dguf data:', response);
+          //console.log('Deleted dguf data:', response);
           this.messageService.add({
             severity: 'success',
             summary: 'Success',
@@ -385,7 +377,7 @@ export class DgufComponent implements OnInit {
       // Delete from API if it has an ID
       this.apiService.delete(`srar/dguf-sea-harbour-running-hour-data-inputs/${item.id}/`).subscribe({
         next: (response) => {
-          console.log('Deleted sea harbour data:', response);
+          //console.log('Deleted sea harbour data:', response);
           this.messageService.add({
             severity: 'success',
             summary: 'Success',
@@ -415,7 +407,7 @@ export class DgufComponent implements OnInit {
       // Delete from API if it has an ID
       this.apiService.delete(`srar/dguf-limits/${item.id}/`).subscribe({
         next: (response) => {
-          console.log('Deleted dguf limits data:', response);
+          //console.log('Deleted dguf limits data:', response);
           this.messageService.add({
             severity: 'success',
             summary: 'Success',
@@ -436,5 +428,17 @@ export class DgufComponent implements OnInit {
       // Remove from local array if it's a new item
       this.dgufLimitsData.splice(index, 1);
     }
+  }
+
+  calculateTotalRH(item: any) {
+    const rhAtSea = parseFloat(item.rh_at_sea_and_anchorage || 0);
+    const rhAtPort = parseFloat(item.rh_at_port || 0);
+    item.total_rh_in_month = (rhAtSea + rhAtPort).toFixed(2);
+  }
+
+  calculateTotalRHSeaHarbour(key: string) {
+    const totalRH = this.dgufData.reduce((sum, item) => sum + parseFloat(item[key] || 0), 0);
+    console.log(totalRH,"---------------------------------");
+    return totalRH.toFixed(2);
   }
 }

@@ -32,13 +32,16 @@
 
 
   
-  <app-paginated-table
-    [data]="departments"
+  <app-paginated-table *ngIf="toggleTable"
     [columns]="cols"
+    [apiUrl]="apiUrl"
+    [totalCount]="totalCount"
+     
     [showEndActions]="true"
     (viewEvent)="viewDeptDetails($event)"
     (editEvent)="editDetails($event, true)"
     (deleteEvent)="deleteDeptDetails($event)"
+    (dataLoaded)="onDataLoaded($event)"
   ></app-paginated-table>
 
  
