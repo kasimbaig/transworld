@@ -110,7 +110,7 @@ export class SrarReportComponent implements OnInit {
     this.openFullScreenSararMonthly = true;
     this.reportName = this.apiService.getReportName();
     this.reportHeader = this.headerObject[this.reportName.id as keyof typeof this.headerObject];
-    console.log("check",this.reportName);
+    //console.log(this.reportName);
 
     // Load class options from API
     this.loadClassOptions();
@@ -199,14 +199,38 @@ export class SrarReportComponent implements OnInit {
   viewReport(): void {
     
     this.apiService.get(`/srar/srar-reports/${this.reportName.id}/?command_id=${this.headerFrom.value.Command.value}&class_id=${this.headerFrom.value.Class.value}&ship_id=${this.headerFrom.value.Ship.id}&equipment_id=${this.headerFrom.value.Equipment.id}&from_month=${this.headerFrom.value['From Month'].value}&to_month=${this.headerFrom.value['To Month'].value}&from_year=${this.headerFrom.value['From Year'].value}&to_year=${this.headerFrom.value['To Year'].value}`).subscribe(response =>{
-      this.tableData=response.results;
+      // Add serial numbers to the table data
+      this.tableData = this.addSerialNumbers(response.results);
       this.isReportGenerating = true;
     });
-
-  
+    // this.tableData=[ {
+    //         "monthYear": "1/2025",
+    //         "ship_name": "INS SUVARNA",
+    //         "command_name": "Western Naval Command",
+    //         "equipment_name": "AC CHILLED WATER PUMP (TSBC 4/40)",
+    //         "equipment_code": "04401036",
+    //         "location_name": "Engine Room",
+    //         "hours_underway": 122.0,
+    //         "equipment_running_hours": 122.0
+    //     } ];
   }
+
+  /**
+   * Add serial numbers to the table data
+   * @param data The raw table data from API
+   * @returns The data with serial numbers added
+   */
+  private addSerialNumbers(data: any[]): any[] {
+    if (!data || !Array.isArray(data)) return [];
+    
+    return data.map((item, index) => ({
+      ...item,
+      srNo: index + 1
+    }));
+  }
+
   handleSelectChange(event: any, fieldKey: string): void {
-    console.log(this.headerFrom.value);
+    //console.log(this.headerFrom.value);
     if(fieldKey === 'command'){
       this.apiService.get(`/master/ship/?is_dropdown=true&command=${event.value.value}`).subscribe(response =>{
        this.shipOptions = response

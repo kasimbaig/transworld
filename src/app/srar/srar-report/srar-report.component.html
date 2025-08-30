@@ -6,7 +6,7 @@
         <div class="flex items-center justify-between p-2  bg-blue-950 text-white">
             <p class="text-2xl font-bold text-white">{{reportName?.label || 'SRAR Report'}}</p>
             <div class="flex items-center gap-4 justify-end">
-                <button *ngIf="!isReportGenerating"
+                <button 
                     type="button"
                     class="px-6 py-2 bg-yellow-50 text-yellow-500 rounded hover:bg-yellow-100 transition-colors duration-200 flex items-center gap-2 font-semibold"
                     (click)="viewReport()">
@@ -29,7 +29,7 @@
                             <label class="text-sm font-bold  w-32 flex-shrink-0">Command :</label>
                             <p-dropdown [options]="commandOptions" formControlName="Command" (onChange)="handleSelectChange($event,'command')"
                                 placeholder="--Select Command--" optionLabel="name" [filter]="true" filterBy="name"
-                                styleClass="flex-1">
+                                styleClass="flex-1 w-32">
                             </p-dropdown>
                         </div>
                           <!-- Class Dropdown -->
@@ -37,7 +37,7 @@
                             <label class="text-sm font-bold  w-32 flex-shrink-0">Class :</label>
                             <p-dropdown [options]="classOptions" formControlName="Class" (onChange)="handleSelectChange($event,'class')" placeholder="--Select Class--"
                                 optionLabel="name" [filter]="true" filterBy="name" 
-                                styleClass="flex-1">
+                                styleClass="flex-1 w-32">
                             </p-dropdown>
                         </div>
                         <!-- Ship Dropdown -->
@@ -45,7 +45,7 @@
                             <label class="text-sm font-bold  w-32 flex-shrink-0">Ship :</label>
                             <p-dropdown [options]="shipOptions" formControlName="Ship" placeholder="--Select Ship--" (onChange)="handleSelectChange($event,'ship')"
                                 optionLabel="name" [filter]="true" filterBy="name" 
-                                styleClass="flex-1">
+                                styleClass="flex-1 w-32">
                             </p-dropdown>
                         </div>
                       
@@ -76,7 +76,7 @@
                             <label class="text-sm font-bold  w-32 flex-shrink-0">From Month :</label>
                             <p-dropdown [options]="monthOptions" formControlName="From Month"
                                 placeholder="--Select Month--" optionLabel="name" [filter]="true" filterBy="name"
-                                 styleClass="flex-1">
+                                 styleClass="flex-1 w-32">
                             </p-dropdown>
                         </div>
                         <!-- From Year Dropdown -->
@@ -84,7 +84,7 @@
                             <label class="text-sm font-bold  w-32 flex-shrink-0">From Year :</label>
                             <p-dropdown [options]="yearOptions" formControlName="From Year" placeholder="--Select Year--"
                                 optionLabel="name" [filter]="true" filterBy="name" 
-                                styleClass="flex-1">
+                                styleClass="flex-1 w-32">
                             </p-dropdown>
                         </div>
                         <!-- To Month Dropdown -->
@@ -92,7 +92,7 @@
                             <label class="text-sm font-bold  w-32 flex-shrink-0">To Month :</label>
                             <p-dropdown [options]="monthOptions" formControlName="To Month"
                                 placeholder="--Select Month--" optionLabel="name" [filter]="true" filterBy="name"
-                                styleClass="flex-1">
+                                styleClass="flex-1 w-32">
                             </p-dropdown>
                         </div>
                         <!-- To Year Dropdown -->
@@ -100,7 +100,7 @@
                             <label class="text-sm font-bold  w-32 flex-shrink-0">To Year :</label>
                             <p-dropdown [options]="yearOptions" formControlName="To Year" placeholder="--Select Year--"
                                 optionLabel="name" [filter]="true" filterBy="name" 
-                                styleClass="flex-1">
+                                styleClass="flex-1 w-32">
                             </p-dropdown>
                         </div>
                        

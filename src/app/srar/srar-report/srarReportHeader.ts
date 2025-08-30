@@ -10,7 +10,7 @@ export const equipmentRunningHoursHeader: HeaderColumn[][] = [
     { label: 'Eqpt Name', key: 'equipment_name', source: 'main' },
     { label: 'Location On Board', key: 'location_name', source: 'main' },
     { label: 'Hours Underway', key: 'hours_underway', source: 'main' },
-    { label: 'Eqpt Running Hours', key: 'location_name', source: 'main' },
+    { label: 'Eqpt Running Hours', key: 'equipment_running_hours', source: 'main' },
     { label: 'Engine Hours/Hours Underway', key: 'engineHoursHoursUnderway', source: 'main' },
     { label: 'Engine Hours/Duration (In Days)', key: 'engineHoursDurationInDays', source: 'main' }
   ]
@@ -21,26 +21,28 @@ export const equipmentRunningHoursHeader: HeaderColumn[][] = [
 export const boilerRunningHoursAndInspectionDetailsHeader: HeaderColumn[][] = [
   [
     { label: 'Sr. No.', rowspan: 3, key: 'srNo', source: 'main' },
-    { label: 'Month Year', rowspan: 3, key: 'monthYear', source: 'main' },
+    { label: 'Month Year', rowspan: 3, key: 'month_year', source: 'main' },
     { label: 'Eqpt Code', rowspan: 3, key: 'equipment_code', source: 'main' },
-    { label: 'Boiler Name', rowspan: 3, key: 'equipment_name', source: 'main' },
-    { label: 'Ship Name', rowspan: 3, key: 'location_name', source: 'main' },
+    { label: 'Boiler Name', rowspan: 3, key: 'boiler_name', source: 'main' },
+    { label: 'Ship Name', rowspan: 3, key: 'ship_name', source: 'main' },
     { label: 'Location On Board', rowspan: 3, key: 'location_name', source: 'main' },
-    { label: 'Last Internal Cleaning Date', rowspan: 3, key: 'location_name', source: 'main' },
-    { label: 'Last External Cleaning Date', rowspan: 3, key: 'location_name', source: 'main' },
+    { label: 'Last Internal Cleaning Date', rowspan: 3, key: 'last_int_clg_date', source: 'main' },
+    { label: 'Last External Cleaning Date', rowspan: 3, key: 'last_ext_clg_date', source: 'main' },
     { label: 'Hours Steamed', colspan: 3 },
-    { label: 'Highest Salinity', rowspan: 3, key: 'location_name', source: 'main' },
-    { label: 'Lowest Alkalinity', rowspan: 3, key: 'location_name', source: 'main' }
+    { label: 'Highest Salinity', rowspan: 3, key: 'highest_salinity_during_month', source: 'main' },
+    { label: 'Lowest Alkalinity', rowspan: 3, key: 'lowest_salinity_during_month', source: 'main' }
   ],
   [
-    { label: 'During The Month', rowspan: 2, key: 'location_name', source: 'main' },
+    { label: 'During The Month', rowspan: 2, key: 'life_assessed_in_months', source: 'main' },
     { label: 'Since Last', colspan: 2 }
   ],
   [
-    { label: 'Internal Cleaning', key: 'location_name', source: 'main' },
-    { label: 'External Cleaning', key: 'location_name', source: 'main' }
+    { label: 'Internal Cleaning', key: 'last_int_clg_date', source: 'main' },
+    { label: 'External Cleaning', key: 'last_ext_clg_date', source: 'main' }
   ]
 ];
+
+
 
 export const consumptionLubricantHeader: HeaderColumn[][] = [
   [

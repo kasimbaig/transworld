@@ -39,7 +39,7 @@ import { DashboardCardComponent } from "../../shared/components/dashboard-card/d
     CalendarModule,
     LoadingSpinnerComponent,
     DataTableComponent,
-    // DashboardCardComponent
+    DashboardCardComponent
 ],
   templateUrl: './sfd-dashboard.component.html',
   styleUrl: './sfd-dashboard.component.css'

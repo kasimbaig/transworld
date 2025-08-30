@@ -26,7 +26,7 @@
             <!-- Value with enhanced styling -->
             <div class="relative">
                 <p class="text-3xl font-black text-gray-900 group-hover:scale-105 transition-transform duration-300 mb-2" [style.color]="color">
-                    {{ value }}
+                    {{ value  ? value : '10'}}
                 </p>
                 <!-- Animated underline -->
                 <!-- <div class="h-1 w-0 bg-gradient-to-r from-blue-500 to-purple-500 group-hover:w-full transition-all duration-500 rounded-full"></div> -->
