@@ -283,4 +283,5 @@ export class HomeComponent {
     console.log('Search requested');
     // Implement search logic here
   }
+
 }

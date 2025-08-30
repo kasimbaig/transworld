@@ -22,4 +22,36 @@ export class SharedLayoutComponent {
   isActiveRoute(route: string): boolean {
     return this.router.url === route;
   }
+showDownloadMenu = false;
+
+toggleDownloadMenu() {
+  this.showDownloadMenu = !this.showDownloadMenu;
+}
+
+  downloadFile(type: 'pdf' | 'pptx') {
+  const urls = {
+    pdf: 'https://cmms-api.ilizien-projects-cdf.in/media/ppt/TW_POC.pdf',
+    pptx: 'https://cmms-api.ilizien-projects-cdf.in/media/ppt/TW_POC.pptx'
+  };
+
+  const names = {
+    pdf: 'Transworld.pdf',
+    pptx: 'Transworld.pptx'
+  };
+
+  fetch(urls[type])
+    .then(response => response.blob())
+    .then(blob => {
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = names[type]; // force file name
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url); // cleanup
+    });
+
+  this.showDownloadMenu = false; // close popup after click
+}
 }

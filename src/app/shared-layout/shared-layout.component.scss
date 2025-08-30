@@ -157,6 +157,40 @@
   }
 }
 
+.download-menu-container {
+  position: relative;
+  display: inline-block;
+}
+
+.download-popup {
+  position: absolute;
+  top: 0;             /* align with button */
+  left: 100%;         /* open beside button */
+  margin-left: 10px;  /* small gap */
+  display: flex;      /* horizontal layout */
+  gap: 10px;          /* spacing between buttons */
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 6px 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  z-index: 1000;
+}
+
+.download-popup button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: #f4b400; /* yellow text */
+  font-weight: bold;
+}
+
+.download-popup button:hover {
+  text-decoration: underline;
+}
+
+
 // Main Content
 .main-content {
   flex: 1;
