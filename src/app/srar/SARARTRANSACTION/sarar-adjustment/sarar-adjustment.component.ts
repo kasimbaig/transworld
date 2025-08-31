@@ -66,7 +66,7 @@ export class SararAdjustmentComponent implements OnInit {
       next: (response: any) => {
         if (response && Array.isArray(response)) {
           this.equipmentCodeOptions = response.map((equipment: any) => ({
-            name: `${equipment.equipment_name}`,
+            name: `${equipment.equipment_name}-${equipment.equipment_code}`,
             value: equipment.id,
             location_name: equipment.location_name,
             location_code: equipment.location_code,
