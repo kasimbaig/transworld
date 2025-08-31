@@ -10,7 +10,7 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             <!-- Unit Dropdown -->
             <div class="flex items-center gap-4">
-                <label class="text-sm font-bold text-gray-700 w-20 flex-shrink-0">Section</label>
+                <label class="text-sm font-bold text-gray-700 w-16 flex-shrink-0">Section</label>
                 <p-dropdown 
                     [options]="sectionOptions" 
                     [(ngModel)]="selectedSection"
@@ -19,13 +19,13 @@
                     [filter]="true"
                     filterBy="name"
                     (onChange)="onSectionChange()"
-                    styleClass="flex-1">
+                    styleClass="max-w-48">
                 </p-dropdown>
             </div>
 
             <!-- Group Dropdown -->
             <div class="flex items-center gap-4">
-                <label class="text-sm font-bold text-gray-700 w-20 flex-shrink-0">Group</label>
+                <label class="text-sm font-bold text-gray-700 w-16 flex-shrink-0">Group</label>
                 <p-dropdown 
                     [options]="groupOptions" 
                     [(ngModel)]="selectedGroup"
@@ -35,13 +35,13 @@
                     filterBy="name"
                     [disabled]="!selectedSection"
                     (onChange)="onGroupChange()"
-                    styleClass="flex-1">
+                    styleClass="max-w-48">
                 </p-dropdown>
             </div>
 
             <!-- Department Dropdown -->
             <div class="flex items-center gap-4">
-                <label class="text-sm font-bold text-gray-700 w-20 flex-shrink-0">Country</label>
+                <label class="text-sm font-bold text-gray-700 w-16 flex-shrink-0">Country</label>
                 <p-dropdown 
                     [options]="countryOptions" 
                     [(ngModel)]="selectedCountry"
@@ -54,7 +54,7 @@
                 </p-dropdown>
             </div>
             <div class="flex items-center gap-4">
-                <label class="text-sm font-bold text-gray-700 w-20 flex-shrink-0">Supplier</label>
+                <label class="text-sm font-bold text-gray-700 w-16 flex-shrink-0">Supplier</label>
                 <p-dropdown 
                     [options]="supplierOptions" 
                     [(ngModel)]="selectedSupplier"
@@ -81,7 +81,7 @@
                  </p-dropdown>
              </div> -->
             <div class="flex items-center gap-4">
-                <label class="text-sm font-bold text-gray-700 w-20 flex-shrink-0">Equipment</label>
+                <label class="text-sm font-bold text-gray-700 w-16 flex-shrink-0">Equipment</label>
                 <p-dropdown 
                     [options]="equipmentOptions" 
                     [(ngModel)]="selectedEquipment"
