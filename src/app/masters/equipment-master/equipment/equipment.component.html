@@ -41,7 +41,6 @@
       (viewEvent)="view($event)"
       (editEvent)="edit($event)" 
       (deleteEvent)="deleteRow($event)"
-      (dataLoaded)="onDataLoaded($event)"
        >
     </app-paginated-table>
 </div>
@@ -57,6 +56,16 @@
   (onConfirm)="confirmDeletion()"
   (onCancel)="cancelDeletion()">
 </app-delete-confirmation-modal>
+
+<!-- View Details Component -->
+<app-view-details
+  *ngIf="viewdisplayModal"
+  [open]="viewdisplayModal"
+  [viewDetails]="selectedDetails"
+  [headers]="equipmentViewConfig"
+  (onOpenChange)="viewdisplayModal = $event"
+  [title]="'View Equipment Details'"
+></app-view-details>
 
 <!-- 
 <app-add-form *ngIf="isFormOpen" [open]="isFormOpen" [formConfig]="formConfigForNewDetails" [formData]="newDetails"  
@@ -263,7 +272,7 @@
       </form>
       
       <div class="flex justify-end gap-2 mt-6 pt-4 border-t border-gray-200">
-          <button (click)="isFormOpen = false; isEdit = 'Add'"
+          <button (click)="closeForm()"
               type="button" 
               class="px-6 py-2 bg-orange-500 text-white rounded-md hover:bg-orange-600 transition-colors duration-200">
               Cancel

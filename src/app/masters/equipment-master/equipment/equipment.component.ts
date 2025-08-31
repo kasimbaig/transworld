@@ -23,6 +23,7 @@ import { LoadingSpinnerComponent } from '../../../shared/components/loading-spin
 import { PaginatedTableComponent } from '../../../shared/components/paginated-table/paginated-table.component';
 import { ToastComponent } from '../../../shared/components/toast/toast.component';
 import { DeleteConfirmationModalComponent } from '../../../shared/components/delete-confirmation-modal/delete-confirmation-modal.component';
+import { ViewDetailsComponent } from '../../../shared/components/view-details/view-details.component';
 import { DialogModule } from 'primeng/dialog'; // Import DialogModule for p-dialog
 import { PanelModule } from 'primeng/panel'; // Import PanelModule for view details
 import { DropdownModule } from 'primeng/dropdown';
@@ -46,6 +47,7 @@ import { FormFieldConfig } from '../../manufacturer-master/manufacturer-master.c
     InputNumberModule,
     ReactiveFormsModule,
     DeleteConfirmationModalComponent,
+    ViewDetailsComponent,
     AddFormComponent
 ],
   templateUrl: './equipment.component.html',
@@ -104,16 +106,23 @@ export class EquipmentComponent implements OnInit {
     this.isEdit = 'Add';
     this.equipmentForm.reset();
     this.equipmentForm.enable();
+    
+    // Reset selected details when opening for new equipment
+    if (open) {
+      this.selectedDetails = {};
+    }
+  }
+
+  closeForm() {
+    this.isFormOpen = false;
+    this.isEdit = 'Add';
+    this.equipmentForm.reset();
+    this.selectedDetails = {};
   }
 
   constructor(private apiService: ApiService, private location: Location, private toastService: ToastService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
-    //console.log('🚢 Equipment Component Initializing...');
-    //console.log('API URL:', this.apiUrl);
-    //console.log('Total Count:', this.totalCount);
-    //console.log('Enable URL Fetching: true');
-    
     this.fetchInitialDropdownData();
     // Note: Table data will be loaded by the paginated table component
     // No need to call getEquipments() here
@@ -222,7 +231,6 @@ export class EquipmentComponent implements OnInit {
   @Output() exportCSVEvent = new EventEmitter<void>();
   @Output() exportPDFEvent = new EventEmitter<void>();
   exportPDF() {
-    //console.log('Exporting as PDF...');
     this.exportPDFEvent.emit();
     const doc = new jsPDF();
     autoTable(doc, {
@@ -235,7 +243,6 @@ export class EquipmentComponent implements OnInit {
   }
   @Input() tableName: string = '';
   exportExcel() {
-    //console.log('Exporting as Excel...');
     this.exportCSVEvent.emit();
     const headers = this.cols.map((col) => col.header);
     const rows = this.departments.map((row: { [x: string]: any }) =>
@@ -255,55 +262,80 @@ export class EquipmentComponent implements OnInit {
   }
 
   view(event: any){
-    this.isEdit = 'View';
-    //console.log(event);
-    this.selectedDetails = event;
-    this.isFormOpen = true;
-    this.equipmentForm.patchValue({
-      section: event.section || 10,
-      group: event.group || 14,
-      generic_code: event.generic_code,
-      type: event.type_id || event.type,
-      code: event.code || event.code,
-      name: event.name,
-      model: event.model,
-      maintop_number: event.maintop_number,
-      acquaint_issued: event.acquaint_issued,
-      authority: event.authority,
-      ilms_equipment_code: event.ilms_equipment_code,
-      obsolete: event.obsolete === 'Yes' || event.obsolete === true,
-      total_fits: event.total_fits,
-      ship_applicable: event.ship_applicable
-    });
-    this.equipmentForm.disable();
+    this.selectedDetails = this.formatEquipmentDataForView(event);
+    this.viewdisplayModal = true;
+  }
+
+  // Method to format equipment data for view details
+  formatEquipmentDataForView(equipment: any): any {
+    return {
+      code: equipment.code || 'N/A',
+      name: equipment.name || 'N/A',
+      manufacturer: equipment.manufacturer?.name || equipment.manufacturer_name || 'N/A',
+      supplier: equipment.supplier?.name || equipment.supplier_name || 'N/A',
+      section: equipment.group?.section_name || equipment.section || 'N/A',
+      group: equipment.group?.name || equipment.group || 'N/A',
+      generic_code: equipment.generic_code || 'N/A',
+      type: equipment.type?.name || equipment.type || 'N/A',
+      model: equipment.model || 'N/A',
+      maintop_number: equipment.maintop_number || 'N/A',
+      acquaint_issued: equipment.acquaint_issued || 'N/A',
+      authority: equipment.authority || 'N/A',
+      ilms_equipment_code: equipment.ilms_equipment_code || 'N/A',
+      obsolete: equipment.obsolete === 'Yes' || equipment.obsolete === true ? 'Yes' : 'No',
+      total_fits: equipment.total_fits || 'N/A',
+      ship_applicable: equipment.ship_applicable || 'N/A',
+      country: equipment.country?.name || equipment.country_name || 'N/A',
+    };
   }
   
   edit(event: any){
     this.isEdit = 'Edit';
-    //console.log(event);
     this.selectedDetails = { ...event };
     this.isFormOpen = true;
-    this.apiService.get<any>('master/group/?is_dropdown=true&section='+event.group.section).subscribe((res:any)=>{
-      this.filteredGroups = res
-    })
-    this.equipmentForm.patchValue(event)
-    // Populate form with selected data
-    this.equipmentForm.patchValue({
-      section: event.group.section,
-      group: event.group.id,
-      generic_code: event.generic_code,
-      type: event.type_id || event.type,
-      code: event.code || event.code,
-      name: event.name,
-      model: event.model,
-      maintop_number: event.maintop_number,
-      acquaint_issued: event.acquaint_issued,
-      authority: event.authority,
-      ilms_equipment_code: event.ilms_equipment_code,
-      obsolete: event.obsolete === 'Yes' || event.obsolete === true,
-      total_fits: event.total_fits,
-      ship_applicable: event.ship_applicable
-    });
+    
+    // Fetch groups for the selected section
+    if (event.group?.section) {
+      this.apiService.get<any>('master/group/?is_dropdown=true&section='+event.group.section).subscribe((res:any)=>{
+        this.filteredGroups = res;
+      });
+    }
+    
+    // Populate form with selected data - complete mapping
+    const formData = {
+      section: event.group?.section,
+      group: event.group?.id,
+      generic_code: event.generic_code || '',
+      type: event.type?.id || event.type_id || event.type || '',
+      code: event.code || '',
+      name: event.name || '',
+      model: event.model || '',
+      maintop_number: event.maintop_number || '',
+      acquaint_issued: event.acquaint_issued || '',
+      authority: event.authority || '',
+      ilms_equipment_code: event.ilms_equipment_code || '',
+      obsolete: event.obsolete === 'Yes' || event.obsolete === true || false,
+      total_fits: event.total_fits || '',
+      ship_applicable: event.ship_applicable || '',
+      manufacturer: event.manufacturer?.id || event.manufacturer_id || event.manufacturer || '',
+      country: event.country?.id || event.country_id || event.country || '',
+      supplier: event.supplier?.id || event.supplier_id || event.supplier || ''
+    };
+    
+    // First reset the form to clear any previous values
+    this.equipmentForm.reset();
+    
+    // Use setTimeout to ensure form is properly initialized before patching values
+    setTimeout(() => {
+      // Then patch the new values
+      this.equipmentForm.patchValue(formData);
+      
+      // Enable the form for editing
+      this.equipmentForm.enable();
+      
+      // Force change detection to ensure form updates
+      this.cdr.detectChanges();
+    }, 100);
   }
   
   showDeleteDialog: boolean = false;
@@ -316,13 +348,12 @@ export class EquipmentComponent implements OnInit {
   confirmDeletion() {
     this.apiService
       .delete(`master/equipment/${this.selectedDetails.id}/`)
-      .subscribe({
-        next: (data: any) => {
-          //console.log('Equipment deleted successfully:', data);
-          this.toastService.showSuccess('Equipment deleted successfully');
-          this.getEquipments(); // Refresh the data
-          this.showDeleteDialog = false;
-        },
+              .subscribe({
+          next: (data: any) => {
+            this.toastService.showSuccess('Equipment deleted successfully');
+            this.getEquipments(); // Refresh the data
+            this.showDeleteDialog = false;
+          },
         error: (error) => {
           console.error('Error deleting equipment:', error);
           this.toastService.showError('Error deleting equipment');
@@ -334,7 +365,6 @@ export class EquipmentComponent implements OnInit {
     this.showDeleteDialog = false;
   }
   submit(){
-    //console.log(this.equipmentForm.value);
     if (this.equipmentForm.valid) {
       this.isLoading = true;
       this.equipmentForm.get('active')?.setValue("1");
@@ -351,11 +381,9 @@ export class EquipmentComponent implements OnInit {
         .post('master/equipment/', apiPayload)
         .subscribe({
           next: (data: any) => {
-            //console.log('Equipment added successfully:', data);
             this.toastService.showSuccess('Equipment added successfully');
             this.getEquipments(); // Refresh the data
-            this.toggleForm(false); // Close the form
-            this.equipmentForm.reset(); // Reset form
+            this.closeForm(); // Close the form
             this.isLoading = false;
               },
           });
@@ -368,8 +396,7 @@ export class EquipmentComponent implements OnInit {
             //console.log('Equipment updated successfully:', data);
             this.toastService.showSuccess('Equipment updated successfully');
             this.getEquipments(); // Refresh the data
-            this.toggleForm(false); // Close the form
-            this.equipmentForm.reset(); // Reset form
+            this.closeForm(); // Close the form
             this.isLoading = false;
           },
           error: (error) => {
@@ -527,6 +554,27 @@ export class EquipmentComponent implements OnInit {
     { label: 'Country Code', key: 'country_code', type: 'text', required: true },
     { label: 'Contact Number', key: 'contact_number', type: 'number', required: true },
     { label: 'Email ID', key: 'email_id', type: 'text', required: true },
+  ];
+
+  // Form configuration for viewing equipment details
+  equipmentViewConfig = [
+    { label: 'Equipment Code', key: 'code', type: 'text' },
+    { label: 'Equipment Name', key: 'name', type: 'text' },
+    { label: 'Section', key: 'section', type: 'text' },
+    { label: 'Group', key: 'group', type: 'text' },
+    { label: 'Generic Code', key: 'generic_code', type: 'text' },
+    { label: 'Type', key: 'type', type: 'text' },
+    { label: 'Model', key: 'model', type: 'text' },
+    { label: 'Maintop Number', key: 'maintop_number', type: 'text' },
+    { label: 'Acquaint Issued', key: 'acquaint_issued', type: 'text' },
+    { label: 'Authority', key: 'authority', type: 'text' },
+    { label: 'ILMS Equipment Code', key: 'ilms_equipment_code', type: 'text' },
+    { label: 'Obsolete', key: 'obsolete', type: 'text' },
+    { label: 'Total Fits', key: 'total_fits', type: 'text' },
+    { label: 'Ship Applicable', key: 'ship_applicable', type: 'text' },
+    { label: 'Manufacturer', key: 'manufacturer', type: 'text' },
+    { label: 'Country', key: 'country', type: 'text' },
+    { label: 'Supplier', key: 'supplier', type: 'text' }
   ];
   newSupplier = {
     code: '',
