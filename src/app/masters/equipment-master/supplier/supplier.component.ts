@@ -148,12 +148,12 @@ export class SupplierComponent implements OnInit {
       type: 'text',
       required: true,
     },
-    {
-      label: 'Country Code',
-      key: 'country_code',
-      type: 'text',
-      required: true,
-    },
+    // {
+    //   label: 'Country Code',
+    //   key: 'country_code',
+    //   type: 'text',
+    //   required: true,
+    // },
     {
       label: 'Contact Number',
       key: 'contact_number',
