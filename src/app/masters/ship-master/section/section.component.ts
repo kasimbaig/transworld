@@ -30,6 +30,110 @@ import { DeleteConfirmationModalComponent } from '../../../shared/components/del
 import { ViewDetailsComponent } from '../../../shared/components/view-details/view-details.component';
 import { ToastService } from '../../../services/toast.service';
 
+// Static dataset for sections
+const STATIC_SECTIONS: any[] = [
+  {
+    id: 41,
+    department_name: 'Engineering',
+    department_code: 'ENG55',
+    active: 1,
+    code: '61',
+    name: 'PROPULSION SYSTEMS',
+    created_by: '7',
+    department: 31
+  },
+  {
+    id: 42,
+    department_name: 'Engineering',
+    department_code: 'ENG55',
+    active: 1,
+    code: '62',
+    name: 'POWER GENERATION',
+    created_by: '7',
+    department: 31
+  },
+  {
+    id: 43,
+    department_name: 'Electrical',
+    department_code: 'ELE22',
+    active: 1,
+    code: '71',
+    name: 'CONTROL CIRCUITS',
+    created_by: '8',
+    department: 32
+  },
+  {
+    id: 44,
+    department_name: 'Electrical',
+    department_code: 'ELE22',
+    active: 1,
+    code: '72',
+    name: 'LIGHTING SYSTEMS',
+    created_by: '8',
+    department: 32
+  },
+  {
+    id: 45,
+    department_name: 'Communications',
+    department_code: 'COM91',
+    active: 1,
+    code: '81',
+    name: 'SATELLITE LINKS',
+    created_by: '9',
+    department: 33
+  },
+  {
+    id: 46,
+    department_name: 'Communications',
+    department_code: 'COM91',
+    active: 1,
+    code: '82',
+    name: 'SECURE RADIO',
+    created_by: '9',
+    department: 33
+  },
+  {
+    id: 47,
+    department_name: 'Damage Control',
+    department_code: 'DCT12',
+    active: 1,
+    code: '91',
+    name: 'FIRE SUPPRESSION',
+    created_by: '10',
+    department: 34
+  },
+  {
+    id: 48,
+    department_name: 'Damage Control',
+    department_code: 'DCT12',
+    active: 1,
+    code: '92',
+    name: 'FLOOD CONTROL',
+    created_by: '10',
+    department: 34
+  },
+  {
+    id: 49,
+    department_name: 'Training & Drills',
+    department_code: 'TRN90',
+    active: 1,
+    code: '101',
+    name: 'CREW DRILLS',
+    created_by: '11',
+    department: 35
+  }
+];
+
+// Static department options for dropdown
+const STATIC_DEPARTMENT_OPTIONS = [
+  { label: 'Engineering', value: 31 },
+  { label: 'Medical', value: 32 },
+  { label: 'Communications', value: 33 },
+  { label: 'Damage Control', value: 34 },
+  // { label: 'Training & Drills', value: 35 }
+];
+
+
 @Component({
   selector: 'app-section',
   standalone: true,
@@ -124,12 +228,19 @@ export class SectionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-    // Load master data for dropdowns (but not sections data - paginated table will handle that)
-    this.loadDepartmentOptions();
+    // Use static data instead of API
+    this.apiUrl = '';
+    this.sections = [...STATIC_SECTIONS] as any;
+    this.totalCount = STATIC_SECTIONS.length;
+    this.filteredDepartments = [...STATIC_DEPARTMENT_OPTIONS] as any;
     
-    // Note: Table data will be loaded by the paginated table component
-    // No need to call getSections() here
+    // Update form config with static department options
+    const departmentField = this.formConfigForNewDetails.find(
+      (field) => field.key === 'department'
+    );
+    if (departmentField) {
+      departmentField.options = this.filteredDepartments;
+    }
   }
 
   resetNewDetails() {
@@ -171,45 +282,49 @@ export class SectionComponent implements OnInit {
   
 
   handleSubmit(data: any) {
-    this.isLoading = true; // Show loading spinner
-    const payload = { ...data };
+    // this.isLoading = true; // Show loading spinner
+    // const payload = { ...data };
 
-    // Ensure department is sent as just the ID if it's an object from the dropdown
-    if (payload.department && typeof payload.department === 'object' && payload.department.value) {
-      payload.department = payload.department.value;
-    } else if (payload.department === '') {
-      payload.department = null;
-    }
-    payload.active = Number(1);
+    // // Ensure department is sent as just the ID if it's an object from the dropdown
+    // if (payload.department && typeof payload.department === 'object' && payload.department.value) {
+    //   payload.department = payload.department.value;
+    // } else if (payload.department === '') {
+    //   payload.department = null;
+    // }
+    // payload.active = Number(1);
 
-    // Explicitly add sfd_hierarchy as null
-    payload.sfd_hierarchy = null;
+    // // Explicitly add sfd_hierarchy as null
+    // payload.sfd_hierarchy = null;
 
-    this.sectionService.addSection(payload).subscribe({
-      next: (response: any) => {
-        this.toastService.showSuccess('Section added successfully!'); // Show success message
-        this.closeDialog();
-        this.isLoading = false; // Hide loading spinner on success
-      },
-      error: (error) => {
-        console.error('Error adding section:', error);
-        let errorMessage = 'Failed to add section.';
-        if (error.error && typeof error.error === 'object') {
-          // Attempt to extract specific error messages from the backend response
-          const errorMessages = Object.values(error.error).flat();
-          // Check for specific "Code already exists" error
-          if (errorMessages.some((msg: any) => typeof msg === 'string' && msg.includes('section with this code already exists'))) {
-            errorMessage = 'Code: A section with this code already exists.';
-          } else {
-            errorMessage = errorMessages.join(' ');
-          }
-        } else if (error.message) {
-          errorMessage = error.message;
-        }
-        this.toastService.showError(`Error: ${errorMessage}`); // Show error message
-        this.isLoading = false; // Hide loading spinner on error
-      },
-    });
+    // this.sectionService.addSection(payload).subscribe({
+    //   next: (response: any) => {
+    //     this.toastService.showSuccess('Section added successfully!'); // Show success message
+    //     this.closeDialog();
+    //     this.isLoading = false; // Hide loading spinner on success
+    //   },
+    //   error: (error) => {
+    //     console.error('Error adding section:', error);
+    //     let errorMessage = 'Failed to add section.';
+    //     if (error.error && typeof error.error === 'object') {
+    //       // Attempt to extract specific error messages from the backend response
+    //       const errorMessages = Object.values(error.error).flat();
+    //       // Check for specific "Code already exists" error
+    //       if (errorMessages.some((msg: any) => typeof msg === 'string' && msg.includes('section with this code already exists'))) {
+    //         errorMessage = 'Code: A section with this code already exists.';
+    //       } else {
+    //         errorMessage = errorMessages.join(' ');
+    //       }
+    //     } else if (error.message) {
+    //       errorMessage = error.message;
+    //     }
+    //     this.toastService.showError(`Error: ${errorMessage}`); // Show error message
+    //     this.isLoading = false; // Hide loading spinner on error
+    //   },
+    // });
+
+    // Static implementation - just show success and close dialog
+    this.toastService.showSuccess('Section added successfully!');
+    this.closeDialog();
   }
 
   deleteSectionDetails(details: any) {
@@ -218,77 +333,85 @@ export class SectionComponent implements OnInit {
   }
 
   confirmDeletion() {
-    if (this.selectedDetails?.id) {
-      this.isLoading = true; // Show loading spinner
-      this.sectionService.deleteSection(this.selectedDetails.id).subscribe({
-        next: () => {
-          this.toastService.showSuccess('Section deleted successfully!'); // Show success message
-          this.closeDialog();
-          this.isLoading = false; // Hide loading spinner on success
-        },
-        error: (error) => {
-          console.error('Error deleting section:', error);
-          let errorMessage = 'Failed to delete section.';
-          if (error.error && typeof error.error === 'object') {
-            errorMessage = Object.values(error.error).flat().join(' ');
-          } else if (error.message) {
-            errorMessage = error.message;
-          }
-          this.toastService.showError(`Error: ${errorMessage}`); // Show error message
-          this.closeDialog();
-          this.isLoading = false; // Hide loading spinner on error
-        },
-      });
-    }
+    // if (this.selectedDetails?.id) {
+    //   this.isLoading = true; // Show loading spinner
+    //   this.sectionService.deleteSection(this.selectedDetails.id).subscribe({
+    //     next: () => {
+    //       this.toastService.showSuccess('Section deleted successfully!'); // Show success message
+    //       this.closeDialog();
+    //       this.isLoading = false; // Hide loading spinner on success
+    //     },
+    //     error: (error) => {
+    //       console.error('Error deleting section:', error);
+    //       let errorMessage = 'Failed to delete section.';
+    //       if (error.error && typeof error.error === 'object') {
+    //         errorMessage = Object.values(error.error).flat().join(' ');
+    //       } else if (error.message) {
+    //         errorMessage = error.message;
+    //       }
+    //       this.toastService.showError(`Error: ${errorMessage}`); // Show error message
+    //       this.closeDialog();
+    //       this.isLoading = false; // Hide loading spinner on error
+    //     },
+    //   });
+    // }
+
+    // Static implementation - just show success and close dialog
+    this.toastService.showSuccess('Section deleted successfully!');
+    this.closeDialog();
   }
 
   handleEditSubmit(data: any) {
-    this.isLoading = true; // Show loading spinner
-    const payload = { ...data };
+    // this.isLoading = true; // Show loading spinner
+    // const payload = { ...data };
 
-    // Ensure department is sent as just the ID if it's an object from the dropdown
-    if (payload.department && typeof payload.department === 'object' && payload.department.value) {
-      payload.department = payload.department.value;
-    } else if (payload.department === '') {
-      payload.department = null;
-    }
+    // // Ensure department is sent as just the ID if it's an object from the dropdown
+    // if (payload.department && typeof payload.department === 'object' && payload.department.value) {
+    //   payload.department = payload.department.value;
+    // } else if (payload.department === '') {
+    //   payload.department = null;
+    // }
 
-    // Set 'active' to 1 or 0 (number) using Number() for robust conversion
-    // This will convert boolean true/false, or string "1"/"0" to the desired 1 or 0 integer.
-    payload.active = Number(payload.active);
+    // // Set 'active' to 1 or 0 (number) using Number() for robust conversion
+    // // This will convert boolean true/false, or string "1"/"0" to the desired 1 or 0 integer.
+    // payload.active = Number(payload.active);
 
-    // Explicitly add sfd_hierarchy as null (or retain existing if it's an edit)
-    // For simplicity, setting to null here. If sfd_hierarchy can be edited,
-    // it would need to be part of formConfig and formData.
-    payload.sfd_hierarchy = null;
+    // // Explicitly add sfd_hierarchy as null (or retain existing if it's an edit)
+    // // For simplicity, setting to null here. If sfd_hierarchy can be edited,
+    // // it would need to be part of formConfig and formData.
+    // payload.sfd_hierarchy = null;
 
-    if (this.selectedDetails?.id) {
-      this.sectionService.updateSection(this.selectedDetails.id, payload).subscribe({
-        next: () => {
-          this.toastService.showSuccess('Section updated successfully!'); // Show success message
-          this.closeDialog();
-          this.isLoading = false; // Hide loading spinner on success
-        },
-        error: (error) => {
-          console.error('Error updating section:', error);
-          let errorMessage = 'Failed to update section.';
-          if (error.error && typeof error.error === 'object') {
-            // Attempt to extract specific error messages from the backend response
-            const errorMessages = Object.values(error.error).flat();
-            // Check for specific "Code already exists" error
-            if (errorMessages.some((msg: any) => typeof msg === 'string' && msg.includes('section with this code already exists'))) {
-              errorMessage = 'Code: A section with this code already exists.';
-            } else {
-              errorMessage = errorMessages.join(' ');
-            }
-          } else if (error.message) {
-            errorMessage = error.message;
-          }
-          this.toastService.showError(`Error: ${errorMessage}`); // Show error message
-          this.isLoading = false; // Hide loading spinner on error
-        },
-      });
-    }
+    // if (this.selectedDetails?.id) {
+    //   this.sectionService.updateSection(this.selectedDetails.id, payload).subscribe({
+    //     next: () => {
+    //       this.toastService.showSuccess('Section updated successfully!'); // Show success message
+    //       this.closeDialog();
+    //       this.isLoading = false; // Hide loading spinner on success
+    //     },
+    //     error: (error) => {
+    //       console.error('Error updating section:', error);
+    //       let errorMessage = 'Failed to update section.';
+    //       if (error.error && typeof error.error === 'object') {
+    //         // Attempt to extract specific error messages from the backend response
+    //         const errorMessages = Object.values(error.error).flat();
+    //         // Check for specific "Code already exists" error
+    //         if (errorMessages.some((msg: any) => typeof msg === 'string' && msg.includes('section with this code already exists'))) {
+    //           errorMessage = 'Code: A section with this code already exists.';
+    //         } else {
+    //           errorMessage = errorMessages.join(' ');
+    //         }
+    //       } else if (error.message) {
+    //         errorMessage = error.message;
+    //       }
+    //       this.toastService.showError(`Error: ${errorMessage}`); // Show error message
+    //       this.isLoading = false; // Hide loading spinner on error
+    //     },
+    //   });
+    // }
+
+    // Static implementation - just show success and close dialog
+    this.toastService.showSuccess('Section updated successfully!');
+    this.closeDialog();
   }
 
   goBack() {
@@ -347,7 +470,7 @@ export class SectionComponent implements OnInit {
   handleBulkUpload(event: any) {
     this.toastService.showSuccess('File uploaded successfully!'); // Show success message
     this.isBulkUploadPopup = false;
-    this.getSections();
+    // this.getSections(); // Commented out for static data
   }
 
   closeDialog() {
@@ -358,7 +481,7 @@ export class SectionComponent implements OnInit {
     this.isViewDetailsOpen = false;
     this.selectedDetails = { active: true };
     this.resetNewDetails();
-    this.getSections(); // Refresh data after any action
+    // this.getSections(); // Refresh data after any action - commented out for static data
   }
 
   viewDetails(details: any) {

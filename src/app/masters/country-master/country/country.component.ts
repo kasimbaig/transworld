@@ -98,6 +98,80 @@ export class CountryComponent implements OnInit {
     // Note: Table data will be loaded by the paginated table component
     // No need to call getDepartments() here
   }
+countryStaticData = [
+  {
+    id: 30,
+    active: 1,
+    name: "INDIA",
+    code: "IN",
+    created_by: 2
+  },
+  {
+    id: 31,
+    active: 1,
+    name: "AUSTRALIA",
+    code: "AU",
+    created_by: 3
+  },
+  {
+    id: 32,
+    active: 1,
+    name: "ITALY",
+    code: "IT",
+    created_by: 4
+  },
+  {
+    id: 33,
+    active: 1,
+    name: "SOUTH AFRICA",
+    code: "ZA",
+    created_by: 5
+  },
+  {
+    id: 34,
+    active: 1,
+    name: "MEXICO",
+    code: "MX",
+    created_by: 6
+  },
+  {
+    id: 35,
+    active: 1,
+    name: "NORWAY",
+    code: "NO",
+    created_by: 7
+  },
+  {
+    id: 36,
+    active: 1,
+    name: "SPAIN",
+    code: "ES",
+    created_by: 8
+  },
+  {
+    id: 37,
+    active: 1,
+    name: "UNITED KINGDOM",
+    code: "GB",
+    created_by: 9
+  },
+  {
+    id: 38,
+    active: 1,
+    name: "UNITED STATES",
+    code: "US",
+    created_by: 10
+  },
+  {
+    id: 39,
+    active: 1,
+    name: "SOUTH KOREA",
+    code: "KR",
+    created_by: 11
+  }
+];
+
+
   goBack(){
     this.location.back();
   }

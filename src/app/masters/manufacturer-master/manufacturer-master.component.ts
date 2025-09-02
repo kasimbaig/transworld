@@ -155,6 +155,107 @@ export class ManufacturerMasterComponent implements OnInit { // Renamed componen
     // No need to call getManufacturers() here
   }
 
+manufacturerStaticData = [
+  {
+    id: 20,
+    name: "NEPTUNE MARINE SYSTEMS",
+    code: "NMS-701",
+    country: 12,
+    country_name: "AUSTRALIA",
+    country_code: "AU",
+    address: "Dockyard Tech Park, Bay 3",
+    area: "Darling Harbour",
+    city: "Sydney",
+    contact_person: "James Wilson",
+    contact_number: "+61-412345678",
+    email: "j.wilson@neptunems.au",
+    active: 1,
+    active_display: "Active"
+  },
+  {
+    id: 21,
+    name: "ATLANTIC SHIP EQUIPMENT",
+    code: "ASE-802",
+    country: 13,
+    country_name: "BELGIUM",
+    country_code: "BE",
+    address: "Port Innovation Zone",
+    area: "Antwerp North",
+    city: "Antwerp",
+    contact_person: "Marie Dupont",
+    contact_number: "+32-478112233",
+    email: "marie.dupont@atlantic.be",
+    active: 1,
+    active_display: "Active"
+  },
+  {
+    id: 22,
+    name: "POLARIS NAVAL TECH",
+    code: "PNT-903",
+    country: 14,
+    country_name: "NORWAY",
+    country_code: "NO",
+    address: "Marine Science Estate",
+    area: "Fjord Valley",
+    city: "Oslo",
+    contact_person: "Erik Johansen",
+    contact_number: "+47-91223344",
+    email: "erik.j@polarisnaval.no",
+    active: 1,
+    active_display: "Active"
+  },
+  {
+    id: 23,
+    name: "TITAN DEFENCE INDUSTRIES",
+    code: "TDI-1004",
+    country: 15,
+    country_name: "UNITED KINGDOM",
+    country_code: "UK",
+    address: "Royal Dockyard Complex",
+    area: "Portsmouth Naval Base",
+    city: "Portsmouth",
+    contact_person: "Charlotte Harris",
+    contact_number: "+44-7700112233",
+    email: "charlotte.h@titan.uk",
+    active: 1,
+    active_display: "Active"
+  },
+  {
+    id: 24,
+    name: "PACIFIC TECH MARINE",
+    code: "PTM-1105",
+    country: 16,
+    country_name: "SINGAPORE",
+    country_code: "SG",
+    address: "Harbour Drive Sector 5",
+    area: "Jurong Industrial Estate",
+    city: "Singapore",
+    contact_person: "Wei Ling Tan",
+    contact_number: "+65-81234567",
+    email: "weiling.tan@pacifictech.sg",
+    active: 1,
+    active_display: "Active"
+  },
+  {
+    id: 25,
+    name: "ARCTIC ENGINEERING SOLUTIONS",
+    code: "AES-1206",
+    country: 17,
+    country_name: "ICELAND",
+    country_code: "IS",
+    address: "Innovation Harbour Block C",
+    area: "Reykjavik East",
+    city: "Reykjavik",
+    contact_person: "Björn Magnusson",
+    contact_number: "+354-6612345",
+    email: "bjorn.m@arctices.is",
+    active: 1,
+    active_display: "Active"
+  }
+];
+
+
+
   goBack(): void {
     this.location.back();
   }

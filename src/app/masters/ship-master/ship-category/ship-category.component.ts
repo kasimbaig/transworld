@@ -26,6 +26,21 @@ import { ShipCategory } from '../../../shared/models/ship-category.model';
 import { ShipCategoryService } from '../ship-services/ship-category.service';
 import { Observable } from 'rxjs';
 
+// Static dataset for ship categories
+const STATIC_SHIP_CATEGORIES: any[] = [
+  { id: 1,  active: 1, code: 'DDG',  name: 'GUIDED MISSILE DESTROYERS',   created_by: '1' },
+  { id: 2,  active: 1, code: 'SSK',  name: 'CONVENTIONAL SUBMARINES',     created_by: '1' },
+  { id: 3,  active: 1, code: 'CG',   name: 'MISSILE CRUISERS',            created_by: '2' },
+  { id: 4,  active: 1, code: 'FFH',  name: 'STEALTH FRIGATES',            created_by: '2' },
+  { id: 5,  active: 1, code: 'LHD',  name: 'AMPHIBIOUS ASSAULT SHIPS',    created_by: '3' },
+  { id: 6,  active: 1, code: 'AGS',  name: 'HYDROGRAPHIC SURVEY VESSELS', created_by: '3' },
+  { id: 7,  active: 1, code: 'PB',   name: 'PATROL BOATS',                created_by: '4' },
+  { id: 8,  active: 1, code: 'ARS',  name: 'SALVAGE RESCUE SHIPS',        created_by: '4' },
+  { id: 9,  active: 1, code: 'AH',   name: 'HOSPITAL SHIPS',              created_by: '5' },
+  { id: 10, active: 1, code: 'MRV',  name: 'MULTI-ROLE VESSELS',          created_by: '5' },
+];
+
+
 @Component({
   selector: 'app-ship-category',
   imports: [
@@ -119,22 +134,11 @@ export class ShipCategoryComponent implements OnInit { // Implement OnInit
   ) {}
 
   ngOnInit(): void {
-    //console.log('🚢 Ship Category Component Initializing...');
-    //console.log('API URL:', this.apiUrl);
-    //console.log('Total Count:', this.totalCount);
-    //console.log('Enable URL Fetching: true');
-    
-    // Load master data for dropdowns (but not categories data - paginated table will handle that)
-    this.shipCategoryService.loadAllCategoriesData();
-    
-    // Subscribe to the categories observable from the service for dropdown options
-    this.departments$ = this.shipCategoryService.getCategories();
-    
-    // Subscribe to populate local 'departments' array for filtering and display
-    this.departments$.subscribe((data: ShipCategory[]) => {
-      this.allCategories = data; // Store original data for dropdowns
-      // Note: Table data will be loaded by the paginated table component
-    });
+    // Use static data instead of API
+    this.apiUrl = '';
+    this.allCategories = [...STATIC_SHIP_CATEGORIES] as any;
+    this.departments = [...STATIC_SHIP_CATEGORIES] as any;
+    this.filteredDepartments = [...STATIC_SHIP_CATEGORIES] as any;
   }
 
   goBack(): void {

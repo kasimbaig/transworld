@@ -102,6 +102,89 @@ export class CommandsComponent implements OnInit {
     this.getCommands();
     // this.getSFDHierarchyDetails();
   }
+commandStaticData = [
+  {
+    "id": 15,
+    "active": 1,
+    "name": "Pacific Fleet Command",
+    "code": "PFC",
+    "ref": "REF P015",
+    "created_by": 7
+  },
+  {
+    "id": 16,
+    "active": 1,
+    "name": "Atlantic Fleet Command",
+    "code": "AFC",
+    "ref": "REF A016",
+    "created_by": 7
+  },
+  {
+    "id": 17,
+    "active": 1,
+    "name": "Submarine Force Command",
+    "code": "SFC",
+    "ref": "REF S017",
+    "created_by": 8
+  },
+  {
+    "id": 18,
+    "active": 1,
+    "name": "Surface Warfare Command",
+    "code": "SWC",
+    "ref": "REF W018",
+    "created_by": 8
+  },
+  {
+    "id": 19,
+    "active": 1,
+    "name": "Naval Air Systems Command",
+    "code": "NASC",
+    "ref": "REF N019",
+    "created_by": 9
+  },
+  {
+    "id": 20,
+    "active": 1,
+    "name": "Special Warfare Command",
+    "code": "SWC",
+    "ref": "REF S020",
+    "created_by": 9
+  },
+  {
+    "id": 21,
+    "active": 1,
+    "name": "Cyber Warfare Command",
+    "code": "CWC",
+    "ref": "REF C021",
+    "created_by": 10
+  },
+  {
+    "id": 22,
+    "active": 1,
+    "name": "Marine Corps Command",
+    "code": "MCC",
+    "ref": "REF M022",
+    "created_by": 10
+  },
+  {
+    "id": 23,
+    "active": 1,
+    "name": "Information Warfare Command",
+    "code": "IWC",
+    "ref": "REF I023",
+    "created_by": 11
+  },
+  {
+    "id": 24,
+    "active": 1,
+    "name": "Space and Naval Warfare Systems Command",
+    "code": "SPAWAR",
+    "ref": "REF S024",
+    "created_by": 11
+  }
+];
+
   goBack(){
     this.location.back();
   }

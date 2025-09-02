@@ -35,9 +35,9 @@
   
   <app-paginated-table 
     [columns]="cols" 
-    [apiUrl]="apiUrl"
+    
     [totalCount]="totalCount"
-     [data]="departments"
+     [data]="staticEquipmentData"
     [showEndActions]="true"
     (viewEvent)="viewDeptDetails($event)" 
     (editEvent)="editDetails($event, true)"

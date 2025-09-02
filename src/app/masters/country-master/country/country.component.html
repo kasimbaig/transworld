@@ -33,9 +33,9 @@
 
   <app-paginated-table *ngIf="toggleTable"
     [columns]="cols" 
-    [apiUrl]="apiUrl"
+    
     [totalCount]="totalCount"
-     [data]="departments"
+     [data]="countryStaticData"
     [showEndActions]="true" 
     [showViewAction]="false"
     (editEvent)="editDeptDetails($event)" 

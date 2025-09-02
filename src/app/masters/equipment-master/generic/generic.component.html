@@ -35,7 +35,7 @@
   <app-paginated-table
     *ngIf="!isLoading"
     [columns]="cols"
-    [apiUrl]="apiUrl"
+    [data]="genericList"
     [totalCount]="totalCount"
      
     [showEndActions]="true"

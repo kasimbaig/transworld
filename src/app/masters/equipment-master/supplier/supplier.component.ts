@@ -148,12 +148,12 @@ export class SupplierComponent implements OnInit {
       type: 'text',
       required: true,
     },
-    // {
-    //   label: 'Country Code',
-    //   key: 'country_code',
-    //   type: 'text',
-    //   required: true,
-    // },
+    {
+      label: 'Country Code',
+      key: 'country_code',
+      type: 'text',
+      required: true,
+    },
     {
       label: 'Contact Number',
       key: 'contact_number',
@@ -190,6 +190,93 @@ export class SupplierComponent implements OnInit {
     // Note: Table data will be loaded by the paginated table component
     // No need to call getDepartments() here
   }
+staticSuppliers = [
+  {
+    id: 6,
+    country_name: "South Korea",
+    country_code: "KR",
+    active: 1,
+    code: "SUP-201",
+    name: "Busan Shipbuilding & Heavy Industries",
+    address: "20 Gwangbok-ro, Jung-gu",
+    area_street: "Busan Harbor Area",
+    city: "Busan",
+    supplier_manufacture: "Large Vessel Construction",
+    contact_person: "Joon-ho Park",
+    contact_number: "82511234567",
+    email_id: "j.park@busanship.kr",
+    created_by: 6,
+    country: 6
+  },
+  {
+    id: 7,
+    country_name: "France",
+    country_code: "FR",
+    active: 1,
+    code: "SUP-202",
+    name: "AeroMarine Technologies",
+    address: "25 Avenue des Champs-Élysées",
+    area_street: "Champs-Élysées",
+    city: "Paris",
+    supplier_manufacture: "Avionics and Marine Electronics",
+    contact_person: "Camille Dubois",
+    contact_number: "33123456789",
+    email_id: "c.dubois@aeromarine.fr",
+    created_by: 7,
+    country: 7
+  },
+  {
+    id: 8,
+    country_name: "United Kingdom",
+    country_code: "GB",
+    active: 1,
+    code: "SUP-203",
+    name: "British Maritime Services Ltd.",
+    address: "10 Downing Street",
+    area_street: "Westminster",
+    city: "London",
+    supplier_manufacture: "Naval Defense Systems",
+    contact_person: "Arthur Pendragon",
+    contact_number: "442012345678",
+    email_id: "a.pendragon@britishmaritime.uk",
+    created_by: 8,
+    country: 8
+  },
+  {
+    id: 9,
+    country_name: "China",
+    country_code: "CN",
+    active: 1,
+    code: "SUP-204",
+    name: "Dragon Port Equipment Co.",
+    address: "50 Nanjing Road",
+    area_street: "The Bund",
+    city: "Shanghai",
+    supplier_manufacture: "Port and Container Handling Equipment",
+    contact_person: "Mei Li",
+    contact_number: "862198765432",
+    email_id: "m.li@dragonport.cn",
+    created_by: 9,
+    country: 9
+  },
+  {
+    id: 10,
+    country_name: "Italy",
+    country_code: "IT",
+    active: 1,
+    code: "SUP-205",
+    name: "Venetian Shipyard",
+    address: "Via Garibaldi 1",
+    area_street: "Arsenale di Venezia",
+    city: "Venice",
+    supplier_manufacture: "Yacht and Luxury Vessel Fittings",
+    contact_person: "Giuseppe Rossi",
+    contact_number: "39041987654",
+    email_id: "g.rossi@venetianshipyard.it",
+    created_by: 10,
+    country: 10
+  }
+];
   goBack(){
     this.location.back();
   }

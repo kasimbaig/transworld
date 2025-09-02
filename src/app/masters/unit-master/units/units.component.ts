@@ -112,6 +112,74 @@ export class UnitsComponent {
   ngOnInit(): void {
     this.getUnits();
   }
+
+unitStaticData = [
+  {
+    id: 11,
+    active: 1,
+    name: "ECR",
+    code: "ECR",
+    description: "Engineering Change Request",
+    created_by: 2
+  },
+  {
+    id: 12,
+    active: 1,
+    name: "PIR",
+    code: "PIR",
+    description: "Post Implementation Review",
+    created_by: 3
+  },
+  {
+    id: 13,
+    active: 1,
+    name: "BRD",
+    code: "BRD",
+    description: "Business Requirement Document",
+    created_by: 4
+  },
+  {
+    id: 14,
+    active: 1,
+    name: "FMEA",
+    code: "FMEA",
+    description: "Failure Mode and Effects Analysis",
+    created_by: 5
+  },
+  {
+    id: 15,
+    active: 1,
+    name: "RAID",
+    code: "RAID",
+    description: "Risks, Assumptions, Issues, and Dependencies Log",
+    created_by: 2
+  },
+  {
+    id: 16,
+    active: 1,
+    name: "CAB",
+    code: "CAB",
+    description: "Change Advisory Board Record",
+    created_by: 3
+  },
+  {
+    id: 17,
+    active: 1,
+    name: "UAT",
+    code: "UAT",
+    description: "User Acceptance Testing Report",
+    created_by: 4
+  },
+  {
+    id: 18,
+    active: 1,
+    name: "NDA",
+    code: "NDA",
+    description: "Non-Disclosure Agreement",
+    created_by: 5
+  }
+];
+
   goBack() {
     this.location.back();
   }

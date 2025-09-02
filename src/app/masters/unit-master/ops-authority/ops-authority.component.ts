@@ -97,6 +97,100 @@ export class OpsAuthorityComponent {
   ngOnInit(): void {
     this.getAuthorities();
   }
+staticOpsAuthData = [
+  {
+    id: 21,
+    command: {
+      id: 30,
+      active: 1,
+      name: "Fleet Command",
+      code: "FC",
+      ref: "REF F030",
+      created_by: 2
+    },
+    active: 1,
+    authority: "HQ Fleet",
+    code: "FC-001",
+    name: "Eastern Fleet Division",
+    ops_order: "OPS-FC-01",
+    address: "Kochi",
+    created_by: 2
+  },
+  {
+    id: 22,
+    command: {
+      id: 31,
+      active: 1,
+      name: "Technical Command",
+      code: "TEC",
+      ref: "REF T031",
+      created_by: 3
+    },
+    active: 1,
+    authority: "HQ Technical",
+    code: "TEC-001",
+    name: "Ship Maintenance Yard",
+    ops_order: "OPS-TEC-01",
+    address: "Goa",
+    created_by: 3
+  },
+  {
+    id: 23,
+    command: {
+      id: 32,
+      active: 1,
+      name: "Air Operations Command",
+      code: "AOC",
+      ref: "REF A032",
+      created_by: 4
+    },
+    active: 1,
+    authority: "HQ AirOps",
+    code: "AOC-001",
+    name: "Naval Air Wing",
+    ops_order: "OPS-AOC-01",
+    address: "Arakkonam",
+    created_by: 4
+  },
+  {
+    id: 24,
+    command: {
+      id: 33,
+      active: 1,
+      name: "Submarine Command",
+      code: "SUBC",
+      ref: "REF S033",
+      created_by: 5
+    },
+    active: 1,
+    authority: "HQ Submarine",
+    code: "SUBC-001",
+    name: "Submarine Operations Unit",
+    ops_order: "OPS-SUBC-01",
+    address: "Visakhapatnam",
+    created_by: 5
+  },
+  {
+    id: 25,
+    command: {
+      id: 34,
+      active: 1,
+      name: "Coastal Defence Command",
+      code: "CDC",
+      ref: "REF C034",
+      created_by: 6
+    },
+    active: 1,
+    authority: "HQ Coastal Defence",
+    code: "CDC-001",
+    name: "Harbor Protection Division",
+    ops_order: "OPS-CDC-01",
+    address: "Porbandar",
+    created_by: 6
+  }
+];
+
+
   goBack(){
     this.location.back();
   }

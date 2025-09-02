@@ -95,6 +95,70 @@ export class PropulsionComponent implements OnInit {
     // Note: Table data will be loaded by the paginated table component
     // No need to call getDepartments() here
   }
+propulsionStaticData = [
+  {
+    id: 40,
+    active: 1,
+    name: "GAS TURBINE",
+    created_by: 2
+  },
+  {
+    id: 41,
+    active: 1,
+    name: "DIESEL MECHANICAL",
+    created_by: 3
+  },
+  {
+    id: 42,
+    active: 1,
+    name: "STEAM TURBINE",
+    created_by: 4
+  },
+  {
+    id: 43,
+    active: 1,
+    name: "ELECTRO-MAGNETIC DRIVE",
+    created_by: 5
+  },
+  {
+    id: 44,
+    active: 1,
+    name: "BIOFUEL PROPULSION",
+    created_by: 6
+  },
+  {
+    id: 45,
+    active: 1,
+    name: "HYDROJET SYSTEM",
+    created_by: 7
+  },
+  {
+    id: 46,
+    active: 1,
+    name: "SUPERCONDUCTING MOTOR",
+    created_by: 8
+  },
+  {
+    id: 47,
+    active: 1,
+    name: "FUSION REACTOR DRIVE",
+    created_by: 9
+  },
+  {
+    id: 48,
+    active: 1,
+    name: "TURBOELECTRIC PROPULSION",
+    created_by: 10
+  },
+  {
+    id: 49,
+    active: 1,
+    name: "ION THRUSTER ASSIST",
+    created_by: 11
+  }
+];
+
+
   goBack(){
     this.location.back();
   }
@@ -169,6 +233,7 @@ export class PropulsionComponent implements OnInit {
 
   viewDeptDetails(dept: any) {
     this.viewdisplayModal = true;
+    this.selectedDetails = dept
   }
   editDetails(details: any, open: boolean) {
     this.selectedDetails = { ...details };

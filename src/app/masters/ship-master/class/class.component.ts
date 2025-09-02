@@ -25,6 +25,60 @@ import { ToastComponent } from '../../../shared/components/toast/toast.component
 import { DeleteConfirmationModalComponent } from '../../../shared/components/delete-confirmation-modal/delete-confirmation-modal.component';
 import { ViewDetailsComponent } from '../../../shared/components/view-details/view-details.component';
 
+// Static data constants
+const STATIC_CLASSES: any[] = [
+  {
+    id: 41,
+    active: 1,
+    code: "RAJKOT",
+    description: "RAJKOT CLASS DESTROYERS",
+    created_by: null
+  },
+  {
+    id: 42,
+    active: 1,
+    code: "SURAT",
+    description: "SURAT CLASS FRIGATES",
+    created_by: null
+  },
+  {
+    id: 43,
+    active: 1,
+    code: "MORBI",
+    description: "MORBI CLASS CORVETTES",
+    created_by: null
+  },
+  {
+    id: 44,
+    active: 1,
+    code: "VIKRAMSHILA",
+    description: "VIKRAMSHILA CLASS CONVENTIONAL SUBMARINES",
+    created_by: null
+  },
+  {
+    id: 45,
+    active: 1,
+    code: "CHAKRA",
+    description: "CHAKRA CLASS NUCLEAR ATTACK SUBMARINES",
+    created_by: null
+  },
+  {
+    id: 46,
+    active: 1,
+    code: "SARVODAYA",
+    description: "SARVODAYA CLASS AMPHIBIOUS ASSAULT SHIPS",
+    created_by: null
+  },
+  {
+    id: 47,
+    active: 1,
+    code: "NEELGIRI",
+    description: "NEELGIRI CLASS NEXT-GEN FRIGATES",
+    created_by: null
+  }
+];
+
+
 @Component({
   selector: 'app-class',
   imports: [
@@ -58,13 +112,13 @@ export class ClassComponent implements OnInit {
 
   newDepartment = {
     code: '',
-    name: '',
+    description: '',
     active: 1,
   };
   selectedDept: any = {
     code: '',
-    name: '',
-    active: null,
+    description: '',
+    active: 1,
   };
   formConfigForNewDetails = [
     {
@@ -72,13 +126,25 @@ export class ClassComponent implements OnInit {
       key: 'code',
       type: 'text',
       required: true,
+      placeholder: 'Enter Class Code'
     },
     {
-      label: 'Name',
+      label: 'Class Name',
       key: 'description',
       type: 'text',
       required: true,
+      placeholder: 'Enter Class Name'
     },
+    {
+      label: 'Active',
+      key: 'active',
+      type: 'select',
+      options: [
+        { label: 'Yes', value: 1 },
+        { label: 'No', value: 0 }
+      ],
+      required: true
+    }
   ];
   toggleForm(open: boolean) {
     this.isFormOpen = open;
@@ -87,12 +153,18 @@ export class ClassComponent implements OnInit {
   toggleTable: boolean = true;
 
   // New properties for pagination
-  apiUrl: string = 'master/class/';
+  apiUrl: string = '';
   totalCount: number = 0;
 
   constructor(private apiService: ApiService, private location:Location, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
+    // Use static data instead of API
+    this.apiUrl = '';
+    this.departments = [...STATIC_CLASSES];
+    this.totalCount = STATIC_CLASSES.length;
+    this.filteredDepartments = [...STATIC_CLASSES];
+    
     //console.log('🚢 Class Component Initializing...');
     //console.log('API URL:', this.apiUrl);
     //console.log('Total Count:', this.totalCount);
@@ -123,17 +195,18 @@ export class ClassComponent implements OnInit {
     this.cdr.detectChanges();
   }
   getDepartments(): void {
-    this.apiService
-      .get<any[]>('master/class/') // Adjust endpoint
-      .subscribe({
-        next: (data: any) => {
-          this.departments = data.results || [];
-          this.filteredDepartments = data.results || [];
-        },
-        error: (error) => {
-          console.error('Error fetching departments:', error);
-        },
-      });
+    // Commented out API call - using static data
+    // this.apiService
+    //   .get<any[]>('master/class/') // Adjust endpoint
+    //   .subscribe({
+    //     next: (data: any) => {
+    //       this.departments = data.results || [];
+    //       this.filteredDepartments = data.results || [];
+    //     },
+    //     error: (error) => {
+    //       console.error('Error fetching departments:', error);
+    //     },
+    //   });
   }
   // Search function
   filterDepartments() {
@@ -145,8 +218,8 @@ export class ClassComponent implements OnInit {
     }
 
     this.departments = this.filteredDepartments.filter(
-      (dept: { name: string; code: string }) =>
-        dept.name.toLowerCase().includes(search) ||
+      (dept: { description: string; code: string }) =>
+        dept.description.toLowerCase().includes(search) ||
         dept.code.toLowerCase().includes(search)
     );
   }
@@ -159,25 +232,30 @@ export class ClassComponent implements OnInit {
     this.selectedDept = {
       code: '',
       description: '',
-      active: null,
+      active: 1,
     };
   }
   handleSubmit(data: any) {
+    // Commented out API call - using static response
+    // this.newDepartment = data;
+    // //console.log('New Department:', this.newDepartment);
+    // this.apiService.post(`master/class/`, this.newDepartment).subscribe({
+    //   next: (data: any) => {
+    //     //console.log(data);
+    //     this.toggleTable = false;
+    //     setTimeout(() => {
+    //       this.toggleTable = true;
+    //     }, 100);
+    //   },
+    //   error: (error) => {
+    //     console.error('Login failed:', error);
+    //     alert('Invalid login credentials');
+    //   },
+    //   });
+    // this.closeDialog();
+    
+    // Static success response
     this.newDepartment = data;
-    //console.log('New Department:', this.newDepartment);
-    this.apiService.post(`master/class/`, this.newDepartment).subscribe({
-      next: (data: any) => {
-        //console.log(data);
-        this.toggleTable = false;
-        setTimeout(() => {
-          this.toggleTable = true;
-        }, 100);
-      },
-      error: (error) => {
-        console.error('Login failed:', error);
-        alert('Invalid login credentials');
-      },
-    });
     this.closeDialog();
   }
   viewDeptDetails(dept: any) {
@@ -194,42 +272,52 @@ export class ClassComponent implements OnInit {
     this.selectedDept = dept;
   }
   confirmDeletion() {
-    this.apiService.delete(`master/class/${this.selectedDept.id}/`).subscribe({
-      next: (data: any) => {
-        //console.log(data);
-        this.toggleTable = false;
-        setTimeout(() => {
-          this.toggleTable = true;
-        }, 100);
-      },
-      error: (error) => {
-        console.error('Error:', error);
-      },
-    });
+    // Commented out API call - using static response
+    // this.apiService.delete(`master/class/${this.selectedDept.id}/`).subscribe({
+    //   next: (data: any) => {
+    //     //console.log(data);
+    //     this.toggleTable = false;
+    //     setTimeout(() => {
+    //       this.toggleTable = true;
+    //     }, 100);
+    //   },
+    //   error: (error) => {
+    //     console.error('Error:', error);
+    //   },
+    // });
+    // this.closeDialog();
+    
+    // Static success response
     this.closeDialog();
   }
   handleEditSubmit(data: any) {
+    // Commented out API call - using static response
+    // this.selectedDept = { ...this.selectedDept, ...data };
+    // this.apiService
+    //   .put(`master/class/${this.selectedDept.id}/`, this.selectedDept)
+    //   .subscribe({
+    //     next: (data: any) => {
+    //       //console.log(data);
+    //       this.toggleTable = false;
+    //       setTimeout(() => {
+    //         this.toggleTable = true;
+    //       }, 100);
+    //     },
+    //     error: (error) => {
+    //       console.error('Error:', error);
+    //     },
+    //   });
+    // //console.log(this.selectedDept);
+    // this.closeDialog();
+    
+    // Static success response
     this.selectedDept = { ...this.selectedDept, ...data };
-    this.apiService
-      .put(`master/class/${this.selectedDept.id}/`, this.selectedDept)
-      .subscribe({
-        next: (data: any) => {
-          //console.log(data);
-          this.toggleTable = false;
-          setTimeout(() => {
-            this.toggleTable = true;
-          }, 100);
-        },
-        error: (error) => {
-          console.error('Error:', error);
-        },
-      });
-    //console.log(this.selectedDept);
     this.closeDialog();
   }
   cols = [
+    { field: 'code', header: 'Code', filterType: 'text' },
     { field: 'description', header: 'Class Name', filterType: 'text' },
-    { field: 'active', header: 'Active', filterType: 'text'},
+    { field: 'active', header: 'Active', filterType: 'text', transform: (value: number) => (value === 1 ? 'Y' : 'N') },
   ];
   exportOptions = [
     {
@@ -261,7 +349,13 @@ export class ClassComponent implements OnInit {
     autoTable(doc, {
       head: [this.cols.map((col) => col.header)],
       body: this.departments.map((row: { [x: string]: any }) =>
-        this.cols.map((col) => row[col.field] || '')
+        this.cols.map((col) => {
+          let value = row[col.field];
+          if (col.transform) {
+            value = col.transform(value);
+          }
+          return value || '';
+        })
       ),
     });
     doc.save(`${this.tableName || 'table'}.pdf`); // ✅ Use backticks
@@ -273,7 +367,13 @@ export class ClassComponent implements OnInit {
     this.exportCSVEvent.emit(); // Emit event instead of direct call
     const headers = this.cols.map((col) => col.header);
     const rows = this.departments.map((row: { [x: string]: any }) =>
-      this.cols.map((col) => row[col.field] || '')
+      this.cols.map((col) => {
+        let value = row[col.field];
+        if (col.transform) {
+          value = col.transform(value);
+        }
+        return value || '';
+      })
     );
     const csv = [
       headers.join(','),

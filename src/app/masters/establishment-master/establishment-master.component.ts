@@ -122,6 +122,150 @@ export class EstablishmentComponent implements OnInit {
     // Note: Table data will be loaded by the paginated table component
     // No need to call getEstablishments() here
   }
+establishmentStaticData = [
+  {
+    id: 20,
+    name: "OCEANIC COMMAND CENTER",
+    establishment_category: "Military",
+    command: 12,
+    command_name: "Western Naval Command",
+    command_code: "WNC",
+    ops_authority: {
+      id: 30,
+      command: {
+        id: 15,
+        active: 1,
+        name: "Training Fleet Command",
+        code: "TFC",
+        ref: "REF T015",
+        created_by: 3
+      },
+      active: 1,
+      authority: "HQ Western Ops",
+      code: "WNC-OPS-01",
+      name: "Western Authority Alpha",
+      ops_order: "OPS-WNC-01",
+      address: "Goa",
+      created_by: 3
+    },
+    active: 1,
+    active_display: "Active"
+  },
+  {
+    id: 21,
+    name: "SUPPLY DEPOT SOUTH",
+    establishment_category: "Support",
+    command: 13,
+    command_name: "Southern Logistics Command",
+    command_code: "SLC",
+    ops_authority: {
+      id: 31,
+      command: {
+        id: 16,
+        active: 1,
+        name: "Fleet Supply Command",
+        code: "FSC",
+        ref: "REF F016",
+        created_by: 4
+      },
+      active: 1,
+      authority: "HQ Supply Ops",
+      code: "SLC-OPS-01",
+      name: "Logistics Authority Zeta",
+      ops_order: "OPS-SLC-01",
+      address: "Kochi",
+      created_by: 4
+    },
+    active: 1,
+    active_display: "Active"
+  },
+  {
+    id: 22,
+    name: "CYBER WARFARE SCHOOL",
+    establishment_category: "Technical",
+    command: 14,
+    command_name: "Cyber Defence Command",
+    command_code: "CDC",
+    ops_authority: {
+      id: 32,
+      command: {
+        id: 17,
+        active: 1,
+        name: "Advanced Research Command",
+        code: "ARC",
+        ref: "REF A017",
+        created_by: 5
+      },
+      active: 1,
+      authority: "HQ Cyber Defence",
+      code: "CDC-OPS-01",
+      name: "Cyber Authority Theta",
+      ops_order: "OPS-CDC-01",
+      address: "Bangalore",
+      created_by: 5
+    },
+    active: 1,
+    active_display: "Active"
+  },
+  {
+    id: 23,
+    name: "COASTAL PATROL BASE",
+    establishment_category: "Security",
+    command: 15,
+    command_name: "Coastal Security Command",
+    command_code: "CSC",
+    ops_authority: {
+      id: 33,
+      command: {
+        id: 18,
+        active: 1,
+        name: "Naval Intelligence Command",
+        code: "NIC",
+        ref: "REF N018",
+        created_by: 6
+      },
+      active: 1,
+      authority: "HQ Coastal Ops",
+      code: "CSC-OPS-01",
+      name: "Maritime Authority Sigma",
+      ops_order: "OPS-CSC-01",
+      address: "Puducherry",
+      created_by: 6
+    },
+    active: 1,
+    active_display: "Active"
+  },
+  {
+    id: 24,
+    name: "MARITIME INNOVATION HUB",
+    establishment_category: "Research",
+    command: 16,
+    command_name: "Naval R&D Command",
+    command_code: "NRD",
+    ops_authority: {
+      id: 34,
+      command: {
+        id: 19,
+        active: 1,
+        name: "Operations Strategy Command",
+        code: "OSC",
+        ref: "REF O019",
+        created_by: 7
+      },
+      active: 1,
+      authority: "HQ Naval Research",
+      code: "NRD-OPS-01",
+      name: "Research Authority Lambda",
+      ops_order: "OPS-NRD-01",
+      address: "Ahmedabad",
+      created_by: 7
+    },
+    active: 1,
+    active_display: "Active"
+  }
+];
+
+
 
   goBack() {
     this.location.back();

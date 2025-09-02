@@ -64,27 +64,100 @@ export class ShipStateComponent implements OnInit {
     this.loadShipStates();
     console.log('Ship State Component initialized with', this.tableData.length, 'records');
   }
+  ship_state_data = [
+  {
+    "id": 51,
+    "active": 1,
+    "code": "PRT",
+    "description": "In Port Maintenance",
+    "created_by": "FLEET_ADMIN",
+    "active_display": "Active"
+  },
+  {
+    "id": 52,
+    "active": 1,
+    "code": "OPR",
+    "description": "Operational at Sea",
+    "created_by": "COMMAND",
+    "active_display": "Active"
+  },
+  {
+    "id": 53,
+    "active": 0,
+    "code": "DST",
+    "description": "Decommissioned / Stored",
+    "created_by": "SYSADMIN",
+    "active_display": "Inactive"
+  },
+  {
+    "id": 54,
+    "active": 1,
+    "code": "TRN",
+    "description": "Training Exercise",
+    "created_by": "OPS_TEAM",
+    "active_display": "Active"
+  },
+  {
+    "id": 55,
+    "active": 0,
+    "code": "UPG",
+    "description": "Under Upgradation",
+    "created_by": "MAINT",
+    "active_display": "Inactive"
+  }
+];
+
 
   // Load all ship states from API
-  loadShipStates(): void {
+  // loadShipStates(): void {
+  //   this.loading = true;
+  //   this.apiService.get('srar/ship-states/').subscribe({
+  //     next: (response) => {
+  //       // Handle paginated response structure
+  //       this.tableData = response.results || [];
+  //       this.loading = false;
+  //       console.log('Ship states loaded:', this.tableData.length, 'records');
+  //     },
+  //     error: (error) => {
+  //       console.error('Error loading ship states:', error);
+  //       this.messageService.add({
+  //         severity: 'error',
+  //         summary: 'Error',
+  //         detail: 'Failed to load ship states'
+  //       });
+  //       this.loading = false;
+  //     }
+  //   });
+  // }
+
+   // Load all ship states from static data with pagination
+   totalRecords: number = 0;
+     currentPage: number = 1;
+  pageSize: number = 5;
+  loadShipStates(page: number = 1, pageSize: number = this.pageSize): void {
     this.loading = true;
-    this.apiService.get('srar/ship-states/').subscribe({
-      next: (response) => {
-        // Handle paginated response structure
-        this.tableData = response.results || [];
-        this.loading = false;
-        console.log('Ship states loaded:', this.tableData.length, 'records');
-      },
-      error: (error) => {
-        console.error('Error loading ship states:', error);
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Error',
-          detail: 'Failed to load ship states'
-        });
-        this.loading = false;
-      }
-    });
+    this.currentPage = page;
+    this.pageSize = pageSize;
+    
+    // Use static data instead of API call
+    const startIndex = (page - 1) * pageSize;
+    const endIndex = startIndex + pageSize;
+    
+    // Map static data to match the expected interface
+    const mappedData = this.ship_state_data.map(item => ({
+      id: item.id,
+      name: item.description,
+      code: item.code,
+      active: item.active,
+      created_by_name: item.created_by,
+      active_display: item.active_display
+    }));
+    
+    this.tableData = mappedData.slice(startIndex, endIndex);
+    this.totalRecords = mappedData.length;
+    this.loading = false;
+    
+    console.log(`Ship states loaded from static data: page ${page}, ${this.tableData.length} records, total: ${this.totalRecords}`);
   }
 
   openDialog(): void {

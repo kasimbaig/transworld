@@ -48,6 +48,259 @@ import { PropulsionService } from '../ship-services/propulsion.service';
 import { ApiService } from '../../../services/api.service';
 
 
+// Static ships dataset
+// ------------------- SHIPS -------------------
+const STATIC_SHIPS: any[] = [
+  {
+    id: 1,
+    ship_category_name: 'Aircraft Carrier',
+    ship_category_code: 'AC',
+    class_master_code: 'VIKRAMADITYA',
+    command_name: 'Western Naval Command',
+    command_code: 'WNC',
+    authority_name: 'HQNCS',
+    unit_type_name: 'SHIP',
+    active: 1,
+    sr_no: 'AC02',
+    code: 'VIK002',
+    name: 'INS Vikramaditya',
+    commission_date: '2013-11-16',
+    ship_builder: 'Sevmash, Russia',
+    decommission_date: '2035-11-16',
+    displacement: '45,400 tons',
+    hours_underway: 18000,
+    distance_run: 220000,
+    classification_society: 'IRS',
+    length_overall: '283 m',
+    module_breath: '61 m',
+    depth_main: '30 m',
+    engine_rating: '180 MW',
+    max_cont_speed: '30 knots',
+    eco_speed: '18 knots',
+    endurance: '7000 nm at 18 knots',
+    remark: 'Modified Kiev-class carrier',
+    refit_authority: 'Naval Dockyard Mumbai',
+    signal_name: 'VKA',
+    ship_category: 1,
+    class_master: 1,
+    unit_type: 1,
+    command: 1,
+    authority: 1,
+    propulsion: { id: 1, name: 'Steam Turbines' },
+    overseeing_team: { id: 1, name: 'Team Alpha' }
+  },
+  {
+    id: 2,
+    ship_category_name: 'Destroyer',
+    ship_category_code: 'DDG',
+    class_master_code: 'VISAKHAPATNAM',
+    command_name: 'Western Naval Command',
+    command_code: 'WNC',
+    authority_name: 'HQNCS',
+    unit_type_name: 'SHIP',
+    active: 1,
+    sr_no: 'D02',
+    code: 'VIS001',
+    name: 'INS Visakhapatnam',
+    commission_date: '2021-11-21',
+    ship_builder: 'Mazagon Dock Ltd',
+    decommission_date: '2045-11-21',
+    displacement: '7,400 tons',
+    hours_underway: 2000,
+    distance_run: 40000,
+    classification_society: 'IRS',
+    length_overall: '163 m',
+    module_breath: '17.4 m',
+    depth_main: '9.2 m',
+    engine_rating: '40 MW',
+    max_cont_speed: '30 knots',
+    eco_speed: '18 knots',
+    endurance: '8500 nm at 18 knots',
+    remark: 'P15B Destroyer',
+    refit_authority: 'Naval Dockyard Mumbai',
+    signal_name: 'VSK',
+    ship_category: 2,
+    class_master: 2,
+    unit_type: 1,
+    command: 1,
+    authority: 1,
+    propulsion: { id: 2, name: 'Gas Turbine + Diesel' },
+    overseeing_team: { id: 2, name: 'Team Bravo' }
+  },
+  {
+    id: 3,
+    ship_category_name: 'Frigate',
+    ship_category_code: 'FFG',
+    class_master_code: 'SHIVALIK',
+    command_name: 'Eastern Naval Command',
+    command_code: 'ENC',
+    authority_name: 'HQNCS',
+    unit_type_name: 'SHIP',
+    active: 1,
+    sr_no: 'F02',
+    code: 'SHI001',
+    name: 'INS Shivalik',
+    commission_date: '2010-04-29',
+    ship_builder: 'Mazagon Dock Ltd',
+    decommission_date: '2040-04-29',
+    displacement: '6,200 tons',
+    hours_underway: 9000,
+    distance_run: 160000,
+    classification_society: 'IRS',
+    length_overall: '142 m',
+    module_breath: '17.5 m',
+    depth_main: '9.5 m',
+    engine_rating: '28 MW',
+    max_cont_speed: '30 knots',
+    eco_speed: '18 knots',
+    endurance: '5000 nm at 18 knots',
+    remark: 'First indigenous stealth frigate',
+    refit_authority: 'Naval Dockyard Visakhapatnam',
+    signal_name: 'SHI',
+    ship_category: 3,
+    class_master: 3,
+    unit_type: 1,
+    command: 2,
+    authority: 1,
+    propulsion: { id: 3, name: 'CODAG' },
+    overseeing_team: { id: 3, name: 'Team Charlie' }
+  },
+  {
+    id: 4,
+    ship_category_name: 'Corvette',
+    ship_category_code: 'CORV',
+    class_master_code: 'KAMORTA',
+    command_name: 'Eastern Naval Command',
+    command_code: 'ENC',
+    authority_name: 'NSRY(VSKP)',
+    unit_type_name: 'SHIP',
+    active: 1,
+    sr_no: 'C02',
+    code: 'KAM001',
+    name: 'INS Kamorta',
+    commission_date: '2014-08-23',
+    ship_builder: 'GRSE',
+    decommission_date: '2045-08-23',
+    displacement: '3300 tons',
+    hours_underway: 7500,
+    distance_run: 85000,
+    classification_society: 'IRS',
+    length_overall: '109 m',
+    module_breath: '13 m',
+    depth_main: '4.5 m',
+    engine_rating: '21 MW',
+    max_cont_speed: '25 knots',
+    eco_speed: '16 knots',
+    endurance: '3500 nm at 16 knots',
+    remark: 'ASW Corvette',
+    refit_authority: 'Naval Dockyard Visakhapatnam',
+    signal_name: 'KAM',
+    ship_category: 4,
+    class_master: 4,
+    unit_type: 1,
+    command: 2,
+    authority: 2,
+    propulsion: { id: 4, name: 'Diesel' },
+    overseeing_team: { id: 4, name: 'Team Delta' }
+  },
+  {
+    id: 5,
+    ship_category_name: 'Submarine',
+    ship_category_code: 'SSBN',
+    class_master_code: 'ARIHANT',
+    command_name: 'Eastern Naval Command',
+    command_code: 'ENC',
+    authority_name: 'HQNCS',
+    unit_type_name: 'SUBMARINE',
+    active: 1,
+    sr_no: 'S02',
+    code: 'ARI001',
+    name: 'INS Arihant',
+    commission_date: '2016-08-23',
+    ship_builder: 'Shipbuilding Centre, Vizag',
+    decommission_date: '2040-08-23',
+    displacement: '6000 tons',
+    hours_underway: 3000,
+    distance_run: 35000,
+    classification_society: 'IRS',
+    length_overall: '112 m',
+    module_breath: '11 m',
+    depth_main: '10 m',
+    engine_rating: 'Nuclear reactor',
+    max_cont_speed: '24 knots',
+    eco_speed: '16 knots',
+    endurance: 'Indefinite (nuclear)',
+    remark: 'First Indian SSBN',
+    refit_authority: 'NSRY Vizag',
+    signal_name: 'ARI',
+    ship_category: 5,
+    class_master: 5,
+    unit_type: 2,
+    command: 2,
+    authority: 1,
+    propulsion: { id: 5, name: 'Nuclear' },
+    overseeing_team: { id: 5, name: 'Team Echo' }
+  }
+];
+
+// ------------------- UNIT TYPES -------------------
+const STATIC_UNIT_TYPES = [
+  { label: 'SHIP', value: 1 },
+  { label: 'SUBMARINE', value: 2 },
+  { label: 'AUXILIARY', value: 3 },
+];
+
+// ------------------- SHIP CATEGORIES -------------------
+const STATIC_SHIP_CATEGORIES = [
+  { label: 'Aircraft Carrier', value: 1 },
+  { label: 'Destroyer', value: 2 },
+  { label: 'Frigate', value: 3 },
+  { label: 'Corvette', value: 4 },
+  { label: 'Submarine', value: 5 },
+];
+
+// ------------------- CLASSES -------------------
+const STATIC_CLASSES = [
+  { label: 'VIKRAMADITYA', value: 1 },
+  { label: 'VISAKHAPATNAM', value: 2 },
+  { label: 'SHIVALIK', value: 3 },
+  { label: 'KAMORTA', value: 4 },
+  { label: 'ARIHANT', value: 5 },
+];
+
+// ------------------- COMMANDS -------------------
+const STATIC_COMMANDS = [
+  { label: 'Western Naval Command', value: 1 },
+  { label: 'Eastern Naval Command', value: 2 },
+  { label: 'Southern Naval Command', value: 3 },
+];
+
+// ------------------- AUTHORITIES -------------------
+const STATIC_AUTHORITIES = [
+  { label: 'HQNCS', value: 1 },
+  { label: 'NSRY(VSKP)', value: 2 },
+  { label: 'NSRY(KOC)', value: 3 },
+];
+
+// ------------------- OVERSEEING TEAMS -------------------
+const STATIC_OVERSEEING_TEAMS = [
+  { label: 'Team Alpha', value: 1 },
+  { label: 'Team Bravo', value: 2 },
+  { label: 'Team Charlie', value: 3 },
+  { label: 'Team Delta', value: 4 },
+  { label: 'Team Echo', value: 5 },
+];
+
+// ------------------- PROPULSION TYPES -------------------
+const STATIC_PROPULSION_TYPES = [
+  { label: 'Steam Turbines', value: 1 },
+  { label: 'Gas Turbine + Diesel', value: 2 },
+  { label: 'CODAG', value: 3 },
+  { label: 'Diesel', value: 4 },
+  { label: 'Nuclear', value: 5 },
+];
+
+
 @Component({
   selector: 'app-ship-master',
   standalone: true,
@@ -101,21 +354,52 @@ export class ShipMasterComponent implements OnInit, OnDestroy {
     nud_email_id: string; nic_email_id: string;
     overseeing_team: number | null; active: boolean;
   } = {
-      sr_no: '', code: '', name: '', unit_type:null,
-      ship_category: null, sfd_hierarchy: null, class_master: null,
-      class_code: '', commission_date: '',
-      command: null, authority: null,
-      ops_code: '', ship_builder: '', decommission_date: '', displacement: '',
-      hours_underway: 0, distance_run: 0, decommission_scheduled_date: '',
-      propulsion: null, sdrsref: '', yard_no: '', reference_no: '',
-      classification_society: '', length_overall: '', length_perpen: '',
-      module_breath: '', wetted_under_water: '', depth_main: '',
-      standard_disp: '', full_load_disp: '', stand_draft: '',
-      full_load_draft: '', wetted_boot_top: '', engine_rating: '',
-      max_cont_speed: '', eco_speed: '', endurance: '', remark: '',
-      refit_authority: '', signal_name: '', address: '', contact_number: '',
-      nud_email_id: '', nic_email_id: '',
-      overseeing_team: null, active: true,
+      sr_no: 'SR001',
+      code: 'SHIP001',
+      name: 'Default Ship',
+      unit_type: 1,
+      ship_category: 1,
+      sfd_hierarchy: 1,
+      class_master: 1,
+      class_code: 'CLS001',
+      commission_date: '2025-01-01',
+      command: 1,
+      authority: 1,
+      ops_code: 'OPS001',
+      ship_builder: 'Default Builder',
+      decommission_date: '2025-12-31',
+      displacement: '1000 tons',
+      hours_underway: 100,
+      distance_run: 1000,
+      decommission_scheduled_date: '2025-12-31',
+      propulsion: 1,
+      sdrsref: 'SDRS-001',
+      yard_no: 'Y001',
+      reference_no: 'REF001',
+      classification_society: 'IRS',
+      length_overall: '100 m',
+      length_perpen: '90 m',
+      module_breath: '15 m',
+      wetted_under_water: '200 m²',
+      depth_main: '8 m',
+      standard_disp: '900 t',
+      full_load_disp: '1100 t',
+      stand_draft: '4 m',
+      full_load_draft: '5 m',
+      wetted_boot_top: 'N/A',
+      engine_rating: '5 MW',
+      max_cont_speed: '20 knots',
+      eco_speed: '15 knots',
+      endurance: '2000 nm',
+      remark: 'N/A',
+      refit_authority: 'Default Authority',
+      signal_name: 'DSG',
+      address: 'Default Address',
+      contact_number: '0000000000',
+      nud_email_id: 'ship@navy.test',
+      nic_email_id: 'ship.nic@navy.test',
+      overseeing_team: 1,
+      active: true,
     };
 
   newShip: typeof this.initialShipFormData = { ...this.initialShipFormData };
@@ -205,7 +489,10 @@ export class ShipMasterComponent implements OnInit, OnDestroy {
     //console.log('Enable URL Fetching: true');
     
     this.loadAllMasterDataAndOptions();
-    // this.apiCall();
+    // Use static data instead of API
+    this.apiUrl = '';
+    this.ships = [...STATIC_SHIPS] as any;
+    this.filteredShips = [...STATIC_SHIPS] as any;
   }
 
   ngOnDestroy(): void {
@@ -217,61 +504,14 @@ export class ShipMasterComponent implements OnInit, OnDestroy {
   }
 
   loadAllMasterDataAndOptions(): void {
-    // Note: Ships data will be loaded by the paginated table component
-    // No need to subscribe to ships data here
-
-    // Subscribe to lookup options and set them in formConfig
-    this.subscriptions.add(
-      this.shipCategoryService.getCategoryOptions().subscribe(options => {
-        this.setFieldOptions('ship_category', options);
-      })
-    );
-    this.subscriptions.add(
-      this.sfdHierarchyService.getSfdHierarchyOptions().subscribe(options => {
-        this.setFieldOptions('sfd_hierarchy', options);
-      })
-    );
-    this.subscriptions.add(
-      this.classMasterService.getClassOptions().subscribe(options => {
-        this.setFieldOptions('class_master', options);
-      })
-    );
-    this.subscriptions.add(
-      this.commandService.getCommandOptions().subscribe(options => {
-        this.setFieldOptions('command', options);
-      })
-    );
-    this.subscriptions.add(
-      this.opsAuthorityService.getAuthorityOptions().subscribe(options => {
-        this.setFieldOptions('authority', options);
-      })
-    );
-    this.subscriptions.add(
-      this.overseeingTeamService.getOverseeingTeamOptions().subscribe(options => {
-        this.setFieldOptions('overseeing_team', options);
-      })
-    );
-    this.subscriptions.add(
-      this.propulsionService.getPropulsionOptions().subscribe(options => {
-        this.setFieldOptions('propulsion', options);
-      })
-    );
-    
-     this.subscriptions.add(
-      this.unitTypeService.getUnitTypeOptions().subscribe(options => {
-        this.setFieldOptions('unit_type', options);
-      })
-    );
-
-    this.unitTypeService.loadAllUnitTypesData();
-    // this.shipService.loadAllShipsData();
-    this.shipCategoryService.loadAllCategoriesData();
-    this.sfdHierarchyService.loadAllSfdHierarchiesData();
-    this.classMasterService.loadAllClassesData();
-    this.commandService.loadAllCommandsData();
-    this.opsAuthorityService.loadAllAuthoritiesData();
-    this.overseeingTeamService.loadAllOverseeingTeamsData();
-    this.propulsionService.loadAllPropulsionData();
+    // Set static options for all selects
+    this.setFieldOptions('unit_type', STATIC_UNIT_TYPES as any);
+    this.setFieldOptions('ship_category', STATIC_SHIP_CATEGORIES as any);
+    this.setFieldOptions('class_master', STATIC_CLASSES as any);
+    this.setFieldOptions('command', STATIC_COMMANDS as any);
+    this.setFieldOptions('authority', STATIC_AUTHORITIES as any);
+    this.setFieldOptions('overseeing_team', STATIC_OVERSEEING_TEAMS as any);
+    this.setFieldOptions('propulsion', STATIC_PROPULSION_TYPES as any);
   }
 
   private setFieldOptions(key: string, options: Option[]): void {
@@ -327,7 +567,7 @@ export class ShipMasterComponent implements OnInit, OnDestroy {
   openAddShip(): void {
     this.isFormOpen = true;
     this.isEditFormOpen = false;
-    this.newShip = { ...this.initialShipFormData };
+    this.newShip = this.getEmptyFormData();
   }
 
   handleSubmit(data: typeof this.initialShipFormData): void {
@@ -412,6 +652,57 @@ export class ShipMasterComponent implements OnInit, OnDestroy {
         },
       })
     );
+  }
+
+  private getEmptyFormData(): typeof this.initialShipFormData {
+    return {
+      sr_no: '',
+      code: '',
+      name: '',
+      unit_type: null,
+      ship_category: null,
+      sfd_hierarchy: null,
+      class_master: null,
+      class_code: '',
+      commission_date: '',
+      command: null,
+      authority: null,
+      ops_code: '',
+      ship_builder: '',
+      decommission_date: '',
+      displacement: '',
+      hours_underway: (undefined as unknown as number),
+      distance_run: (undefined as unknown as number),
+      decommission_scheduled_date: '',
+      propulsion: null,
+      sdrsref: '',
+      yard_no: '',
+      reference_no: '',
+      classification_society: '',
+      length_overall: '',
+      length_perpen: '',
+      module_breath: '',
+      wetted_under_water: '',
+      depth_main: '',
+      standard_disp: '',
+      full_load_disp: '',
+      stand_draft: '',
+      full_load_draft: '',
+      wetted_boot_top: '',
+      engine_rating: '',
+      max_cont_speed: '',
+      eco_speed: '',
+      endurance: '',
+      remark: '',
+      refit_authority: '',
+      signal_name: '',
+      address: '',
+      contact_number: '',
+      nud_email_id: '',
+      nic_email_id: '',
+      overseeing_team: null,
+      active: true,
+    };
   }
 
   private getForeignKeyId(value: any): number | null {

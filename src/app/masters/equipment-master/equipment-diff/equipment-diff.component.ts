@@ -122,6 +122,100 @@ export class EquipmentDiffComponent implements OnInit {
     // Note: Table data will be loaded by the paginated table component
     // No need to call getDepartments() here
   }
+
+  staticEquipmentData = [
+  {
+    id: 3,
+    equipment_1_name: "AC CHILLED WATER PUMP (TSBC 4/40)",
+    equipment_1_code: "04401036",
+    equipment_2_name: "DOCKING",
+    equipment_2_code: "01101027",
+    sfd_hierarchy_name: "Fuel Hierarchy",
+    sfd_hierarchy_code: "445",
+    active: 1,
+    common_diff: "connect to fire pump",
+    created_by: 1,
+    equipment_1: 36,
+    sfd_hierarchy: 10,
+    equipment_2: 27
+  },
+  {
+    id: 2,
+    equipment_1_name: "RG SYSTEM",
+    equipment_1_code: "2649999",
+    equipment_2_name: "MAIN ENGINE diesel",
+    equipment_2_code: "2009999",
+    sfd_hierarchy_name: "SFD Hierarchy 2",
+    sfd_hierarchy_code: "SFD_001",
+    active: 1,
+    common_diff: "connect to generator",
+    created_by: 1,
+    equipment_1: 11,
+    sfd_hierarchy: 2,
+    equipment_2: 2
+  },
+  {
+    id: 4,
+    equipment_1_name: "FIRE PUMP",
+    equipment_1_code: "07845219",
+    equipment_2_name: "EMERGENCY GENERATOR",
+    equipment_2_code: "07845288",
+    sfd_hierarchy_name: "Safety Hierarchy",
+    sfd_hierarchy_code: "SAFE_002",
+    active: 1,
+    common_diff: "fire pump connected to generator",
+    created_by: 2,
+    equipment_1: 52,
+    sfd_hierarchy: 12,
+    equipment_2: 33
+  },
+  {
+    id: 5,
+    equipment_1_name: "AIR COMPRESSOR",
+    equipment_1_code: "01122456",
+    equipment_2_name: "COOLING SYSTEM",
+    equipment_2_code: "09876543",
+    sfd_hierarchy_name: "Cooling Hierarchy",
+    sfd_hierarchy_code: "COOL_010",
+    active: 1,
+    common_diff: "compressor cooling integration",
+    created_by: 3,
+    equipment_1: 14,
+    sfd_hierarchy: 15,
+    equipment_2: 21
+  },
+  {
+    id: 6,
+    equipment_1_name: "HYDRAULIC PUMP",
+    equipment_1_code: "05598741",
+    equipment_2_name: "CRANE SYSTEM",
+    equipment_2_code: "03219874",
+    sfd_hierarchy_name: "Load Handling Hierarchy",
+    sfd_hierarchy_code: "LOAD_007",
+    active: 1,
+    common_diff: "hydraulic pump supports crane movement",
+    created_by: 4,
+    equipment_1: 22,
+    sfd_hierarchy: 18,
+    equipment_2: 29
+  },
+  {
+    id: 7,
+    equipment_1_name: "FUEL TRANSFER PUMP",
+    equipment_1_code: "06654321",
+    equipment_2_name: "MAIN ENGINE SUPPLY",
+    equipment_2_code: "01239876",
+    sfd_hierarchy_name: "Fuel Hierarchy",
+    sfd_hierarchy_code: "FUEL_005",
+    active: 1,
+    common_diff: "pump supplies fuel to main engine",
+    created_by: 5,
+    equipment_1: 25,
+    sfd_hierarchy: 21,
+    equipment_2: 31
+  }
+];
+
   goBack(){
     this.location.back();
   }

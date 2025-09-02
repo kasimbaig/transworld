@@ -30,7 +30,7 @@
     </div>
   </div>
 
-  <app-paginated-table [data]="departments" [columns]="cols" [showEndActions]="true"
+  <app-paginated-table [data]="staticOpsAuthData" [columns]="cols" [showEndActions]="true"
     (viewEvent)="viewDeptDetails($event)" (editEvent)="editDetails($event, true)"
     (deleteEvent)="deleteDeptDetails($event)"></app-paginated-table>
 

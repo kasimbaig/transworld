@@ -29,6 +29,173 @@ import { DeleteConfirmationModalComponent } from '../../../shared/components/del
 import { ViewDetailsComponent } from '../../../shared/components/view-details/view-details.component';
 import { FileUpload } from "primeng/fileupload";
 
+// Static data constants
+const STATIC_GROUPS: any[] = [
+  {
+    id: 61,
+    section_name: "Engineering",
+    section_code: "61",
+    generic_type: "PROPULSION",
+    department_name: "Engineering",
+    department_id: "41",
+    active: 1,
+    code: "6101",
+    name: "GAS TURBINE SYSTEMS",
+    created_by: 7,
+    section: 61,
+    generic: 15
+  },
+  {
+    id: 62,
+    section_name: "Engineering",
+    section_code: "61",
+    generic_type: "POWER",
+    department_name: "Engineering",
+    department_id: "41",
+    active: 1,
+    code: "6102",
+    name: "DIESEL GENERATORS",
+    created_by: 7,
+    section: 61,
+    generic: 16
+  },
+  {
+    id: 63,
+    section_name: "Electrical",
+    section_code: "71",
+    generic_type: "CIRCUITS",
+    department_name: "Electrical",
+    department_id: "42",
+    active: 1,
+    code: "7101",
+    name: "DISTRIBUTION PANELS",
+    created_by: 8,
+    section: 71,
+    generic: 17
+  },
+  {
+    id: 64,
+    section_name: "Electrical",
+    section_code: "71",
+    generic_type: "LIGHTING",
+    department_name: "Electrical",
+    department_id: "42",
+    active: 1,
+    code: "7102",
+    name: "DECK LIGHTING SYSTEMS",
+    created_by: 8,
+    section: 71,
+    generic: 18
+  },
+  {
+    id: 65,
+    section_name: "Communications",
+    section_code: "81",
+    generic_type: "SATCOM",
+    department_name: "Communications",
+    department_id: "43",
+    active: 1,
+    code: "8101",
+    name: "SATELLITE COMM LINKS",
+    created_by: 9,
+    section: 81,
+    generic: 19
+  },
+  {
+    id: 66,
+    section_name: "Communications",
+    section_code: "81",
+    generic_type: "RADIO",
+    department_name: "Communications",
+    department_id: "43",
+    active: 1,
+    code: "8102",
+    name: "HF/VHF RADIO NETWORKS",
+    created_by: 9,
+    section: 81,
+    generic: 20
+  },
+  {
+    id: 67,
+    section_name: "Damage Control",
+    section_code: "91",
+    generic_type: "FIRE",
+    department_name: "Damage Control",
+    department_id: "44",
+    active: 1,
+    code: "9101",
+    name: "FIRE SUPPRESSION GEAR",
+    created_by: 10,
+    section: 91,
+    generic: 21
+  },
+  {
+    id: 68,
+    section_name: "Damage Control",
+    section_code: "91",
+    generic_type: "FLOOD",
+    department_name: "Damage Control",
+    department_id: "44",
+    active: 1,
+    code: "9102",
+    name: "BILGE & FLOOD PUMPS",
+    created_by: 10,
+    section: 91,
+    generic: 22
+  },
+  {
+    id: 69,
+    section_name: "Training & Drills",
+    section_code: "101",
+    generic_type: "SIMULATOR",
+    department_name: "Training & Drills",
+    department_id: "45",
+    active: 1,
+    code: "10101",
+    name: "FIRE DRILL SIMULATORS",
+    created_by: 11,
+    section: 101,
+    generic: 23
+  },
+  {
+    id: 70,
+    section_name: "Training & Drills",
+    section_code: "101",
+    generic_type: "CREW TRAINING",
+    department_name: "Training & Drills",
+    department_id: "45",
+    active: 1,
+    code: "10102",
+    name: "DAMAGE CONTROL TRAINING",
+    created_by: 11,
+    section: 101,
+    generic: 24
+  }
+];
+
+// Static options for dropdowns
+const STATIC_SECTION_OPTIONS: Option[] = [
+  { label: 'Engineering', value: 61 },
+  { label: 'Electrical', value: 71 },
+  { label: 'Communications', value: 81 },
+  { label: 'Damage Control', value: 91 },
+  { label: 'Training & Drills', value: 101 }
+];
+
+const STATIC_GENERIC_OPTIONS: Option[] = [
+  { label: 'PROPULSION', value: 15 },
+  { label: 'POWER', value: 16 },
+  { label: 'CIRCUITS', value: 17 },
+  { label: 'LIGHTING', value: 18 },
+  { label: 'SATCOM', value: 19 },
+  { label: 'RADIO', value: 20 },
+  { label: 'FIRE', value: 21 },
+  { label: 'FLOOD', value: 22 },
+  { label: 'SIMULATOR', value: 23 },
+  { label: 'CREW TRAINING', value: 24 }
+];
+
+
 @Component({
   selector: 'app-group',
   standalone: true,
@@ -89,7 +256,7 @@ isLoading: boolean = false;
   viewDetailsTitle: string = 'Group Details';
 
   // New properties for pagination
-  apiUrl: string = 'master/group/';
+  apiUrl: string = '';
   totalCount: number = 0;
 
   // "equipment_count" has been removed
@@ -147,12 +314,30 @@ isLoading: boolean = false;
   ) {}
 
   ngOnInit(): void {
-    // Load master data for dropdowns
-    this.getSectionLookupDetails();
-    this.getGenericLookupDetails();
+    // Use static data instead of API
+    this.apiUrl = '';
+    this.groups = [...STATIC_GROUPS] as any;
+    this.totalCount = STATIC_GROUPS.length;
+    this.filteredGroups = [...STATIC_GROUPS] as any;
     
-    // Load initial data for the table
-    this.loadGroupsData();
+    // Use static options for dropdowns
+    this.filteredSections = [...STATIC_SECTION_OPTIONS];
+    this.filteredGenerics = [...STATIC_GENERIC_OPTIONS];
+    
+    // Update form config with static options
+    const sectionField = this.formConfigForNewDetails.find(
+      (field) => field.key === 'section'
+    );
+    if (sectionField) {
+      sectionField.options = this.filteredSections;
+    }
+    
+    const genericField = this.formConfigForNewDetails.find(
+      (field) => field.key === 'generic'
+    );
+    if (genericField) {
+      genericField.options = this.filteredGenerics;
+    }
   }
 
   goBack(): void {
@@ -160,75 +345,78 @@ isLoading: boolean = false;
   }
 
   getSectionLookupDetails(): void {
-    this.sectionService.getSectionOptions().subscribe({
-      next: (data: Option[]) => {
-        this.filteredSections = data;
-        const sectionField = this.formConfigForNewDetails.find(
-          (field) => field.key === 'section'
-        );
-        if (sectionField) {
-          sectionField.options = this.filteredSections;
-        }
-      },
-      error: (error) => {
-        console.error('Error fetching section options:', error);
-        this.toastService.showError('Failed to load sections.');
-      },
-    });
+    // Commented out API call - using static data
+    // this.sectionService.getSectionOptions().subscribe({
+    //   next: (data: Option[]) => {
+    //     this.filteredSections = data;
+    //     const sectionField = this.formConfigForNewDetails.find(
+    //       (field) => field.key === 'section'
+    //     );
+    //     if (sectionField) {
+    //       sectionField.options = this.filteredSections;
+    //     }
+    //   },
+    //   error: (error) => {
+    //     console.error('Error fetching section options:', error);
+    //     this.toastService.showSuccess('Failed to load sections.');
+    //   },
+    // });
   }
 
   getGenericLookupDetails(): void {
-    this.genericService.getGenericOptions().subscribe({
-      next: (data: Option[]) => {
-        this.filteredGenerics = data;
-        const genericField = this.formConfigForNewDetails.find(
-          (field) => field.key === 'generic'
-        );
-        if (genericField) {
-          genericField.options = this.filteredGenerics;
-        }
-      },
-      error: (error) => {
-        console.error('Error fetching generic options:', error);
-        this.toastService.showError('Failed to load generics.');
-      },
-    });
+    // Commented out API call - using static data
+    // this.genericService.getGenericOptions().subscribe({
+    //   next: (data: Option[]) => {
+    //     this.filteredGenerics = data;
+    //     const genericField = this.formConfigForNewDetails.find(
+    //       (field) => field.key === 'generic'
+    //     );
+    //     if (sectionField) {
+    //       sectionField.options = this.filteredGenerics;
+    //     }
+    //   },
+    //   error: (error) => {
+    //     console.error('Error fetching generic options:', error);
+    //     this.toastService.showSuccess('Failed to load generics.');
+    //   },
+    // });
   }
 
   loadGroupsData(): void {
-    this.isLoading = true; // Start loading
-    this.groups = []; // Clear existing data
+    // Commented out API call - using static data
+    // this.isLoading = true; // Start loading
+    // this.groups = []; // Clear existing data
     
-    this.groupService.getGroups().subscribe({
-      next: (response: any) => {
-        //console.log('API Response received:', response);
+    // this.groupService.getGroups().subscribe({
+    //   next: (response: any) => {
+    //     //console.log('API Response received:', response);
         
-        // Handle the paginated response format
-        if (response && response.results) {
-          this.groups = response.results;
-          this.totalCount = response.count; 
-        } else {
-          this.groups = response || [];
-          this.totalCount = this.groups.length;
-        }
+    //     // Handle the paginated response format
+    //     if (response && response.results) {
+    //       this.groups = response.results;
+    //       this.totalCount = response.count; 
+    //     } else {
+    //       this.groups = response || [];
+    //       this.totalCount = this.groups.length;
+    //     }
         
-        this.filteredGroups = [...this.groups];
-        this.isLoading = false; // Stop loading
+    //     this.filteredGroups = [...this.groups];
+    //     this.isLoading = false; // Stop loading
         
-        //console.log('Groups loaded:', this.groups);
-        //console.log('Loading state:', this.isLoading);
+    //     //console.log('Groups loaded:', this.groups);
+    //     //console.log('Loading state:', this.isLoading);
         
-        // Force change detection
-        this.cdr.detectChanges();
-      },
-      error: (error) => {
-        console.error('Error fetching groups:', error);
-        this.toastService.showError('Failed to fetch groups.');
-        this.isLoading = false; // Stop loading on error
-        this.groups = []; // Ensure empty array on error
-        this.cdr.detectChanges();
-      },
-    });
+    //     // Force change detection
+    //     this.cdr.detectChanges();
+    //   },
+    //   error: (error) => {
+    //     console.error('Error fetching groups:', error);
+    //     this.toastService.showSuccess('Failed to fetch groups.');
+    //     this.isLoading = false; // Stop loading on error
+    //     this.groups = []; // Ensure empty array on error
+    //       this.cdr.detectChanges();
+    //   },
+    // });
   }
 
   getGroups(): void {
@@ -266,27 +454,32 @@ isLoading: boolean = false;
   }
 
   handleSubmit(data: any): void {
-    const payload: NewGroupFormData = {
-      code: data.code,
-      name: data.name,
-      section: data.section,
-      generic: data.generic,
-      active: 1,
-    };
+    // Commented out API call - using static response
+    // const payload: NewGroupFormData = {
+    //   code: data.code,
+    //   name: data.name,
+    //   section: data.section,
+    //   generic: data.generic,
+    //   active: 1,
+    // };
 
-    this.groupService.addGroup(payload).subscribe({
-      next: (response: Group) => {
-        this.toastService.showSuccess('Group added successfully');
-        this.closeDialog();
-        // Reload data to show the new entry
-        this.loadGroupsData();
-      },
-      error: (error) => {
-        console.error('Error adding group:', error);
-        const errorMessage = error.error?.message || 'Failed to add group.';
-        this.toastService.showError(errorMessage);
-      },
-    });
+    // this.groupService.addGroup(payload).subscribe({
+    //   next: (response: Group) => {
+    //     this.toastService.showSuccess('Group added successfully');
+    //     this.closeDialog();
+    //     // Reload data to show the new entry
+    //     this.loadGroupsData();
+    //   },
+    //   error: (error) => {
+    //     console.error('Error adding group:', error);
+    //     const errorMessage = error.error?.message || 'Failed to add group.';
+    //     this.toastService.showSuccess(errorMessage);
+    //   },
+    // });
+    
+    // Static success response
+    this.toastService.showSuccess('Group added successfully');
+    this.closeDialog();
   }
 
   editGroupDetails(group: Group): void {
@@ -300,33 +493,38 @@ isLoading: boolean = false;
   }
 
   handleEditSubmit(data: any): void {
-    if (this.selectedGroup.id === undefined) {
-      this.toastService.showError('Group ID is missing for update.');
-      this.closeDialog();
-      return;
-    }
-    const updatedGroup: Group = {
-      ...this.selectedGroup,
-      name: data.name,
-      code: data.code,
-      section: data.section,
-      generic: data.generic,
-      active: this.selectedGroup.active,
-    };
+    // Commented out API call - using static response
+    // if (this.selectedGroup.id === undefined) {
+    //   this.toastService.showSuccess('Group ID is missing for update.');
+    //   this.closeDialog();
+    //   return;
+    // }
+    // const updatedGroup: Group = {
+    //   ...this.selectedGroup,
+    //   name: data.name,
+    //   code: data.code,
+    //   section: data.section,
+    //   generic: data.generic,
+    //   active: this.selectedGroup.active,
+    // };
 
-    this.groupService.updateGroup(updatedGroup.id!, updatedGroup).subscribe({
-      next: (response: Group) => {
-        this.toastService.showSuccess('Group updated successfully');
-        this.closeDialog();
-        // Reload data to show the updated entry
-        this.loadGroupsData();
-      },
-      error: (error) => {
-        console.error('Error updating group:', error);
-        const errorMessage = error.error?.message || 'Failed to update group.';
-        this.toastService.showError(errorMessage);
-      },
-    });
+    // this.groupService.updateGroup(updatedGroup.id!, updatedGroup).subscribe({
+    //   next: (response: Group) => {
+    //     this.toastService.showSuccess('Group updated successfully');
+    //     this.closeDialog();
+    //     // Reload data to show the updated entry
+    //     this.loadGroupsData();
+    //   },
+    //   error: (error) => {
+    //     console.error('Error updating group:', error);
+    //     const errorMessage = error.error?.message || 'Failed to update group.';
+    //     this.toastService.showSuccess(errorMessage);
+    //   },
+    // });
+    
+    // Static success response
+    this.toastService.showSuccess('Group updated successfully');
+    this.closeDialog();
   }
 
   deleteGroupDetails(group: Group): void {
@@ -335,25 +533,30 @@ isLoading: boolean = false;
   }
 
   confirmDeletion(): void {
-    if (this.selectedGroup.id === undefined) {
-      this.toastService.showError('Group ID is missing for deletion.');
-      this.closeDialog();
-      return;
-    }
+    // Commented out API call - using static response
+    // if (this.selectedGroup.id === undefined) {
+    //   this.toastService.showSuccess('Group ID is missing for deletion.');
+    //   this.closeDialog();
+    //   return;
+    // }
 
-    this.groupService.deleteGroup(this.selectedGroup.id).subscribe({
-      next: () => {
-        this.toastService.showSuccess('Group deleted successfully');
-        this.closeDialog();
-        // Reload data to reflect the deletion
-        this.loadGroupsData();
-      },
-      error: (error) => {
-        console.error('Error deleting group:', error);
-        const errorMessage = error.error?.message || 'Failed to delete group.';
-        this.toastService.showError(errorMessage);
-      },
-    });
+    // this.groupService.deleteGroup(this.selectedGroup.id).subscribe({
+    //   next: () => {
+    //     this.toastService.showSuccess('Group deleted successfully');
+    //     this.closeDialog();
+    //     // Reload data to reflect the deletion
+    //     this.loadGroupsData();
+    //   },
+    //   error: (error) => {
+    //     console.error('Error deleting group:', error);
+    //     const errorMessage = error.error?.message || 'Failed to delete group.';
+    //     this.toastService.showSuccess(errorMessage);
+    //   },
+    // });
+    
+    // Static success response
+    this.toastService.showSuccess('Group deleted successfully');
+    this.closeDialog();
   }
 
   viewGroupDetails(group: Group): void {
@@ -387,7 +590,7 @@ isLoading: boolean = false;
     //console.log('Bulk Upload event:', event);
     this.toastService.showSuccess('Bulk upload initiated (placeholder).');
     this.isBulkUploadPopup = false;
-    this.loadGroupsData();
+    // this.loadGroupsData(); // Commented out API call
   }
 
   exportOptions = [

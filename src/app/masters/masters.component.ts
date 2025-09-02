@@ -40,15 +40,15 @@ export class MastersComponent implements OnInit, AfterViewInit {
     { label: 'Ship Master', icon: 'fa-solid fa-database', path: '/masters/ship-group/ship-master' },
     { label: 'Ship Category', icon: 'fa-solid fa-tags', path: '/masters/ship-group/ship-category' },
     { label: 'Departments', icon: 'fa-solid fa-building', path: '/masters/ship-group/departments' },
-    { label: 'Group', icon: 'fa-solid fa-layer-group', path: '/masters/ship-group/group' },
     { label: 'Section', icon: 'fa-solid fa-sitemap', path: '/masters/ship-group/section' },
+    { label: 'Group', icon: 'fa-solid fa-layer-group', path: '/masters/ship-group/group' },
     { label: 'Class', icon: 'fa-solid fa-graduation-cap', path: '/masters/ship-group/class' }
   ];
   equipmentDropdownItems: DropdownItem[] = [
     { label: 'Equipments', icon: 'fa-solid fa-cogs', path: '/masters/equipment-group/equipments' },
     { label: 'Equipment Specification', icon: 'fa-solid fa-clipboard-list', path: '/masters/equipment-group/equipments-specification' },
     { label: 'Equipment Type', icon: 'fa-solid fa-tag', path: '/masters/equipment-group/equipment-type' },
-    // { label: 'Equipment Diff', icon: 'fa-solid fa-exchange-alt', path: '/masters/equipment-group/equipment-diff' },
+    { label: 'Equipment Diff', icon: 'fa-solid fa-exchange-alt', path: '/masters/equipment-group/equipment-diff' },
     { label: 'Generic', icon: 'fa-solid fa-cube', path: '/masters/equipment-group/generic' },
     { label: 'Supplier', icon: 'fa-solid fa-truck', path: '/masters/equipment-group/supplier' }
   ];

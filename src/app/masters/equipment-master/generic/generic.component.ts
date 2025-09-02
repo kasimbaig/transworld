@@ -112,6 +112,89 @@ export class GenericComponent implements OnInit {
     // Note: Table data will be loaded by the paginated table component
     // No need to call getDepartments() here
   }
+
+genericList = [
+  {
+    id: 6,
+    active: 1,
+    sr_no: "DEV_2001",
+    code: "SENSOR_01",
+    type: "TEMPERATURE SENSOR",
+    created_by: 4
+  },
+  {
+    id: 7,
+    active: 1,
+    sr_no: "DEV_2002",
+    code: "VALVE_01",
+    type: "HYDRAULIC VALVE",
+    created_by: 5
+  },
+  {
+    id: 8,
+    active: 1,
+    sr_no: "DEV_2003",
+    code: "MTR_01",
+    type: "ELECTRIC MOTOR",
+    created_by: 6
+  },
+  {
+    id: 9,
+    active: 1,
+    sr_no: "DEV_2004",
+    code: "SWT_01",
+    type: "PRESSURE SWITCH",
+    created_by: 4
+  },
+  {
+    id: 10,
+    active: 1,
+    sr_no: "DEV_2005",
+    code: "LIT_01",
+    type: "LED LIGHT FIXTURE",
+    created_by: 5
+  },
+  {
+    id: 11,
+    active: 1,
+    sr_no: "DEV_2006",
+    code: "CAM_01",
+    type: "SURVEILLANCE CAMERA",
+    created_by: 7
+  },
+  {
+    id: 12,
+    active: 1,
+    sr_no: "DEV_2007",
+    code: "PMP_02",
+    type: "CIRCULATION PUMP",
+    created_by: 8
+  },
+  {
+    id: 13,
+    active: 1,
+    sr_no: "DEV_2008",
+    code: "CONTRL_01",
+    type: "ACCESS CONTROL UNIT",
+    created_by: 7
+  },
+  {
+    id: 14,
+    active: 1,
+    sr_no: "DEV_2009",
+    code: "FAN_02",
+    type: "EXHAUST FAN",
+    created_by: 9
+  },
+  {
+    id: 15,
+    active: 1,
+    sr_no: "DEV_2010",
+    code: "BRKR_01",
+    type: "CIRCUIT BREAKER",
+    created_by: 8
+  }
+];
   goBack() {
     this.location.back();
   }

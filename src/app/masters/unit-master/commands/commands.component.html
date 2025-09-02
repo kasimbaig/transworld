@@ -33,7 +33,7 @@
   <!-- Table Section -->
   <app-toast></app-toast>
 
-  <app-paginated-table [data]="departments" [columns]="cols" [showEndActions]="true"
+  <app-paginated-table [data]="commandStaticData" [columns]="cols" [showEndActions]="true"
     (viewEvent)="viewDeptDetails($event)" (editEvent)="editDetails($event)"
     (deleteEvent)="deleteDeptDetails($event)"></app-paginated-table>
 

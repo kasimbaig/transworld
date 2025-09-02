@@ -24,6 +24,47 @@ import { DeleteConfirmationModalComponent } from '../../../shared/components/del
 import { Department } from '../../../shared/models/department.model';
 import { DepartmentService } from '../ship-services/department.service';
 
+// Static dataset for departments
+const STATIC_DEPARTMENTS: any[] = [
+  {
+    id: 41,
+    active: 1,
+    name: 'Engineering',
+    code: 'ENG55',
+    description: 'Maintains propulsion, power generation, and auxiliary systems',
+    sfd_applicable: 1,
+    created_by: '6'
+  },
+  {
+    id: 42,
+    active: 1,
+    name: 'Medical',
+    code: 'MED23',
+    description: 'Provides healthcare, first aid, and emergency response services',
+    sfd_applicable: 0,
+    created_by: '7'
+  },
+  {
+    id: 43,
+    active: 1,
+    name: 'Communications',
+    code: 'COM91',
+    description: 'Handles internal and external communications, satellite, and signal systems',
+    sfd_applicable: 1,
+    created_by: '8'
+  },
+  {
+    id: 44,
+    active: 1,
+    name: 'Damage Control',
+    code: 'DCT12',
+    description: 'Ensures firefighting, flooding control, and ship survivability measures',
+    sfd_applicable: 1,
+    created_by: '9'
+  }
+];
+
+
 @Component({
   selector: 'app-department-master',
   standalone: true,
@@ -109,16 +150,10 @@ export class DepartmentMasterComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    //console.log('🚢 Department Master Component Initializing...');
-    //console.log('API URL:', this.apiUrl);
-    //console.log('Total Count:', this.totalCount);
-    //console.log('Enable URL Fetching: true');
-    
-    // Load master data for dropdowns (but not departments data - paginated table will handle that)
-    this.departmentService.loadAllDepartmentsData();
-    
-    // Note: Table data will be loaded by the paginated table component
-    // No need to call getDepartments() here
+    // Use static data instead of API
+    this.apiUrl = '';
+    this.departments = [...STATIC_DEPARTMENTS] as any;
+    this.filteredDepartments = [...STATIC_DEPARTMENTS] as any;
   }
 
   goBack(): void {
