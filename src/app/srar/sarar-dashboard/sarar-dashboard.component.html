@@ -41,7 +41,8 @@
       </div>
     </div>
     
-    <!-- Tab Container with Enhanced Styling -->
+    <!-- Tab Container with Enhanced Styling - COMMENTED OUT -->
+    <!--
     <div class="relative flex justify-center items-center">
       <div class="flex flex-wrap gap-3 sm:gap-2 p-2 bg-gray-100/50 rounded-2xl backdrop-blur-sm border border-gray-200/30 shadow-inner">
         <span 
@@ -55,22 +56,16 @@
           }"
           (click)="onTabChange(tab)">
           
-          <!-- Glowing effect for active tab -->
           <div *ngIf="activeTab === tab" class="absolute inset-0 bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 opacity-0 group-hover:opacity-30 transition-opacity duration-500 rounded-xl blur-sm"></div>
           
-          <!-- Shimmer effect for inactive tabs -->
           <div *ngIf="activeTab !== tab" class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out"></div>
           
-          <!-- Tab content -->
           <div class="relative z-10 flex items-center justify-center gap-2">
-            <!-- Icon for active tab -->
             <div *ngIf="activeTab === tab" class="w-2 h-2 bg-white rounded-full animate-pulse"></div>
             <span class="font-bold tracking-wide">{{ tab }}</span>
-            <!-- Subtle indicator for active tab -->
             <div *ngIf="activeTab === tab" class="w-2 h-2 bg-white/70 rounded-full"></div>
           </div>
           
-          <!-- Bottom indicator line -->
           <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full transition-all duration-500"
                [ngClass]="{
                  'w-full opacity-100': activeTab === tab,
@@ -80,12 +75,13 @@
         </span>
       </div>
     </div>
+    -->
   </div>
 
   
-  <!-- Enhanced Interactive Stats Cards Section -->
+  <!-- Enhanced Interactive Stats Cards Section - COMMENTED OUT -->
+  <!--
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 sm:gap-6 mb-8 sm:mb-10 w-full max-w-full">
-    <!-- Total Ships Card -->
     <div class="group bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-4 sm:p-6 shadow-lg border border-blue-200/30 animate-fade-in hover:shadow-2xl hover:scale-105 hover:-translate-y-2 transition-all duration-500 cursor-pointer" style="animation-delay: 0.1s;">
       <div class="flex items-center justify-between">
         <div class="flex-1">
@@ -99,28 +95,9 @@
           </svg>
         </div>
       </div>
-      <!-- Hover effect bar -->
       <div class="mt-4 h-1 bg-gradient-to-r from-blue-600 to-blue-700 rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
     </div>
 
-    <!-- Command Ships Card -->
-    <!-- <div class="group bg-gradient-to-br from-emerald-50 to-emerald-100 rounded-2xl p-4 sm:p-6 shadow-lg border border-emerald-200/30 animate-fade-in hover:shadow-2xl hover:scale-105 hover:-translate-y-2 transition-all duration-500 cursor-pointer" style="animation-delay: 0.2s;">
-      <div class="flex items-center justify-between">
-        <div class="flex-1">
-          <p class="text-emerald-600 text-sm font-medium mb-2">{{ selectedCommand }} Ships</p>
-          <p class="text-emerald-800 text-2xl sm:text-3xl font-bold mb-1 group-hover:text-emerald-900 transition-colors duration-300">{{ getCommandShipsCount() }}</p>
-          <p class="text-emerald-500 text-xs">In Command</p>
-        </div>
-        <div class="w-12 h-12 bg-gradient-to-br from-emerald-200 to-emerald-300 rounded-2xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-12 transition-all duration-500">
-          <svg class="w-6 h-6 text-emerald-700 group-hover:text-emerald-800" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-          </svg>
-        </div>
-      </div>
-      <div class="mt-4 h-1 bg-gradient-to-r from-emerald-600 to-emerald-700 rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
-    </div> -->
-
-    <!-- Total RH at Sea Card -->
     <div class="group bg-gradient-to-br from-cyan-50 to-cyan-100 rounded-2xl p-4 sm:p-6 shadow-lg border border-cyan-200/30 animate-fade-in hover:shadow-2xl hover:scale-105 hover:-translate-y-2 transition-all duration-500 cursor-pointer" style="animation-delay: 0.3s;">
       <div class="flex items-center justify-between">
         <div class="flex-1">
@@ -137,7 +114,6 @@
       <div class="mt-4 h-1 bg-gradient-to-r from-cyan-600 to-cyan-700 rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
     </div>
 
-    <!-- Avg RH at Sea Card -->
     <div class="group bg-gradient-to-br from-teal-50 to-teal-100 rounded-2xl p-4 sm:p-6 shadow-lg border border-teal-200/30 animate-fade-in hover:shadow-2xl hover:scale-105 hover:-translate-y-2 transition-all duration-500 cursor-pointer" style="animation-delay: 0.4s;">
       <div class="flex items-center justify-between">
         <div class="flex-1">
@@ -154,7 +130,6 @@
       <div class="mt-4 h-1 bg-gradient-to-r from-teal-600 to-teal-700 rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
     </div>
 
-    <!-- Max RH Card -->
     <div class="group bg-gradient-to-br from-orange-50 to-orange-100 rounded-2xl p-4 sm:p-6 shadow-lg border border-orange-200/30 animate-fade-in hover:shadow-2xl hover:scale-105 hover:-translate-y-2 transition-all duration-500 cursor-pointer" style="animation-delay: 0.5s;">
       <div class="flex items-center justify-between">
         <div class="flex-1">
@@ -171,7 +146,6 @@
       <div class="mt-4 h-1 bg-gradient-to-r from-orange-600 to-orange-700 rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
     </div>
 
-    <!-- Operational Ships Card -->
     <div class="group bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl p-4 sm:p-6 shadow-lg border border-purple-200/30 animate-fade-in hover:shadow-2xl hover:scale-105 hover:-translate-y-2 transition-all duration-500 cursor-pointer" style="animation-delay: 0.6s;">
       <div class="flex items-center justify-between">
         <div class="flex-1">
@@ -188,6 +162,7 @@
       <div class="mt-4 h-1 bg-gradient-to-r from-purple-600 to-purple-700 rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
     </div>
   </div>
+  -->
 
   <!-- Enhanced Command Ships Chart Section -->
   <div class="group bg-white/80 backdrop-blur-sm rounded-3xl p-6 sm:p-8 mb-6 sm:mb-8 shadow-xl border border-white/20 animate-fade-in hover:shadow-2xl transition-all duration-500 hover:scale-105" style="animation-delay: 0.7s;">

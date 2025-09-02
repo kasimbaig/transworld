@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-opdef',
@@ -12,7 +12,10 @@ export class OpdefComponent implements OnInit, OnChanges {
   @Input() dept: any;
   @Input() dateRange: Date[] | undefined;
 
+  @ViewChild('chartCanvas', { static: false }) chartCanvas!: ElementRef;
+
   chartData: any;
+  chartOptions: any;
   details: any[] = [];
   dialogVisible = false;
 
@@ -36,8 +39,63 @@ export class OpdefComponent implements OnInit, OnChanges {
       datasets: [{
         label: `${selectedShip} Defects`,
         data: [12, 5, 8],
-        backgroundColor: '#42A5F5'
+        backgroundColor: [
+          '#667eea', // Electrical - Solid Purple
+          '#f093fb', // Mechanical - Solid Pink
+          '#4facfe'  // Navigation - Solid Blue
+        ],
+        hoverBackgroundColor: [
+          '#667eea', // Electrical - Same solid Purple on hover
+          '#f093fb', // Mechanical - Same solid Pink on hover
+          '#4facfe'  // Navigation - Same solid Blue on hover
+        ],
+        borderColor: [
+          '#5a67d8', // Electrical - Darker Purple border
+          '#e53e3e', // Mechanical - Darker Pink border
+          '#3182ce'  // Navigation - Darker Blue border
+        ],
+        hoverBorderColor: [
+          '#5a67d8', // Electrical - Same border color on hover
+          '#e53e3e', // Mechanical - Same border color on hover
+          '#3182ce'  // Navigation - Same border color on hover
+        ],
+        borderWidth: 2,
+        hoverBorderWidth: 2,
+        borderRadius: 8, // Rounded edges
+        borderSkipped: false
       }]
+    };
+
+    this.chartOptions = {
+      responsive: true,
+      maintainAspectRatio: true, // Keep original aspect ratio
+      aspectRatio: 2, // Maintain chart height
+      interaction: {
+        intersect: false,
+        mode: 'index'
+      },
+      hover: {
+        animationDuration: 0
+      },
+      plugins: {
+        legend: {
+          display: true,
+          position: 'top'
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          grid: {
+            color: 'rgba(0,0,0,0.1)'
+          }
+        },
+        x: {
+          grid: {
+            display: false
+          }
+        }
+      }
     };
   }
 

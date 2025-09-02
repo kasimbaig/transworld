@@ -21,9 +21,14 @@ export class FrequentDefectsComponent implements OnChanges {
     this.chartOptions = {
       responsive: true,
       maintainAspectRatio: false,
+      cutout: '60%', // Creates the donut hole
       plugins: {
         legend: {
-          position: 'top'
+          position: 'bottom',
+          labels: {
+            usePointStyle: true,
+            padding: 20
+          }
         },
         title: {
           display: true,

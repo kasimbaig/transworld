@@ -4,7 +4,7 @@
     <span>OPDEF Overview</span>
   </div>
 
-  <p-chart type="bar" [data]="chartData" (onDataSelect)="onCommandClick($event)"></p-chart>
+  <p-chart type="pie" [data]="chartData" [options]="chartOptions" (onDataSelect)="onCommandClick($event)"></p-chart>
 
   <p-dialog header="OPDEF Details" [(visible)]="dialogVisible" modal>
     <p-table [value]="details">

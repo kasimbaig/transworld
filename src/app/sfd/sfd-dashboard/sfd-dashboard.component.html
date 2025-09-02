@@ -15,7 +15,7 @@
   </div>
 
   <!-- Enhanced Charts Grid with Modern Design -->
-  <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8 mb-12 w-full max-w-full">
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12 w-full max-w-full">
     <!-- Fleet Composition Chart Card -->
     <div class="group relative bg-gradient-to-br from-white via-gray-50 to-blue-50 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 p-6 border border-gray-200/50 backdrop-blur-sm overflow-hidden">
       <!-- Animated background overlay -->
@@ -86,16 +86,14 @@
       <div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-green-500 via-teal-500 to-cyan-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left rounded-b-2xl"></div>
     </div>
 
-    <!-- SFD/ILMS Mapping Status Chart Card -->
+    <!-- SFD/ILMS Mapping Status Chart Card - COMMENTED OUT -->
+    <!--
     <div class="group relative bg-gradient-to-br from-white via-gray-50 to-purple-50 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 p-6 border border-gray-200/50 backdrop-blur-sm overflow-hidden">
-      <!-- Animated background overlay -->
       <div class="absolute inset-0 bg-gradient-to-r from-purple-500/5 via-pink-500/5 to-rose-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
       
-      <!-- Decorative elements -->
       <div class="absolute -top-4 -right-4 w-24 h-24 bg-gradient-to-bl from-purple-400/20 to-transparent rounded-full transform group-hover:scale-150 transition-transform duration-700"></div>
       <div class="absolute -bottom-4 -left-4 w-16 h-16 bg-gradient-to-tr from-pink-400/20 to-transparent rounded-full transform group-hover:scale-125 transition-transform duration-700"></div>
       
-      <!-- Card Header -->
       <div class="relative z-10 flex items-center justify-between mb-6">
         <div class="flex items-center gap-3">
           <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-100 to-purple-200 flex items-center justify-center group-hover:from-purple-200 group-hover:to-purple-300 transition-all duration-300">
@@ -106,11 +104,9 @@
         <div class="w-3 h-3 rounded-full bg-purple-400 animate-pulse"></div>
       </div>
       
-      <!-- Chart Content with Center Text -->
       <div class="relative z-10 h-64">
         <app-loading-spinner *ngIf="isLoadingCharts" class="flex items-center justify-center h-full"></app-loading-spinner>
         <div class="sfd-mapping-content relative" *ngIf="sfdIlmsMappingChartData && !isLoadingCharts">
-          <!-- Center Text Overlay -->
           <div class="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
             <div class="text-center bg-white/90 backdrop-blur-sm rounded-full p-4 shadow-lg group-hover:bg-white/95 transition-all duration-300">
               <span class="block text-2xl font-black text-gray-800 group-hover:text-purple-600 transition-colors duration-300">{{ mappedPercentage | number:'1.0-0' }}%</span>
@@ -125,7 +121,6 @@
         </div>
       </div>
       
-      <!-- Enhanced Legend -->
       <div class="relative z-10 flex justify-center gap-6 mt-4" *ngIf="sfdIlmsMappingChartData">
         <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-green-50 group-hover:bg-green-100 transition-colors duration-300">
           <span class="w-3 h-3 rounded-full bg-green-500 shadow-sm"></span>
@@ -137,12 +132,12 @@
         </div>
       </div>
       
-      <!-- Hover effect border -->
       <div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-purple-500 via-pink-500 to-rose-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left rounded-b-2xl"></div>
     </div>
+    -->
 
     <!-- SFD Updates Velocity Chart Card (Full Width) -->
-    <div class="group relative bg-gradient-to-br from-white via-gray-50 to-indigo-50 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 p-6 border border-gray-200/50 backdrop-blur-sm overflow-hidden lg:col-span-2 xl:col-span-3">
+    <div class="group relative bg-gradient-to-br from-white via-gray-50 to-indigo-50 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 p-6 border border-gray-200/50 backdrop-blur-sm overflow-hidden lg:col-span-2">
       <!-- Animated background overlay -->
       <div class="absolute inset-0 bg-gradient-to-r from-indigo-500/5 via-blue-500/5 to-cyan-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
       

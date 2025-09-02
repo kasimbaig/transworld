@@ -92,7 +92,10 @@ export class SfdDashboardComponent implements OnInit, OnDestroy {
   public fleetCompositionChartOptions: ChartOptions = {
     responsive: true,
     maintainAspectRatio: false,
-    scales: { x: { stacked: true }, y: { stacked: true } },
+    scales: { 
+      x: { stacked: false }, 
+      y: { stacked: false, beginAtZero: true } 
+    },
     plugins: { legend: { position: 'bottom' } },
     onClick: (event, elements) => this.onChartClick(event, elements, 'fleetComposition')
   };
