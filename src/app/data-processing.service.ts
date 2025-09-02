@@ -178,7 +178,9 @@ export class DataProcessingService {
         }),
         label: type,
         backgroundColor: this.getShipTypeColor(type),
-        hoverBackgroundColor: this.getShipTypeColor(type, true)
+        hoverBackgroundColor: this.getShipTypeColor(type, true),
+        borderColor: this.getShipTypeColor(type, true),
+        borderWidth: 1
       };
     });
 

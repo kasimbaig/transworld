@@ -6,7 +6,7 @@
     </div>
 
     <!-- Dropdown Filters -->
-    <div class=" rounded-lg  p-6 mb-4 border border-amber-200 bg-amber-50 text-blue-500">
+    <div class=" rounded-lg  p-6 mb-4 border border-amber-200 bg-slate-300 text-blue-500">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             <!-- Unit Dropdown -->
             <!-- Top Filter Section -->
@@ -80,9 +80,9 @@
 <!-- Dialog for SFD Reference Form -->
 <p-dialog  [header]=" crudName+ ' Monthly SRAR'"   [(visible)]="displayDialog" [modal]="true" [responsive]="true" [style]="{width: '50vw', height:'60vh'}" [baseZIndex]="10000" [draggable]="false" [maximizable]="true" [resizable]="true">
 
-    <div class="p-6 bg-lime-50 shadow-md border border-lime-200  h-full mx-auto">
+    <div class="p-6 bg-slate-300 shadow-md border border-slate-200  h-full mx-auto">
         <!-- Dropdown Filters -->
-    <div class=" rounded-lg  p-6 mb-4 border border-amber-200 bg-amber-50  text-blue-500">
+    <div class=" rounded-lg  p-6 mb-4 border border-slate-200 bg-slate-300  text-blue-500">
         <form [formGroup]="sararMasterForm">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <!-- Unit Dropdown -->
@@ -166,7 +166,7 @@
             </button>
         </div>
         <!-- Content -->
-        <div class="flex-1 overflow-auto bg-amber-50">
+        <div class="flex-1 overflow-auto bg-slate-300">
             <app-sub-component-monthly></app-sub-component-monthly>
         </div>
     </div>
