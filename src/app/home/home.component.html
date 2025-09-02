@@ -12,13 +12,18 @@
 
       <!-- Search Bar -->
       <div class="search-row">
-        <!-- <div class="anwesh-logo">A</div> -->
-        <div class="search-input">
-          <input type="text" placeholder="Anwesh Search" [(ngModel)]="searchQuery" name="searchQuery">
-        </div>
-        <button mat-mini-fab class="search-button" (click)="onSearch()">
+        <div class="search-title">
           <mat-icon>search</mat-icon>
-        </button>
+          ANWESH SEARCH
+        </div>
+        <div class="search-input-container">
+          <div class="search-input">
+            <input type="text" placeholder="Enter search query..." [(ngModel)]="searchQuery" name="searchQuery">
+          </div>
+          <button mat-mini-fab class="search-button" (click)="onSearch()">
+            <mat-icon>search</mat-icon>
+          </button>
+        </div>
       </div>
 
       <!-- CMMS-UM2 Login -->
