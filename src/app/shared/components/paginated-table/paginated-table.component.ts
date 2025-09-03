@@ -35,7 +35,6 @@ import { ApiService } from '../../../services/api.service';
     PaginatorModule,
     CommonModule,
     NestedValuePipe,
-    Menu,
     ButtonModule,
     InputSwitchModule,
     LoadingSpinnerComponent,

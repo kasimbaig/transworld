@@ -52,14 +52,14 @@ export class SidebarComponent implements OnChanges {
   menuItems: MenuItem[] = [
   {
     id: 1,
-    icon: 'fa-solid fa-house',
+    icon: 'fa-solid fa-house-user',
     label: 'Home',
     path: '/dashboard',
     hasChildren: false,
   },
   {
     id: 2,
-    icon: 'fa-solid fa-database',
+    icon: 'fa-solid fa-sitemap',
     label: 'Masters',
     path: '/masters/ship-group/ship-master',
     hasChildren: true,
@@ -110,7 +110,7 @@ export class SidebarComponent implements OnChanges {
   },
   {
     id: 24,
-    icon: 'fa-solid fa-ship',
+    icon: 'fa-solid fa-chart-line',
     label: 'SFD',
     path: '/sfd',
     hasChildren: true,
@@ -172,7 +172,7 @@ export class SidebarComponent implements OnChanges {
   },
   {
     id: 57,
-    icon: 'fa-solid fa-ship',
+    icon: 'fa-solid fa-anchor',
     label: 'SRAR',
     path: '/srar',
     hasChildren: true,
@@ -234,7 +234,7 @@ export class SidebarComponent implements OnChanges {
   },
   {
     id: 90,
-    icon: 'fa-solid fa-cog',
+    icon: 'fa-solid fa-gears',
     label: 'Setup',
     path: '/setup',
     hasChildren: false,

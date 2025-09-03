@@ -69,11 +69,8 @@
              [globalFilterFields]="['nomenclature', 'equipment_code', 'equipment_name', 'malntop_no', 'location_onboard', 'no_of_fits', 'current_child', 'parent_equipment']">
 
         <ng-template pTemplate="caption">
-            <div class="flex justify-between items-center p-4 bg-amber-100  rounded ">
-                <div class="flex items-center gap-3">
-                    <div class="w-1 h-8 bg-blue-600 rounded-full"></div>
-                    <h5 class="text-xl font-semibold text-slate-800 m-0">Equipment Hierarchy</h5>
-                </div>
+            <div class="flex justify-end items-center p-4 bg-blue-100  rounded ">
+                
                 <div class="flex items-center gap-4">
                     <button 
                         (click)="updateAllEquipmentHierarchy()"
@@ -94,7 +91,7 @@
                     </button>
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <i class="pi pi-search text-slate-400"></i>
+                            
                         </div>
                         <input type="text" 
                             class="pl-10 pr-4 py-2.5 w-80 border border-slate-300 bg-white rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 placeholder-slate-400" 
@@ -109,56 +106,56 @@
         <ng-template pTemplate="header">
             <tr>
                 <th pSortableColumn="rowIndex" class="bg-slate-700 text-white">
-                    <p-sortIcon field="rowIndex"></p-sortIcon>
+                    <!-- <p-sortIcon field="rowIndex"></p-sortIcon> -->
                     S.No.
                 </th>     
                  <th pSortableColumn="nomenclature" class="bg-slate-700 text-white">
-                    <p-sortIcon field="nomenclature"></p-sortIcon>
+                    <!-- <p-sortIcon field="nomenclature"></p-sortIcon> -->
                     Nomenclature
-                    <p-columnFilter type="text"  field="nomenclature" display="menu" />
+                    <!-- <p-columnFilter type="text"  field="nomenclature" display="menu" /> -->
 
                 </th>
                 <th pSortableColumn="equipment_code" class="bg-slate-700 text-white">
-                    <p-sortIcon field="equipment_code"></p-sortIcon>
+                    <!-- <p-sortIcon field="equipment_code"></p-sortIcon> -->
                     Equipment Code
-                    <p-columnFilter type="text"   field="equipment_code" display="menu" />
+                    <!-- <p-columnFilter type="text"   field="equipment_code" display="menu" /> -->
                     
                 </th>
                 <th pSortableColumn="equipment_name" class="bg-slate-700 text-white">
-                    <p-sortIcon field="equipment_name"></p-sortIcon>
+                    <!-- <p-sortIcon field="equipment_name"></p-sortIcon> -->
                     Equipment Name
-                    <p-columnFilter type="text"  field="equipment_name" display="menu" />
+                    <!-- <p-columnFilter type="text"  field="equipment_name" display="menu" /> -->
 
                 </th>
                 <th pSortableColumn="malntop_no" class="bg-slate-700 text-white">
-                    <p-sortIcon field="malntop_no"></p-sortIcon>
+                    <!-- <p-sortIcon field="malntop_no"></p-sortIcon> -->
                     Maintop No.
-                    <p-columnFilter type="text"  field="malntop_no" display="menu" />
+                    <!-- <p-columnFilter type="text"  field="malntop_no" display="menu" /> -->
 
                 </th>
           
                 <th pSortableColumn="location_onboard" class="bg-slate-700 text-white">
-                    <p-sortIcon field="location_onboard"></p-sortIcon>
+                    <!-- <p-sortIcon field="location_onboard"></p-sortIcon> -->
                     Location On board
-                    <p-columnFilter type="text"  field="location_onboard" display="menu" />
+                    <!-- <p-columnFilter type="text"  field="location_onboard" display="menu" /> -->
 
                 </th>
                 <th pSortableColumn="no_of_fits" class="bg-slate-700 text-white">
-                    <p-sortIcon field="no_of_fits"></p-sortIcon>
+                    <!-- <p-sortIcon field="no_of_fits"></p-sortIcon> -->
                     No of Fits
-                    <p-columnFilter type="text"  field="no_of_fits" display="menu" />
+                    <!-- <p-columnFilter type="text"  field="no_of_fits" display="menu" /> -->
 
                 </th>
                 <th pSortableColumn="parent_child" class="bg-slate-700 text-white">
-                    <p-sortIcon field="parent_child"></p-sortIcon>
+                    <!-- <p-sortIcon field="parent_child"></p-sortIcon> -->
                     Parent/Child
-                    <p-columnFilter type="text"  field="parent_child" display="menu" />
+                    <!-- <p-columnFilter type="text"  field="parent_child" display="menu" /> -->
 
                 </th>
                 <th pSortableColumn="parent_equipment" class="bg-slate-700 text-white">
-                    <p-sortIcon field="parent_equipment"></p-sortIcon>
+                    <!-- <p-sortIcon field="parent_equipment"></p-sortIcon> -->
                     Parent/Child Equipment
-                    <p-columnFilter type="text"  field="parent_equipment" display="menu" />
+                    <!-- <p-columnFilter type="text"  field="parent_equipment" display="menu" /> -->
 
                 </th>
                 <th>Actions</th>
@@ -212,10 +209,10 @@
                     </p-dropdown> -->
                 </td>
                 <td class="px-4 py-3 text-center">
-                    <button mat-button [matMenuTriggerFor]="actionsMenu"   class="px-3 py-1.5 bg-blue-600 text-red-600  rounded-md hover:bg-blue-700 transition-colors duration-200">
+                    <!-- <button mat-button [matMenuTriggerFor]="actionsMenu"   class="px-3 py-1.5 bg-blue-600 text-red-600  rounded-md hover:bg-blue-700 transition-colors duration-200">
                         <small>Actions</small>
-                    </button>
-                    <mat-menu #actionsMenu="matMenu" class="shadow-lg border border-gray-200 rounded-md">
+                    </button> -->
+                    <!-- <mat-menu #actionsMenu="matMenu" class="shadow-lg border border-gray-200 rounded-md"> -->
                         <!-- <button  mat-menu-item 
                             class="flex items-center justify-start gap-3 px-4 py-3 w-full hover:bg-blue-50 text-blue-600 hover:text-blue-800 transition-colors duration-200">
                             <i class="fa-solid fa-eye text-blue-500 w-4 h-4 flex-shrink-0"></i>
@@ -228,7 +225,7 @@
                             <i class="fa-solid fa-pen-to-square text-green-500 w-4 h-4 flex-shrink-0"></i>
                             <span class="text-sm font-medium">Update</span>
                         </button>
-                    </mat-menu>
+                    <!-- </mat-menu> -->
                 </td>
             </tr>
         </ng-template>

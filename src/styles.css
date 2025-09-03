@@ -168,7 +168,7 @@ aside {
 }
 
 .p-button {
-  background: linear-gradient(135deg, var(--primary-gradient-start) 0%, var(--primary-gradient-end) 100%) !important;
+  /* background: linear-gradient(135deg, var(--primary-gradient-start) 0%, var(--primary-gradient-end) 100%) !important; */
   color: var(--text-white) !important;
   border: none !important;
   padding: 10px 20px;
@@ -178,6 +178,7 @@ aside {
   border-radius: 8px;
   box-shadow: 0 4px 15px var(--shadow-medium);
 }
+
 
 .view-report-btn .p-button {
   width: 180px;
@@ -275,12 +276,7 @@ p {
 
 th {
   /* background: linear-gradient(135deg, var(--primary-gradient-start) 0%, var(--primary-gradient-end) 100%) !important; */
-  background: linear-gradient(
-    135deg,
-    rgba(70, 90, 120, 0.95) 0%,
-    rgba(100, 130, 170, 0.95) 50%,
-    rgba(150, 190, 230, 0.95) 100%
-) !important;
+  background: #003049 !important;
 
   color: var(--text-white) !important;
   text-align: left;
@@ -1028,15 +1024,7 @@ body {
 }
 
 /* Table Header Styles - Essential */
-.custom-navy-table .p-datatable-thead>tr>th,
-th {
-  /* Combine these as they apply to table headers */
-  background-color: #1e40af !important;
-  color: #ffffff;
-  text-transform: uppercase;
-  font-size: 0.9rem;
-  letter-spacing: 0.03em;
-}
+
 
 .logo-heading {
   display: flex;
@@ -1210,7 +1198,7 @@ p-dropdown {
 
 
 .p-dialog-header{
-  background: linear-gradient(135deg, #1e40af 0%, #1e40af 100%) !important;
+  background: linear-gradient(135deg, #4d5980 0%, #7080b4 100%) !important;
   color: white !important;
   border-radius: 0.5rem 0.5rem 0 0 !important;
   margin: 0 !important;
@@ -1338,5 +1326,15 @@ button[mat-button] {
   max-width: 100%;
   box-sizing: border-box;
   overflow: hidden;
+}
+
+input{
+  border: 2px solid #575454 !important;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 14px;
+  color: #333;
+  background: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 

@@ -127,66 +127,59 @@ export class DashboardComponent implements OnInit, OnDestroy {
   selectedShip:any='';
   selectedDept:any='';
   dateRange: Date[] | undefined; // Keep this if other parts of dashboard use it, but it's not passed to DefectListComponent
-
   kpiMetrics = [
     {
-      title: 'Total Equipment',
-      value: 245,
-      description: 'Total equipment across all units.',
-      iconClass: 'pi pi-cog',
-      type: 'TOTAL_EQUIPMENT',
-      backgroundColor: '#AB9AA3',
-      iconColor: '#022B5A',
-      titleColor: '#022B5A',
-      valueColor: '#022B5A',
-      trendPercentage: '3.2%',
+      title: 'Total Ships',
+      value: 128,
+      description: 'Fleet size across all commands.',
+      iconClass: 'pi pi-ship',
+      type: 'TOTAL_SHIPS',
+      backgroundColor: '#DBEAFE',   // blue-100
+      iconColor: '#1D4ED8',         // blue-700
+      titleColor: '#1D4ED8',
+      valueColor: '#1D4ED8',
+      trendPercentage: '5.6%',
       trendDirection: 'up'
     },
     {
-      title: 'Active Tasks',
-      value: 87,
-      iconClass: 'pi pi-calendar',
-      type: 'ACTIVE_MAINTENANCE_TASKS',
-      backgroundColor: '#a5f3fc',
-      iconColor: '#6B7C8F',
-      titleColor: '#6B7C8F',
-      valueColor: '#6B7C8F',
-      progressBarValue: 62,
+      title: 'Active Crew Members',
+      value: 945,
+      description: 'Personnel currently on duty.',
+      iconClass: 'pi pi-users',
+      type: 'ACTIVE_CREW',
+      backgroundColor: '#F0FDFA',   // teal-50
+      iconColor: '#0F766E',         // teal-700
+      titleColor: '#0F766E',
+      valueColor: '#0F766E',
+      progressBarValue: 78,
     },
     {
-      title: 'Open Defects',
-      value: 34,
-      iconClass: 'pi pi-exclamation-triangle',
-      type: 'OPEN_DEFECTS',
-      backgroundColor: '#dcfce7',
-      iconColor: '#E53935',
-      titleColor: '#E53935',
-      valueColor: '#E53935',
-      severityDetails: { critical: 8, major: 15, minor: 11 }
+      title: 'Pending Repairs',
+      value: 21,
+      description: 'Defects waiting for resolution.',
+      iconClass: 'pi pi-wrench',
+      type: 'PENDING_REPAIRS',
+      backgroundColor: '#FEF2F2',   // red-50
+      iconColor: '#B91C1C',         // red-700
+      titleColor: '#B91C1C',
+      valueColor: '#B91C1C',
+      severityDetails: { critical: 6, major: 10, minor: 5 }
     },
     {
-      title: 'Equipment Fit Progress',
-      value: '100%',
-      iconClass: 'pi pi-check-square',
-      type: 'EQUIPMENT_FIT_PROGRESS',
-      backgroundColor: '#fef9c3',
-      iconColor: '#4CAF50',
-      titleColor: '#4CAF50',
-      valueColor: '#4CAF50',
-      subText: '191/245 systems'
-    },
-    {
-      title: 'Task Completion Rate',
-      value: '92%',
-      iconClass: 'pi pi-chart-line',
-      type: 'TASK_COMPLETION_RATE',
-      backgroundColor: ' #fde68a',
-      iconColor: '#FF6B35',
-      titleColor: '#FF6B35',
-      valueColor: '#FF6B35',
-      subText: '5 overdue tasks'
-    },
+      title: 'Mission Readiness',
+      value: '88%',
+      description: 'Operational readiness across fleet.',
+      iconClass: 'pi pi-bolt',
+      type: 'MISSION_READINESS',
+      backgroundColor: '#F0FDF4',   // green-50
+      iconColor: '#15803D',         // green-700
+      titleColor: '#15803D',
+      valueColor: '#15803D',
+      subText: 'Improved from 82% last month'
+    }
   ];
+  
+  
 
   taskDistributionData: ChartData = { labels: [], datasets: [] };
   maintenanceTimelineData: ChartData = { labels: [], datasets: [] };

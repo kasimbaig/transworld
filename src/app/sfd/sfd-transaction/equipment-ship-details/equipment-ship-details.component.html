@@ -127,212 +127,214 @@
 </div>
 <!-- Dialog for SFD Reference Form -->
 <p-dialog [header]="isEdit + ' Equipment Ship Details'" [(visible)]="displayDialog" [modal]="true" [responsive]="true" [style]="{width: '80vw'}" [baseZIndex]="10000" [draggable]="false" [maximizable]="true" [resizable]="true">
-
-    <div class="p-6 bg-slate-100 shadow-md border border-gray-200  mx-auto">
-        <form [formGroup]="sfdReferenceForm" class="space-y-4">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" [ngClass]="{'lg:grid-cols-3': isMaximized, 'lg:grid-cols-2': !isMaximized}">
-                <!-- First Row: Ship -->
-                <div class="grid grid-cols-6 gap-4 items-center">
-                        <label class="text-sm font-medium text-gray-700 col-span-2">Ship<span class="text-red-500">*</span></label> 
-                    <p-dropdown 
-                        [options]="shipOptions" 
-                        formControlName="ship"
-                        placeholder="KOLKATA(D63)"
-                        optionLabel="name"
-                        optionValue="id"
-                        [filter]="true"
-                        filterBy="name"
-                        styleClass="w-full col-span-4">
-                    </p-dropdown>
-                </div>
-
-                <!-- Second Row: Equipment Serial Number -->
-                <div class="grid grid-cols-6 gap-4 items-center">
-                    <label class="text-sm font-medium text-gray-700 col-span-2">Equipment Serial Number</label>
-                    <input 
-                    pInputText
-                        type="text" 
-                        formControlName="equipment_serial_number"
-                        class="w-full p-2 border-2 border-gray-500 rounded-sm  focus:ring-2 focus:ring-blue-500 focus:border-blue-500 col-span-4 "
-                        placeholder="Enter equipment serial number">
-                </div>
-
-               
-
-                <!-- Third Row: Supplier -->
-                <div class="grid grid-cols-6 gap-4 items-center">
-                    <label class="text-sm font-medium text-gray-700 col-span-2">Supplier<span class="text-red-500">*</span></label> 
-                    <p-dropdown 
-                        [options]="supplierOptions" 
-                        formControlName="supplier"
-                        placeholder="--Please Select--"
-                        optionLabel="name"
-                        optionValue="id"
-                        [filter]="true"
-                        filterBy="name"
-                        styleClass="w-full col-span-4">
-                    </p-dropdown>
-                </div>
-
-                <!-- Fourth Row: Manufacturer -->
-                <div class="grid grid-cols-6 gap-4 items-center">
-                    <label class="text-sm font-medium text-gray-700 col-span-2">Manufacturer<span class="text-red-500">*</span></label> 
-                    <p-dropdown 
-                        [options]="manufacturerOptions" 
-                        formControlName="manufacturer"
-                        placeholder="--Please Select--"
-                        optionLabel="name"
-                        optionValue="id"
-                        [filter]="true"
-                        filterBy="name"
-                        styleClass="w-full col-span-4">
-                    </p-dropdown>
-                </div>
-                <div class="grid grid-cols-6 gap-4 items-center">
-                    <label class="text-sm font-medium text-gray-700 col-span-2">Location Code<span class="text-red-500">*</span></label> 
-                    <p-dropdown 
-                        [options]="locationOnBoardOptions" 
-                        formControlName="location"
-                        placeholder="Select location code"
-                        optionLabel="code"
-                        optionValue="id"
-                        [filter]="true"
-                        (onChange)="onLocationCodeChange($event)"
-                        filterBy="name"
-                        styleClass="w-full col-span-4">
-                    </p-dropdown>
-                </div>
-                <div class="grid grid-cols-6 gap-4 items-center">
-                    <label class="text-sm font-medium text-gray-700 col-span-2">Location On Board<span class="text-red-500">*</span></label> 
-                    <input 
-                    pInputText
-                        type="text" 
-                        formControlName="location_onboard"
-                        class="w-full p-2 border-2 border-gray-500 rounded-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 col-span-4"
-                        placeholder="Enter location on board">
-                </div>
-
-                <!-- Fifth Row: Installation Date -->
-                <div class="grid grid-cols-6 gap-4 items-center">
-                    <label class="text-sm font-medium text-gray-700 col-span-2">Installation Date</label>
-                    <div class="col-span-4">
-                    <p-calendar 
-                        formControlName="installation_date"
-                        placeholder="01-May-2019"
-                        dateFormat="dd-M-yy"
-                        [showIcon]="true"
-                        styleClass="w-full bg-white">
-                    </p-calendar>
-                    </div>
-                </div>
-
-                <!-- Sixth Row: Removal Date -->
-                <div class="grid grid-cols-6 gap-4 items-center">
-                    <label class="text-sm font-medium text-gray-700 col-span-2">Removal Date</label>
-                    <div class="col-span-4">
-                    <p-calendar 
-                        formControlName="removal_date"
-                        placeholder="01-May-2019"
-                        dateFormat="dd-M-yy"
-                        [showIcon]="true"
-                        styleClass="w-full bg-white">
-                    </p-calendar>
-                    </div>
-                </div>
-
-                <!-- Seventh Row: OEM Part No. -->
-                <div class="grid grid-cols-6 gap-4 items-center">
-                    <label class="text-sm font-medium text-gray-700 col-span-2">OEM Part No.</label> 
-                    <input 
-                    pInputText
-                        type="text" 
-                        formControlName="oem_part_number"
-                        class="w-full p-2 border-2 border-gray-500 rounded-sm  focus:ring-2 focus:ring-blue-500 focus:border-blue-500 col-span-4 "
-                        placeholder="Enter OEM part number">
-                </div>
-
-                <!-- Eighth Row: No. Of Fits -->
-                <div class="grid grid-cols-6 gap-4 items-center">
-                    <label class="text-sm font-medium text-gray-700 col-span-2">No. Of Fits<span class="text-red-500">*</span></label> 
-                    <input 
-                    pInputText
-                        type="number" 
-                        formControlName="no_of_fits"
-                        class="w-full p-2 border-2 border-gray-500 rounded-sm  focus:ring-2 focus:ring-blue-500 focus:border-blue-500 col-span-4 "
-                        placeholder="1">
-                </div>
-
-                <!-- Ninth Row: Parent Equipment -->
-                <div class="grid grid-cols-6 gap-4 items-center">
-                    <label class="text-sm font-medium text-gray-700 col-span-2">Parent Equipment</label>
-                    <p-dropdown 
-                        [options]="parentEquipmentOptions" 
-                        formControlName="equipment"
-                        placeholder="--Select Parent Equipment--"
-                        optionLabel="name"
-                        optionValue="id"
-                        [filter]="true"
-                        filterBy="name"
-                        styleClass="w-full col-span-4">
-                    </p-dropdown>
-                </div>
-
-                <!-- Tenth Row: Sub Department -->
-                <div class="grid grid-cols-6 gap-4 items-center">
-                    <label class="text-sm font-medium text-gray-700 col-span-2">SFD Group</label>
-                    <select 
-                        formControlName="sfd_group"
-                        class="w-full col-span-4 p-2 border-2 border-gray-500 rounded-sm bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                        <option value="" disabled selected>--Please Select--</option>
-                        <option *ngFor="let option of subDepartmentOptions" [value]="option.id">
-                            {{ option.ship_name + ' - ' + option.equipment_name }}
-                        </option>
-                    </select>
-                </div>
-
-                <!-- Eleventh Row: Nomenclature -->
-                <div class="grid grid-cols-6 gap-4 items-center">
-                    <label class="text-sm font-medium text-gray-700 col-span-2">Department</label>
-                    <select 
-                        formControlName="department"
-                        class="w-full col-span-4 p-2 border-2 border-gray-500 rounded-sm bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                        <option value="" disabled selected>--Select Department--</option>
-                        <option *ngFor="let option of departmentOptions" [value]="option.id">
-                            {{ option.name }}
-                        </option>
-                    </select>
-                </div>
-                <div class="grid grid-cols-6 gap-4 items-center">
-                    <label class="text-sm font-medium text-gray-700 col-span-2">Remarks</label>
-                    <textarea 
-                    pInputTextarea
-                        formControlName="remarks"
-                        class="w-full p-2 border-2 bg-white border-gray-500 rounded-sm  focus:ring-2 focus:ring-blue-500 focus:border-blue-500 col-span-4 "
-                        placeholder="Enter Remarks"
-                        rows="3">
-                    </textarea>
-                </div>
-            </div>
-        </form>
-        
-        <div class="flex justify-end gap-2 mt-6 pt-4 border-t border-gray-200">
-            <button 
-                (click)="closeDialog()" 
-                type="button" 
-                class="px-6 py-2 bg-orange-500 text-white rounded-md hover:bg-orange-600 transition-colors duration-200">
-                Cancel
-            </button>
-            <button 
-                *ngIf="isEdit !== 'View'"
-                type="button" 
-                class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors duration-200"
-                (click)="saveReference()">
-                {{ isEdit === 'Add' ? 'Save' : 'Update' }}
-            </button>
+    <div class="p-6 bg-slate-100 shadow-md border border-gray-200 mx-auto">
+      <form [formGroup]="sfdReferenceForm" class="space-y-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" [ngClass]="{'lg:grid-cols-3': isMaximized, 'lg:grid-cols-2': !isMaximized}">
+  
+          <!-- Ship -->
+          <div class="flex flex-col">
+            <label class="text-sm font-medium text-gray-700 mb-1">Ship <span class="text-red-500">*</span></label>
+            <p-dropdown 
+              [options]="shipOptions" 
+              formControlName="ship"
+              placeholder="KOLKATA(D63)"
+              optionLabel="name"
+              optionValue="id"
+              [filter]="true"
+              filterBy="name"
+              styleClass="w-full">
+            </p-dropdown>
+          </div>
+  
+          <!-- Equipment Serial Number -->
+          <div class="flex flex-col">
+            <label class="text-sm font-medium text-gray-700 mb-1">Equipment Serial Number</label>
+            <input 
+              pInputText
+              type="text" 
+              formControlName="equipment_serial_number"
+              class="w-full p-2 border-gray-500 rounded-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              placeholder="Enter equipment serial number">
+          </div>
+  
+          <!-- Supplier -->
+          <div class="flex flex-col">
+            <label class="text-sm font-medium text-gray-700 mb-1">Supplier <span class="text-red-500">*</span></label>
+            <p-dropdown 
+              [options]="supplierOptions" 
+              formControlName="supplier"
+              placeholder="--Please Select--"
+              optionLabel="name"
+              optionValue="id"
+              [filter]="true"
+              filterBy="name"
+              styleClass="w-full">
+            </p-dropdown>
+          </div>
+  
+          <!-- Manufacturer -->
+          <div class="flex flex-col">
+            <label class="text-sm font-medium text-gray-700 mb-1">Manufacturer <span class="text-red-500">*</span></label>
+            <p-dropdown 
+              [options]="manufacturerOptions" 
+              formControlName="manufacturer"
+              placeholder="--Please Select--"
+              optionLabel="name"
+              optionValue="id"
+              [filter]="true"
+              filterBy="name"
+              styleClass="w-full">
+            </p-dropdown>
+          </div>
+  
+          <!-- Location Code -->
+          <div class="flex flex-col">
+            <label class="text-sm font-medium text-gray-700 mb-1">Location Code <span class="text-red-500">*</span></label>
+            <p-dropdown 
+              [options]="locationOnBoardOptions" 
+              formControlName="location"
+              placeholder="Select location code"
+              optionLabel="code"
+              optionValue="id"
+              [filter]="true"
+              (onChange)="onLocationCodeChange($event)"
+              filterBy="name"
+              styleClass="w-full">
+            </p-dropdown>
+          </div>
+  
+          <!-- Location On Board -->
+          <div class="flex flex-col">
+            <label class="text-sm font-medium text-gray-700 mb-1">Location On Board <span class="text-red-500">*</span></label>
+            <input 
+              pInputText
+              type="text" 
+              formControlName="location_onboard"
+              class="w-full p-2 border-gray-500 rounded-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              placeholder="Enter location on board">
+          </div>
+  
+          <!-- Installation Date -->
+          <div class="flex flex-col">
+            <label class="text-sm font-medium text-gray-700 mb-1">Installation Date</label>
+            <p-calendar 
+              formControlName="installation_date"
+              placeholder="01-May-2019"
+              dateFormat="dd-M-yy"
+              [showIcon]="true"
+              styleClass="w-full bg-white">
+            </p-calendar>
+          </div>
+  
+          <!-- Removal Date -->
+          <div class="flex flex-col">
+            <label class="text-sm font-medium text-gray-700 mb-1">Removal Date</label>
+            <p-calendar 
+              formControlName="removal_date"
+              placeholder="01-May-2019"
+              dateFormat="dd-M-yy"
+              [showIcon]="true"
+              styleClass="w-full bg-white">
+            </p-calendar>
+          </div>
+  
+          <!-- OEM Part No. -->
+          <div class="flex flex-col">
+            <label class="text-sm font-medium text-gray-700 mb-1">OEM Part No.</label>
+            <input 
+              pInputText
+              type="text" 
+              formControlName="oem_part_number"
+              class="w-full p-2 border-gray-500 rounded-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              placeholder="Enter OEM part number">
+          </div>
+  
+          <!-- No. of Fits -->
+          <div class="flex flex-col">
+            <label class="text-sm font-medium text-gray-700 mb-1">No. Of Fits <span class="text-red-500">*</span></label>
+            <input 
+              pInputText
+              type="number" 
+              formControlName="no_of_fits"
+              class="w-full p-2 border-gray-500 rounded-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              placeholder="1">
+          </div>
+  
+          <!-- Parent Equipment -->
+          <div class="flex flex-col">
+            <label class="text-sm font-medium text-gray-700 mb-1">Parent Equipment</label>
+            <p-dropdown 
+              [options]="parentEquipmentOptions" 
+              formControlName="equipment"
+              placeholder="--Select Parent Equipment--"
+              optionLabel="name"
+              optionValue="id"
+              [filter]="true"
+              filterBy="name"
+              styleClass="w-full">
+            </p-dropdown>
+          </div>
+  
+          <!-- SFD Group -->
+          <div class="flex flex-col">
+            <label class="text-sm font-medium text-gray-700 mb-1">SFD Group</label>
+            <select 
+              formControlName="sfd_group"
+              class="w-full p-2 border-gray-500 rounded-sm bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+              <option value="" disabled selected>--Please Select--</option>
+              <option *ngFor="let option of subDepartmentOptions" [value]="option.id">
+                {{ option.ship_name + ' - ' + option.equipment_name }}
+              </option>
+            </select>
+          </div>
+  
+          <!-- Department -->
+          <div class="flex flex-col">
+            <label class="text-sm font-medium text-gray-700 mb-1">Department</label>
+            <select 
+              formControlName="department"
+              class="w-full p-2 border-gray-500 rounded-sm bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+              <option value="" disabled selected>--Select Department--</option>
+              <option *ngFor="let option of departmentOptions" [value]="option.id">
+                {{ option.name }}
+              </option>
+            </select>
+          </div>
+  
+          <!-- Remarks -->
+          <div class="flex flex-col">
+            <label class="text-sm font-medium text-gray-700 mb-1">Remarks</label>
+            <textarea 
+              pInputTextarea
+              formControlName="remarks"
+              class="w-full p-2 bg-white border-gray-500 rounded-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              placeholder="Enter Remarks"
+              rows="3">
+            </textarea>
+          </div>
+  
         </div>
+      </form>
+  
+      <!-- Buttons -->
+      <div class="flex justify-end gap-2 mt-6 pt-4 border-t border-gray-200">
+        <button 
+          (click)="closeDialog()" 
+          type="button" 
+          class="px-6 py-2 bg-orange-500 text-white rounded-md hover:bg-orange-600 transition-colors duration-200">
+          Cancel
+        </button>
+        <button 
+          *ngIf="isEdit !== 'View'"
+          type="button" 
+          class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors duration-200"
+          (click)="saveReference()">
+          {{ isEdit === 'Add' ? 'Save' : 'Update' }}
+        </button>
+      </div>
     </div>
-
-</p-dialog>
+  </p-dialog>
+  
 
 <!-- Delete Confirmation Modal -->
 <app-delete-confirmation-modal

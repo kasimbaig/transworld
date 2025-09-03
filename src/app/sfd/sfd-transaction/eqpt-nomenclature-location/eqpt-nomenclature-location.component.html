@@ -70,11 +70,8 @@
 
        
         <ng-template pTemplate="caption">
-            <div class="flex justify-between items-center p-4 bg-amber-100  rounded ">
-                <div class="flex items-center gap-3">
-                    <div class="w-1 h-8 bg-blue-600 rounded-full"></div>
-                    <h5 class="text-xl font-semibold text-slate-800 m-0">Equipment Nomenclature List</h5>
-                </div>
+            <div class="flex justify-end items-center p-4 bg-blue-100  rounded ">
+                
                 <div class="flex items-center gap-4">
                     <button 
                         (click)="updateAllNomenclatures()"
@@ -95,7 +92,7 @@
                     </button>
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <i class="pi pi-search text-slate-400"></i>
+                            
                         </div>
                         <input type="text" 
                             class="pl-10 pr-4 py-2.5 w-80 border border-slate-300 bg-white rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 placeholder-slate-400" 
@@ -114,52 +111,52 @@
                     S.No.
                 </th> -->
                 <th pSortableColumn="ship_id" class="bg-slate-700 text-white">
-                    <p-sortIcon field="ship_id"></p-sortIcon>
+                    <!-- <p-sortIcon field="ship_id"></p-sortIcon> -->
                     Ship ID
-                    <p-columnFilter type="text"   field="ship_id" display="menu" />
+                    <!-- <p-columnFilter type="text"   field="ship_id" display="menu" /> -->    
                     
                 </th>
                 
                 <th pSortableColumn="equipment_ship_detail" class="bg-slate-700 text-white">
-                    <p-sortIcon field="equipment_ship_detail"></p-sortIcon>
+                    <!-- <p-sortIcon field="equipment_ship_detail"></p-sortIcon> -->
                     Equipment Ship Detail
-                    <p-columnFilter type="text"   field="equipment_ship_detail" display="menu" />
+                    <!-- <p-columnFilter type="text"   field="equipment_ship_detail" display="menu" /> -->
                     
                 </th>
                 <th pSortableColumn="equipment_code" class="bg-slate-700 text-white">
-                    <p-sortIcon field="equipment_code"></p-sortIcon>
+                    <!-- <p-sortIcon field="equipment_code"></p-sortIcon> -->
                     Equipment Code
-                    <p-columnFilter type="text"   field="equipment_code" display="menu" />
+                    <!-- <p-columnFilter type="text"   field="equipment_code" display="menu" /> -->
                     
                 </th>
                 <th pSortableColumn="equipment_name" class="bg-slate-700  min-w-48 text-white">
-                    <p-sortIcon field="equipment_name"></p-sortIcon>
+                    <!-- <p-sortIcon field="equipment_name"></p-sortIcon> -->
                     Equipment Name
-                    <p-columnFilter type="text"  field="equipment_name" display="menu" />
+                    <!-- <p-columnFilter type="text"  field="equipment_name" display="menu" /> -->
 
                 </th>
                 <th pSortableColumn="no_of_file" class="bg-slate-700 text-white">
-                    <p-sortIcon field="no_of_file"></p-sortIcon>
+                    <!-- <p-sortIcon field="no_of_file"></p-sortIcon> -->
                     No. Of Fits
-                    <p-columnFilter type="text"  field="no_of_file" display="menu" />
+                    <!-- <p-columnFilter type="text"  field="no_of_file" display="menu" /> -->
 
                 </th>
                 <th pSortableColumn="location_code" class="bg-slate-700 text-white">
-                    <p-sortIcon field="location_code"></p-sortIcon>
+                    <!-- <p-sortIcon field="location_code"></p-sortIcon> -->
                     Location Code
-                    <p-columnFilter type="text"  field="location_code" display="menu" />
+                    <!-- <p-columnFilter type="text"  field="location_code" display="menu" /> -->
 
                 </th>
                 <th pSortableColumn="location_on_board" class="bg-slate-700 text-white">
-                    <p-sortIcon field="location_on_board"></p-sortIcon>
+                    <!-- <p-sortIcon field="location_on_board"></p-sortIcon> -->
                     Location Board
-                    <p-columnFilter type="text"  field="location_on_board" display="menu" />
+                    <!-- <p-columnFilter type="text"  field="location_on_board" display="menu" /> -->
 
                 </th>
                 <th pSortableColumn="equipment_nomenclature" class="bg-slate-700 text-white">
-                    <p-sortIcon field="equipment_nomenclature"></p-sortIcon>
+                    <!-- <p-sortIcon field="equipment_nomenclature"></p-sortIcon> -->
                     Equipment Nomenclature
-                    <p-columnFilter type="text"  field="equipment_nomenclature" display="menu" />
+                    <!-- <p-columnFilter type="text"  field="equipment_nomenclature" display="menu" /> -->
 
                 </th>
                 
@@ -193,10 +190,10 @@
                 </td>
                 
                 <td class="px-4 py-3 text-center">
-                    <button mat-button [matMenuTriggerFor]="actionsMenu"   class="px-3 py-1.5 bg-blue-600 text-red-600  rounded-sm hover:bg-blue-700 transition-colors duration-200">
+                    <!-- <button mat-button [matMenuTriggerFor]="actionsMenu"   class="px-3 py-1.5 bg-blue-600 text-red-600  rounded-sm hover:bg-blue-700 transition-colors duration-200">
                         <small>Actions</small>
-                    </button>
-                    <mat-menu #actionsMenu="matMenu" class="shadow-lg border border-gray-200 rounded-sm">
+                    </button> -->
+                    <!-- <mat-menu #actionsMenu="matMenu" class="shadow-lg border border-gray-200 rounded-sm"> -->
                         <!-- <button  mat-menu-item 
                             class="flex items-center justify-start gap-3 px-4 py-3 w-full hover:bg-blue-50 text-blue-600 hover:text-blue-800 transition-colors duration-200">
                             <i class="fa-solid fa-eye text-blue-500 w-4 h-4 flex-shrink-0"></i>
@@ -209,7 +206,7 @@
                             <i class="fa-solid fa-pen-to-square text-green-500 w-4 h-4 flex-shrink-0"></i>
                             <span class="text-sm font-medium">Update</span>
                         </button>
-                    </mat-menu>
+                    <!-- </mat-menu> -->
                 </td>
             </tr>
         </ng-template>

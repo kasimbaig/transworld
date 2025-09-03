@@ -2673,7 +2673,7 @@ export class SararDashboardComponent implements OnInit {
     }
     
     this.charts['commandShips'] = new Chart(ctx, {
-      type: 'bar' as ChartType,
+      type: 'bubble' as ChartType,
       data: {
         labels: currentData.map(ship => ship.ship_name),
         datasets: [
@@ -2801,7 +2801,7 @@ export class SararDashboardComponent implements OnInit {
     const ctx = this.operationalReadinessCanvas.nativeElement.getContext('2d');
     
     this.charts['operationalReadiness'] = new Chart(ctx, {
-      type: 'bar' as ChartType,
+      type: 'line' as ChartType,
       data: {
         labels: this.operationalReadinessData.labels,
         datasets: this.operationalReadinessData.datasets
@@ -2869,7 +2869,7 @@ export class SararDashboardComponent implements OnInit {
     }
     
     this.charts['operationalReady'] = new Chart(ctx, {
-      type: 'bar' as ChartType,
+      type: 'line' as ChartType,
       data: {
         labels: shipData.operationalReady.labels,
         datasets: [{

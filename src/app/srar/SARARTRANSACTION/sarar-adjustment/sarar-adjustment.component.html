@@ -1,12 +1,12 @@
 <div class="container mx-auto p-6">
     <!-- Header -->
     <div class="mb-6">
-        <h2 class="text-2xl font-bold text-gray-800 mb-2">SRAR  <span class="text-blue-900">Adjustment Details</span></h2>
-        <div class="h-1 w-20 bg-gray-600 rounded"></div>
+        <h2 class="text-2xl font-bold text-indigo-800 mb-2">SRAR <span class="text-yellow-600">Adjustment Details</span></h2>
+       
     </div>
 
     <!-- Dropdown Filters -->
-    <div class=" rounded-lg max-w-5xl p-6 mb-4 border border-amber-200 bg-slate-50 text-blue-500 mx-auto">
+    <div class="rounded-lg max-w-5xl p-6 mb-4 border border-indigo-200 bg-gray-50 text-indigo-700 shadow-md mx-auto">
         <form [formGroup]="sararAdjustmentForm">
             <div class="grid grid-cols-12 gap-4">
                 <!-- Update Types Dropdown -->
@@ -56,7 +56,7 @@
                 
                 <!-- Year Dropdown -->
                 <div class="col-span-6 flex items-center gap-4">
-                    <label class="text-sm font-bold  flex-shrink-0">Year :</label>
+                    <label class="text-sm font-bold flex-shrink-0">Year :</label>
                     <p-dropdown 
                         [options]="yearOptions" 
                         formControlName="year"
@@ -82,7 +82,7 @@
                         filterBy="name"
                         optionValue="value"
                         (onChange)="onEquipmentCodeChange()"
-                        styleClass="w-1/2 bg-white ">
+                        styleClass="w-1/2 bg-white">
                     </p-dropdown>
                 </div>
                 
@@ -95,7 +95,7 @@
                         [disabled]="true"
                         formControlName="location_on_board"
                         placeholder="Enter Location on Board"
-                        class="flex-1 px-3 py-2 border-2 border-gray-500 rounded-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 placeholder-gray-400">
+                        class="flex-1 px-3 py-2 border-2 border-indigo-300 rounded-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 placeholder-gray-400 bg-gray-100">
                 </div>
                 
                 <!-- Location Code -->
@@ -107,7 +107,7 @@
                         [disabled]="true"
                         formControlName="location_code"
                         placeholder="Enter Location Code"
-                        class="flex-1 px-3 py-2 border-2 border-gray-500 rounded-sm  focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 placeholder-gray-400">
+                        class="flex-1 px-3 py-2 border-2 border-indigo-300 rounded-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 placeholder-gray-400 bg-gray-100">
                 </div>
                 
                 <!-- Equipment Serial Number -->
@@ -119,7 +119,7 @@
                         [disabled]="true"
                         formControlName="equipment_serial_no"
                         placeholder="Enter Equipment Serial No"
-                        class="flex-1 px-3 py-2 border-2 border-gray-500 rounded-sm  focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 placeholder-gray-400">
+                        class="flex-1 px-3 py-2 border-2 border-indigo-300 rounded-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 placeholder-gray-400 bg-gray-100">
                 </div>
                 
                 <!-- Hours for Month -->
@@ -130,7 +130,7 @@
                         type="number" 
                         formControlName="hours_for_month"
                         placeholder="Enter Hours for Month"
-                        class="flex-1 px-3 py-2 border-2 border-gray-500 rounded-sm  focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 placeholder-gray-400">
+                        class="flex-1 px-3 py-2 border-2 border-indigo-300 rounded-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 placeholder-gray-400">
                 </div>
              </div>
                 
@@ -143,7 +143,7 @@
                         type="number" 
                         formControlName="hours_underway_since_first_commissioning"
                         placeholder="Enter Hours Underway"
-                        class="w-1/2 px-3 py-2 border-2 border-gray-500 rounded-sm  focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 placeholder-gray-400">
+                        class="w-1/2 px-3 py-2 border-2 border-indigo-300 rounded-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 placeholder-gray-400">
                 </div>
                 
                 <!-- Distance Run Since First Commissioning -->
@@ -154,7 +154,7 @@
                         type="number" 
                         formControlName="distance_run_since_first_commissioning"
                         placeholder="Enter Distance Run"
-                        class="w-1/2 px-3 py-2 border-2 border-gray-500 rounded-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 placeholder-gray-400">
+                        class="w-1/2 px-3 py-2 border-2 border-indigo-300 rounded-sm bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 placeholder-gray-400">
                 </div>
                </div>
                 
@@ -164,15 +164,11 @@
                 <button 
                     type="button"
                     (click)="onSubmit()"
-                    class="px-4 py-2 bg-green-50 text-green-400 rounded hover:bg-green-400 hover:text-white transition-colors duration-200 border-2 border-green-300 placeholder-gray-400 " >     
-                    <strong>  <i class="pi pi-check"></i>
-                    Submit</strong>
+                    class="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition-colors duration-200 shadow-md flex items-center gap-2">     
+                    <i class="pi pi-check"></i>
+                    <strong>Submit</strong>
                 </button>
             </div>
         </form>
-       
     </div>
-
-   
-
 </div>

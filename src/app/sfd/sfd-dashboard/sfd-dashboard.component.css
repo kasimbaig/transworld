@@ -1,126 +1,65 @@
-/* Dashboard Container */
-.dashboard-container {
-  /* background: #f5f7fb; */
-  min-height: 100vh;
-  padding: 2rem;
-  font-family: 'Segoe UI', Tahoma, sans-serif;
-  color: #1e293b;
-}
 
-/* Dashboard Header */
+/* --- Header Styles - Matching Maintop Header Exactly --- */
 .command-header {
-  background: linear-gradient(135deg, #1e3c72, #2a5298);
-  border-radius: 14px;
-  padding: 1.5rem 2rem;
-  margin-bottom: 2rem;
-  color: white;
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  flex-wrap: wrap;
+  gap: 1rem;
+  /* background: linear-gradient(135deg, var(--primary-gradient-start) 0%, var(--primary-gradient-end) 100%); */
+  background: linear-gradient(
+    135deg,
+    rgba(70, 90, 120, 0.95) 0%,
+    rgba(100, 130, 170, 0.95) 50%,
+    rgba(150, 190, 230, 0.95) 100%
+) !important;
+
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px var(--shadow-light);
+  border: 1px solid var(--border-light);
+  margin-bottom: 2rem;
 }
 
 .command-title-block {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.75rem;
+  flex-shrink: 0;
 }
 
 .command-title-block i {
-  font-size: 2rem;
-  color: #ffda6a;
+  font-size: 1.5rem;
+  color: var(--text-white);
+  text-shadow: 0 2px 4px var(--shadow-dark);
 }
 
 .command-title-block h2 {
-  font-size: 1.6rem;
-  font-weight: 700;
+  margin: 0;
+  font-size: 1.25rem;
+  color: var(--text-white);
+  font-weight: 600;
+  text-shadow: 0 2px 4px var(--shadow-dark);
 }
 
 .command-title-block p {
-  font-size: 0.95rem;
-  opacity: 0.9;
-  margin-top: 0.2rem;
+  margin: 0;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.8);
 }
 
-/* KPI Metrics Grid */
-.grid app-dashboard-card {
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-  border-radius: 12px;
-}
-
-.grid app-dashboard-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.15);
-}
-
-/* Charts Section */
-.group {
-  position: relative;
-  background: white;
-  border-radius: 16px;
-  padding: 1.5rem;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s ease;
-  border: 1px solid #e2e8f0;
-}
-
-.group:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.15);
-}
-
-/* Chart Card Header */
-.group .flex {
-  align-items: center;
-}
-
-.group .flex h6 {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #1e293b;
-}
-
-.group .flex i {
-  font-size: 1.3rem;
-  color: #2563eb;
-}
-
-.group .w-3 {
-  background: #22c55e;
-}
-
-/* Decorative Circles (optional subtle effect) */
-.group::before,
-.group::after {
-  content: "";
-  position: absolute;
-  border-radius: 50%;
-  z-index: 0;
-  opacity: 0.08;
-  transition: all 0.4s ease;
-}
-
-.group::before {
-  top: -20px;
-  right: -20px;
-  width: 80px;
-  height: 80px;
-  background: #3b82f6;
-}
-
-.group::after {
-  bottom: -25px;
-  left: -25px;
-  width: 60px;
-  height: 60px;
-  background: #9333ea;
-}
-
-.group:hover::before {
-  transform: scale(1.3);
-  opacity: 0.15;
-}
-
-.group:hover::after {
-  transform: scale(1.2);
-  opacity: 0.15;
+/* --- Legacy Header Styles (keeping for backward compatibility) --- */
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+    /* Increased padding */
+    background: linear-gradient(135deg, var(--primary-gradient-start) 0%, var(--primary-gradient-end) 100%);
+    color: var(--text-white);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px var(--shadow-medium);
+    margin-bottom: 2rem;
 }

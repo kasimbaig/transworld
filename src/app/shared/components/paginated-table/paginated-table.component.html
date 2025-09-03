@@ -13,8 +13,7 @@
       [totalRecords]="totalCount"
       [currentPageReportTemplate]="'Showing {first} to {last} of {totalRecords} entries'"
       [scrollable]="true" 
-      showGridlines="horizontal"
-      styleClass="p-datatable-gridlines p-datatable-striped rounded-lg overflow-hidden"
+      
       resizableColumns="true" 
       columnResizeMode="expand" 
       (onPage)="onPageChange($event)"
@@ -23,14 +22,13 @@
 
       <ng-template pTemplate="caption">
         <div
-          class="flex items-center justify-between p-6 bg-slate-300 border rounded-lg border-amber-200 backdrop-blur-sm">
+          class="flex items-center justify-between p-6 bg-blue-200 border rounded-lg border-amber-200 backdrop-blur-sm">
           <div class="flex items-center gap-3 ">
-
             <button
-              class="group relative px-3 py-2 bg-green-50 text-green-500 rounded hover:bg-green-100 active:bg-green-100 transition-all duration-300 flex items-center gap-3 shadow-lg hover:shadow-xl transform hover:-translate-y-1 hover:scale-105 font-semibold text-sm border border-green-500/20"
+              class="group relative px-3 py-2 bg-blue-50 text-blue-500 rounded hover:bg-blue-100 active:bg-blue-100 transition-all duration-300 flex items-center gap-3 shadow-lg hover:shadow-xl transform hover:-translate-y-1 hover:scale-105 font-semibold text-sm border border-blue-500/20"
               (click)="clear(dt1)">
-              <i class="pi pi-filter-slash text-sm group-hover:rotate-12 transition-transform duration-300"></i>
-              <span class="tracking-wide">Clear Filters</span>
+              <!-- <i class="pi pi-filter-slash text-sm group-hover:rotate-12 transition-transform duration-300"></i> -->
+              <span class="tracking-wide">Clear</span>
               <div
                 class="absolute inset-0 rounded-xl bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
               </div>
@@ -42,8 +40,7 @@
           <div class="flex items-center w-96 relative group">
             <div class="relative w-full">
               <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none z-10">
-                <i
-                  class="pi pi-search text-slate-400 text-sm group-focus-within:text-blue-500 transition-colors duration-300"></i>
+                
               </div>
               <input type="text"
                 class="w-full pl-12 pr-12 py-3.5 border-2 border-slate-200/60 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-300 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl text-sm placeholder-slate-400 font-medium group-hover:border-slate-300"
@@ -68,15 +65,13 @@
             <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
           </th>
 
-          <th class="custom_header_class sticky-header text-center" *ngIf="showEndActions">
-            Actions
-          </th>
+       
 
           <th class="custom_header_class sticky-header" *ngFor="let col of columns" pResizableColumn>
             <div class="flex items-center gap-2">
-              <p-sortIcon [field]="col.field" [pSortableColumn]="col.field"></p-sortIcon>
+              <!-- <p-sortIcon [field]="col.field" [pSortableColumn]="col.field"></p-sortIcon> -->
               {{ col.header }}
-              <p-columnFilter [type]="col.filterType || 'text'" [field]="col.field" display="menu" />
+              <!-- <p-columnFilter [type]="col.filterType || 'text'" [field]="col.field" display="menu" /> -->
             </div>
           </th>
 
@@ -85,6 +80,9 @@
               {{ extraCol.header }}
             </th>
           </ng-container>
+          <th class="custom_header_class sticky-header text-center" *ngIf="showEndActions">
+            Actions
+          </th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
@@ -93,10 +91,7 @@
             <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
           </td>
 
-          <td class="text-center" *ngIf="showEndActions" style="position: relative">
-            <p-menu #actionMenu [model]="getActionItems(rowData)" [popup]="true" appendTo="body" />
-            <p-button label="Actions" class="p-button-rounded p-button-outlined p-button-sm " (click)="actionMenu.toggle($event)" aria-label="Actions"></p-button>
-          </td>
+          
 
           <td *ngFor="let col of columns" [ngClass]="{'address-cell': col.field === 'address'}">
             <ng-container *ngIf="col.header === 'Active'; else normalCell">
@@ -117,6 +112,21 @@
               <td>{{ extraCol(rowData) }}</td>
             </ng-template>
           </ng-container>
+          <td class="text-center" *ngIf="showEndActions" style="position: relative">
+            <div class="flex flex-wrap gap-2 justify-center">
+              <button *ngFor="let action of getActionItems(rowData)" 
+                (click)="action.command($event)"
+                class="px-3 py-1.5 text-white rounded-md hover:bg-{{action.label === 'View Details' ? 'blue' : action.label === 'Edit' ? 'green' : 'red'}}-700 transition-colors duration-200 flex items-center gap-1"
+                [ngClass]="{
+                  'bg-blue-600': action.label === 'View Details',
+                  'bg-green-600': action.label === 'Edit',
+                  'bg-red-600': action.label === 'Delete'
+                }">
+                <i [class]="action.icon"></i>
+                <small>{{action.label}}</small>
+              </button>
+            </div>
+          </td>
         </tr>
       </ng-template>
       <ng-template pTemplate="emptymessage">

@@ -40,7 +40,7 @@
             <div class="flex justify-between gap-2 mt-4 pb-3 border-gray-200 px-5">
                 <span *ngIf="selectedItems.length > 0 && user_role=='INIT'"
                     type="button" 
-                    class="px-6 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors duration-200 flex items-center gap-2"
+                    class="px-6 py-2 bg-blue-500 text-white p-2 rounded rounded-md hover:bg-blue-600 transition-colors duration-200 flex items-center gap-2"
                     (click)="showCommentDialog =true">
                     <i class="pi pi-play"></i>
                     Initiate
@@ -368,7 +368,7 @@
             </button>
             <button 
                 type="button" 
-                class="px-6 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors duration-200"
+                class="px-6 py-2 bg-blue-500 text-white p-2 rounded rounded-md hover:bg-blue-600 transition-colors duration-200"
                 (click)="saveReference()">
                 Save
             </button>

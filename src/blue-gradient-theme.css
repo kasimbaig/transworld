@@ -2,24 +2,24 @@
 
 :root {
   /* Primary Blue Gradient Colors */
-  --primary-gradient-start: #1e3a8a;
-  --primary-gradient-end: #3b82f6;
-  --secondary-gradient-start: #1e40af;
-  --secondary-gradient-end: #60a5fa;
+  --primary-gradient-start: #003049;
+  --primary-gradient-end: #001d2e;
+  --secondary-gradient-start: #004d6b;
+  --secondary-gradient-end: #003049;
   
   /* Accent Colors */
-  --accent-blue: #0ea5e9;
-  --accent-light: #7dd3fc;
-  --accent-dark: #1e40af;
+  --accent-blue: #003049;
+  --accent-light: #0066cc;
+  --accent-dark: #001d2e;
   
   /* Background Colors */
   --bg-primary: #ffffff;
   --bg-secondary: #f8fafc;
-  --bg-tertiary: #e0f2fe;
+  --bg-tertiary: #e2e8f0;
   
   /* Text Colors */
-  --text-primary: #1e293b;
-  --text-secondary: #475569;
+  --text-primary: #003049;
+  --text-secondary: #334155;
   --text-light: #64748b;
   --text-white: #ffffff;
   
@@ -29,9 +29,9 @@
   --border-dark: #94a3b8;
   
   /* Shadow Colors */
-  --shadow-light: rgba(30, 58, 138, 0.1);
-  --shadow-medium: rgba(30, 58, 138, 0.15);
-  --shadow-dark: rgba(30, 58, 138, 0.25);
+  --shadow-light: rgba(0, 48, 73, 0.1);
+  --shadow-medium: rgba(0, 48, 73, 0.15);
+  --shadow-dark: rgba(0, 48, 73, 0.25);
 }
 
 /* Global Blue Gradient Theme Styles */

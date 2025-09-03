@@ -11,8 +11,7 @@
         [showJumpToPageDropdown]="showJumpToPageDropdown"
         [value]="filteredData" 
         [scrollable]="true" 
-        showGridlines="horizontal"
-        styleClass="p-datatable-gridlines p-datatable-striped  rounded-lg overflow-hidden"
+      
         resizableColumns="true" 
         columnResizeMode="expand" 
         [lazy]="lazy"
@@ -24,102 +23,78 @@
         dataKey="id">
        
         <ng-template pTemplate="caption" *ngIf="isShearchDisable == 'T'">
-            <div class="flex items-center justify-between p-6 bg-slate-300 border rounded-lg border-amber-200 backdrop-blur-sm">
+            <div class="flex items-center justify-between p-6 bg-indigo-300 border rounded-lg border-accent-light backdrop-blur-sm">
                 <div  class="flex items-center gap-3 ">
                  
-                    <button  *ngIf="uploadDataName" (click)="displayUploadDialog = true" class="group relative px-3 py-2 bg-indigo-50 text-indigo-500 rounded hover:bg-indigo-100 active:bg-indigo-100 transition-all duration-300 flex items-center gap-3 shadow-lg hover:shadow-xl transform hover:-translate-y-1 hover:scale-105 font-semibold text-sm border border-indigo-500/20">
-                        <i class="pi pi-upload text-sm group-hover:-translate-y-0.5 transition-transform duration-300"></i> 
+                    <!-- <button  *ngIf="uploadDataName" (click)="displayUploadDialog = true" class="group relative px-4 py-2 bg-white text-blue-800 rounded hover:bg-blue-50 active:bg-blue-100 transition-all duration-300 flex items-center gap-3 shadow-lg hover:shadow-xl transform hover:-translate-y-1 hover:scale-105 font-semibold text-sm">
                         <span class="tracking-wide">{{uploadDataName}}</span>
-                        <div class="absolute inset-0 rounded-xl bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     </button>
                     
-                    <button  *ngIf="generateReportName" (click)="displayReportDialog = true" class="group relative px-3 py-2 bg-teal-50 text-teal-500 rounded hover:bg-teal-100 active:bg-teal-100 transition-all duration-300 flex items-center gap-3 shadow-lg hover:shadow-xl transform hover:-translate-y-1 hover:scale-105 font-semibold text-sm border border-teal-500/20">
-                        <i class="pi pi-file-pdf text-sm group-hover:scale-110 transition-transform duration-300"></i> 
+                    <button  *ngIf="generateReportName" (click)="displayReportDialog = true" class="group relative px-4 py-2 bg-white text-blue-800 rounded hover:bg-blue-50 active:bg-blue-100 transition-all duration-300 flex items-center gap-3 shadow-lg hover:shadow-xl transform hover:-translate-y-1 hover:scale-105 font-semibold text-sm">
                         <span class="tracking-wide">{{generateReportName}} Report</span>
-                        <div class="absolute inset-0 rounded-xl bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     </button>
-                    <button class="group relative px-3 py-2 bg-green-50 text-green-500 rounded hover:bg-green-100 active:bg-green-100 transition-all duration-300 flex items-center gap-3 shadow-lg hover:shadow-xl transform hover:-translate-y-1 hover:scale-105 font-semibold text-sm border border-green-500/20" (click)="clear(dataTable)">
-                        <i class="pi pi-filter-slash text-sm group-hover:rotate-12 transition-transform duration-300"></i> 
-                        <span class="tracking-wide">Clear Filters</span>
-                        <div class="absolute inset-0 rounded-xl bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                     -->
+                    <button class="group relative px-4 py-2 bg-white text-blue-800 rounded hover:bg-blue-50 active:bg-blue-100 transition-all duration-300 flex items-center gap-3 shadow-lg hover:shadow-xl transform hover:-translate-y-1 hover:scale-105 font-semibold text-sm" (click)="clear(dataTable)">
+                        <span class="tracking-wide">Clear</span>
                     </button>
                     
-                    <button *ngIf="isAdd" class="group px-3 py-2 bg-purple-50 text-purple-500 rounded hover:bg-purple-100 active:bg-purple-100 transition-all duration-300 flex items-center gap-3 shadow-lg hover:shadow-xl transform hover:-translate-y-1 hover:scale-105 font-semibold text-sm border border-purple-500/20 relative overflow-hidden" (click)="addEvent.emit()">
-                        <i class="pi pi-plus text-sm group-hover:rotate-90 transition-transform duration-300"></i> 
+                    <button *ngIf="isAdd" class="group px-4 py-2 bg-white text-blue-800 rounded hover:bg-blue-50 active:bg-blue-100 transition-all duration-300 flex items-center gap-3 shadow-lg hover:shadow-xl transform hover:-translate-y-1 hover:scale-105 font-semibold text-sm relative" (click)="addEvent.emit()">
                         <span class="tracking-wide">Add New</span>
-                        <div class="absolute inset-0 rounded-xl bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                        <div class="absolute -top-1 -right-1 w-6 h-6 bg-yellow-400 rounded-full animate-pulse"></div>
                     </button>
                 </div>
     
                 <div class="flex items-center w-96 relative group">
                     <div class="relative w-full">
-                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none z-10">
-                            <i class="pi pi-search text-slate-400 text-sm group-focus-within:text-blue-500 transition-colors duration-300"></i>
-                        </div>
                         <input 
                             type="text" 
-                            class="w-full pl-12 pr-12 py-3.5 border-2 border-slate-200/60 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-300 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl text-sm placeholder-slate-400 font-medium group-hover:border-slate-300" 
+                            class="w-full px-4 py-3.5 border-2 border-white/60 rounded-xl focus:outline-none focus:ring-4 focus:ring-white/20 focus:border-white transition-all duration-300 bg-white text-blue-800 shadow-lg hover:shadow-xl text-sm placeholder-blue-400 font-medium group-hover:border-white/80" 
                             [(ngModel)]="searchValue"
                             (input)="dataTable.filterGlobal(onSearchInput(searchValue), 'contains')" 
                             placeholder="Search across all records..." />
                         <div *ngIf="searchValue" class="absolute inset-y-0 right-0 pr-4 flex items-center z-10">
-                            <button (click)="searchValue = ''; dataTable.filterGlobal('', 'contains')" class="p-1.5 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all duration-200 group">
-                                <i class="pi pi-times text-sm group-hover:rotate-90 transition-transform duration-200"></i>
+                            <button (click)="searchValue = ''; dataTable.filterGlobal('', 'contains')" class="p-1.5 text-blue-800 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all duration-200">
+                                <span>Clear</span>
                             </button>
                         </div>
-                        <div class="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-500/5 to-purple-500/5 opacity-0 group-focus-within:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
                     </div>
                 </div>
             </div>
         </ng-template>
 
         <ng-template *ngIf="isShearchDisable == 'A'" pTemplate="caption">
-            <div class="flex items-center justify-between p-6 bg-slate-300 border rounded-lg border-amber-200 backdrop-blur-sm">
+            <div class="flex items-center justify-between p-6 bg-gradient-to-r from-blue-700 to-indigo-800 border rounded-lg border-accent-light backdrop-blur-sm">
                 <div  class="flex items-center gap-3 ">
                  
-                    <button  *ngIf="uploadDataName" (click)="displayUploadDialog = true" class="group relative px-3 py-2 bg-indigo-50 text-indigo-500 rounded hover:bg-indigo-100 active:bg-indigo-100 transition-all duration-300 flex items-center gap-3 shadow-lg hover:shadow-xl transform hover:-translate-y-1 hover:scale-105 font-semibold text-sm border border-indigo-500/20">
-                        <i class="pi pi-upload text-sm group-hover:-translate-y-0.5 transition-transform duration-300"></i> 
+                    <button  *ngIf="uploadDataName" (click)="displayUploadDialog = true" class="group relative px-4 py-2 bg-white text-blue-800 rounded hover:bg-blue-50 active:bg-blue-100 transition-all duration-300 flex items-center gap-3 shadow-lg hover:shadow-xl transform hover:-translate-y-1 hover:scale-105 font-semibold text-sm">
                         <span class="tracking-wide">{{uploadDataName}}</span>
-                        <div class="absolute inset-0 rounded-xl bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     </button>
                     
-                    <button  *ngIf="generateReportName" (click)="displayReportDialog = true" class="group relative px-3 py-2 bg-teal-50 text-teal-500 rounded hover:bg-teal-100 active:bg-teal-100 transition-all duration-300 flex items-center gap-3 shadow-lg hover:shadow-xl transform hover:-translate-y-1 hover:scale-105 font-semibold text-sm border border-teal-500/20">
-                        <i class="pi pi-file-pdf text-sm group-hover:scale-110 transition-transform duration-300"></i> 
+                    <button  *ngIf="generateReportName" (click)="displayReportDialog = true" class="group relative px-4 py-2 bg-white text-blue-800 rounded hover:bg-blue-50 active:bg-blue-100 transition-all duration-300 flex items-center gap-3 shadow-lg hover:shadow-xl transform hover:-translate-y-1 hover:scale-105 font-semibold text-sm">
                         <span class="tracking-wide">{{generateReportName}} Report</span>
-                        <div class="absolute inset-0 rounded-xl bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    </button>
-                    <button class="group relative px-3 py-2 bg-green-50 text-green-500 rounded hover:bg-green-100 active:bg-green-100 transition-all duration-300 flex items-center gap-3 shadow-lg hover:shadow-xl transform hover:-translate-y-1 hover:scale-105 font-semibold text-sm border border-green-500/20" (click)="clear(dataTable)">
-                        <i class="pi pi-filter-slash text-sm group-hover:rotate-12 transition-transform duration-300"></i> 
-                        <span class="tracking-wide">Clear Filters</span>
-                        <div class="absolute inset-0 rounded-xl bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     </button>
                     
-                    <button *ngIf="isAdd" class="group px-3 py-2 bg-purple-50 text-purple-500 rounded hover:bg-purple-100 active:bg-purple-100 transition-all duration-300 flex items-center gap-3 shadow-lg hover:shadow-xl transform hover:-translate-y-1 hover:scale-105 font-semibold text-sm border border-purple-500/20 relative overflow-hidden" (click)="addEvent.emit()">
-                        <i class="pi pi-plus text-sm group-hover:rotate-90 transition-transform duration-300"></i> 
+                    <button class="group relative px-4 py-2 bg-white text-blue-800 rounded hover:bg-blue-50 active:bg-blue-100 transition-all duration-300 flex items-center gap-3 shadow-lg hover:shadow-xl transform hover:-translate-y-1 hover:scale-105 font-semibold text-sm" (click)="clear(dataTable)">
+                        <span class="tracking-wide">Clear Filters</span>
+                    </button>
+                    
+                    <button *ngIf="isAdd" class="group px-4 py-2 bg-white text-blue-800 rounded hover:bg-blue-50 active:bg-blue-100 transition-all duration-300 flex items-center gap-3 shadow-lg hover:shadow-xl transform hover:-translate-y-1 hover:scale-105 font-semibold text-sm relative" (click)="addEvent.emit()">
                         <span class="tracking-wide">Add New</span>
-                        <div class="absolute inset-0 rounded-xl bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                        <div class="absolute -top-1 -right-1 w-6 h-6 bg-yellow-400 rounded-full animate-pulse"></div>
                     </button>
                 </div>
     
                 <div class="flex items-center w-96 relative group">
                     <div class="relative w-full">
-                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none z-10">
-                            <i class="pi pi-search text-slate-400 text-sm group-focus-within:text-blue-500 transition-colors duration-300"></i>
-                        </div>
                         <input 
                             type="text" 
-                            class="w-full pl-12 pr-12 py-3.5 border-2 border-slate-200/60 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-300 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl text-sm placeholder-slate-400 font-medium group-hover:border-slate-300" 
+                            class="w-full px-4 py-3.5 border-2 border-white/60 rounded-xl focus:outline-none focus:ring-4 focus:ring-white/20 focus:border-white transition-all duration-300 bg-white text-blue-800 shadow-lg hover:shadow-xl text-sm placeholder-blue-400 font-medium group-hover:border-white/80" 
                             [(ngModel)]="searchValue"
                             (input)="dataTable.filterGlobal(onSearchInput(searchValue), 'contains')" 
                             placeholder="Search across all records..." />
                         <div *ngIf="searchValue" class="absolute inset-y-0 right-0 pr-4 flex items-center z-10">
-                            <button (click)="searchValue = ''; dataTable.filterGlobal('', 'contains')" class="p-1.5 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all duration-200 group">
-                                <i class="pi pi-times text-sm group-hover:rotate-90 transition-transform duration-200"></i>
+                            <button (click)="searchValue = ''; dataTable.filterGlobal('', 'contains')" class="p-1.5 text-blue-800 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all duration-200">
+                                <span>Clear</span>
                             </button>
                         </div>
-                        <div class="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-500/5 to-purple-500/5 opacity-0 group-focus-within:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
                     </div>
                 </div>
             </div>
@@ -127,16 +102,17 @@
           
         <ng-template pTemplate="header" let-columns>
             <tr class="bg-gray-100 m-0 p-0">
-                <th class="px-4 py-3 text-center text-sm font-medium text-gray-700 bg-gray-100" *ngIf="isAction">
-                    Action
-                </th>
+               
                 <th class="px-4 py-3 text-center text-sm font-medium text-gray-700 bg-gray-100" *ngIf="isCheckBox">
                     <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                 </th>
                 <th class="px-4 py-3 text-left text-sm font-medium text-gray-700 bg-gray-100" [pSortableColumn]="col.field" *ngFor="let col of columns" pResizableColumn>
-                    <i class="pi pi-sort" *ngIf="col.sortable"></i>
+                    <!-- <i class="pi pi-sort" *ngIf="col.sortable"></i> -->
                    <span class="text-wrap text-wrap-break">{{col.header}}</span>
-                    <p-columnFilter class="text-sm" type="text" (onchange)="filterEvent.emit(filteredData)" [field]="col.field" display="menu" />
+                    <!-- <p-columnFilter class="text-sm" type="text" (onchange)="filterEvent.emit(filteredData)" [field]="col.field" display="menu" /> -->
+                </th>
+                <th class="px-4 py-3 text-center text-sm font-medium text-gray-700 bg-gray-100" *ngIf="isAction">
+                    Action
                 </th>
             </tr>
         </ng-template>
@@ -144,46 +120,7 @@
         <!-- Dynamic Column Data -->
         <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
             <tr class="border-b border-gray-200 hover:bg-gray-50 transition-colors duration-150">
-                <td *ngIf="isAction" class="px-4 py-3 text-center">
-                    <button mat-button [matMenuTriggerFor]="actionsMenu"   class="px-3 py-1.5 bg-blue-600 text-red-600  rounded-md hover:bg-blue-700 transition-colors duration-200">
-                        <small>Actions</small>
-                    </button>
-                    <mat-menu #actionsMenu="matMenu" class="shadow-lg border border-gray-200 bg-gray-100 rounded-md">
-                        <button (click)="viewEvent.emit(rowData)" *ngIf="isView" mat-menu-item 
-                            class="flex items-center justify-start gap-3 px-4 py-3 w-full hover:bg-blue-50 text-blue-600 hover:text-blue-800 transition-colors duration-200">
-                            <i class="fa-solid fa-eye text-blue-500 w-4 h-4 flex-shrink-0"></i>
-                            <span class="text-sm font-medium mr-2 ml-2  "> View</span>
-                        </button>
                 
-                        <button (click)="editEvent.emit(rowData)" *ngIf="rowData?.user_permissions?.can_edit" mat-menu-item 
-                            class="flex items-center justify-start gap-3 px-4 py-3 w-full hover:bg-green-50 text-green-600 hover:text-green-800 transition-colors duration-200">
-                            <i class="fa-solid fa-pen text-green-500 w-4 h-4 flex-shrink-0"></i>
-                            <span class="text-sm font-medium mr-2 ml-2">{{editButtonname}}</span>
-                        </button>
-                        <button (click)="editEvent.emit(rowData)" *ngIf="isEditable" mat-menu-item 
-                            class="flex items-center justify-start gap-3 px-4 py-3 w-full hover:bg-green-50 text-green-600 hover:text-green-800 transition-colors duration-200">
-                            <i class="fa-solid fa-pen text-green-500 w-4 h-4 flex-shrink-0"></i>
-                            <span class="text-sm font-medium mr-2 ml-2">{{editButtonname}}</span>
-                        </button>
-                
-                        <button (click)="deleteEvent.emit(rowData)" *ngIf="isDeletable" mat-menu-item 
-                            class="flex items-center justify-start gap-3 px-4 py-3 w-full hover:bg-red-50 text-red-600 hover:text-red-800 transition-colors duration-200">
-                            <i class="fa-solid fa-trash text-red-500 w-4 h-4 flex-shrink-0"></i>
-                            <span class="text-sm font-medium mr-2 ml-2">Delete</span>
-                        </button>
-                        <button (click)="approveEvent.emit(rowData)" *ngIf="Approve" mat-menu-item 
-                            class="flex items-center justify-start gap-3 px-4 py-3 w-full hover:bg-red-50 text-red-600 hover:text-red-800 transition-colors duration-200">
-                            <i class="fa-solid fa-check text-green-500 w-4 h-4 flex-shrink-0"></i>
-                            <span class="text-sm font-medium mr-2 ml-2">{{Approve}}</span>
-                        </button>
-                        <button (click)="rejectEvent.emit(rowData)" *ngIf="Reject" mat-menu-item 
-                            class="flex items-center justify-start gap-3 px-4 py-3 w-full hover:bg-red-50 text-red-600 hover:text-red-800 transition-colors duration-200">
-                            <i class="fa-solid fa-xmark text-red-500 w-4 h-4 flex-shrink-0"></i>
-                            <span class="text-sm font-medium mr-2 ml-2">{{Reject}}</span>
-                        </button>
-
-                    </mat-menu>
-                </td>
                 <td class="px-4 py-3 text-center" *ngIf="isCheckBox">
                     <p-tableCheckbox [disabled]="isDisabled(rowData)" [value]="rowData"></p-tableCheckbox>
                 </td>
@@ -213,7 +150,45 @@
                         </div>
                     </ng-container>
                 </td>
-
+                <td *ngIf="isAction" class="px-4 py-3 text-center">
+                    <div class="flex flex-wrap gap-2 justify-center">
+                        <button *ngIf="isView" (click)="viewEvent.emit(rowData)"
+                            class="px-3 py-1.5 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors duration-200 flex items-center gap-1">
+                            <i class="fa-solid fa-eye"></i>
+                            <small>View</small>
+                        </button>
+                        
+                        <button *ngIf="rowData?.user_permissions?.can_edit" (click)="editEvent.emit(rowData)"
+                            class="px-3 py-1.5 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors duration-200 flex items-center gap-1">
+                            <i class="fa-solid fa-pen"></i>
+                            <small>{{editButtonname}}</small>
+                        </button>
+                        
+                        <button *ngIf="isEditable" (click)="editEvent.emit(rowData)"
+                            class="px-3 py-1.5 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors duration-200 flex items-center gap-1">
+                            <i class="fa-solid fa-pen"></i>
+                            <small>{{editButtonname}}</small>
+                        </button>
+                        
+                        <button *ngIf="isDeletable" (click)="deleteEvent.emit(rowData)"
+                            class="px-3 py-1.5 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors duration-200 flex items-center gap-1">
+                            <i class="fa-solid fa-trash"></i>
+                            <small>Delete</small>
+                        </button>
+                        
+                        <button *ngIf="Approve" (click)="approveEvent.emit(rowData)"
+                            class="px-3 py-1.5 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors duration-200 flex items-center gap-1">
+                            <i class="fa-solid fa-check"></i>
+                            <small>{{Approve}}</small>
+                        </button>
+                        
+                        <button *ngIf="Reject" (click)="rejectEvent.emit(rowData)"
+                            class="px-3 py-1.5 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors duration-200 flex items-center gap-1">
+                            <i class="fa-solid fa-xmark"></i>
+                            <small>{{Reject}}</small>
+                        </button>
+                    </div>
+                </td>
                 
             </tr>
            

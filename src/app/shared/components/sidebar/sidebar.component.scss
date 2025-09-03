@@ -409,12 +409,12 @@
   height: 100vh;
   // background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     // background: rgba(20, 30, 48, 0.95);
-    background: linear-gradient(
-  to right,
-  rgba(20, 30, 48, 0.95),
-  rgba(36, 59, 85, 0.95)
-);
-
+//     background: linear-gradient(
+//   to right,
+//   rgba(20, 30, 48, 0.95),
+//   rgba(36, 59, 85, 0.95)
+// );
+background: #003049;
   backdrop-filter: blur(14px) saturate(180%);
   color: #ffffff;
   display: flex;
@@ -425,7 +425,7 @@
   position: relative;
 
   &.collapsed {
-    width: 65px;
+    width: 90px;
 
     .menu-item {
       justify-content: center;
@@ -446,7 +446,7 @@
     justify-content: space-between;
     padding: 20px 16px;
     // background: rgba(255, 255, 255, 0.1);
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(123, 115, 115, 0.05);
     backdrop-filter: blur(10px);
 
     .modern-icon-text {
